@@ -11,31 +11,30 @@ import java.nio.ByteBuffer;
 
 
 @Getter
-public class RegisterChildDeviceMessage extends ARemoteMeMessage {
-
+public class RegisterLeafDeviceMessage extends ARemoteMeMessage {
 
 
 	final int parentId;//2
 	final int deviceId;//2
 	final String deviceName;//size+1
-	final LeafDeviceType type;//1
+	final LeafDeviceType type;//2
 
 
 
 
-	public RegisterChildDeviceMessage(ByteBuffer payload) {
+	public RegisterLeafDeviceMessage(ByteBuffer payload) {
 		payload.getShort();//taking size
 
 		parentId = payload.getShort();
 		deviceId = payload.getShort();
 		deviceName = ByteBufferUtils.readString(payload);
-		type= LeafDeviceType.getById(payload.get());
+		type= LeafDeviceType.getById(Short.toUnsignedInt(payload.getShort()));
 
 
 	}
 
 
-	public RegisterChildDeviceMessage(int parentId, int deviceId, String deviceName,LeafDeviceType type ) {
+	public RegisterLeafDeviceMessage(int parentId, int deviceId, String deviceName, LeafDeviceType type ) {
 		this.parentId = parentId;
 		this.deviceId = deviceId;
 		this.deviceName = deviceName;
@@ -46,7 +45,7 @@ public class RegisterChildDeviceMessage extends ARemoteMeMessage {
 	@Override
 	public ByteBuffer toByteBuffer() {
 		byte[] deviceNameB=ByteBufferUtils.writeString(deviceName);
-		int size=2+2+deviceNameB.length+1+1;
+		int size=2+2+deviceNameB.length+1+2;
 
 		ByteBuffer byteBuffer = ByteBuffer.allocate(size+4);
 
@@ -58,7 +57,7 @@ public class RegisterChildDeviceMessage extends ARemoteMeMessage {
 		byteBuffer.putShort((short)parentId);
 		byteBuffer.putShort((short)deviceId);
 		byteBuffer.put(deviceNameB);
-		byteBuffer.put((byte)type.getId());
+		byteBuffer.putShort((short)type.getId());
 
 
 		byteBuffer.clear();

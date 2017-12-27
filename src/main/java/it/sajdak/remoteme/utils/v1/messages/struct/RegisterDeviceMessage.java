@@ -20,7 +20,7 @@ public class RegisterDeviceMessage extends ARemoteMeMessage {
 	final int deviceId;//2
 	final String deviceName;//size+1
 	final DeviceType deviceType;//1
-
+	final int aditionalProperties;//2  //leaf device type/ network devicetype
 
 
 
@@ -30,19 +30,21 @@ public class RegisterDeviceMessage extends ARemoteMeMessage {
 		deviceId = Short.toUnsignedInt(payload.getShort());
 		deviceName = ByteBufferUtils.readString(payload);
 		deviceType =  DeviceType.getById( Byte.toUnsignedInt(payload.get()));
+		aditionalProperties =  Short.toUnsignedInt(payload.getShort());
 
 	}
 
-	public RegisterDeviceMessage(int deviceId, String deviceName, DeviceType deviceType) {
+	public RegisterDeviceMessage(int deviceId, String deviceName, DeviceType deviceType,int anotherProperties) {
 		this.deviceId = deviceId;
 		this.deviceName = deviceName;
 		this.deviceType = deviceType;
+		this.aditionalProperties=anotherProperties;
 	}
 
 	@Override
 	public ByteBuffer toByteBuffer() {
 		byte[] deviceNameB=ByteBufferUtils.writeString(deviceName);
-		int size=2+deviceName.length()+1+1;
+		int size=2+2+deviceName.length()+1+1;
 
 		ByteBuffer byteBuffer = ByteBuffer.allocate(size+4);
 
@@ -54,6 +56,7 @@ public class RegisterDeviceMessage extends ARemoteMeMessage {
 		byteBuffer.putShort((short)deviceId);
 		byteBuffer.put(deviceNameB);
 		byteBuffer.put((byte)deviceType.getId());
+		byteBuffer.putShort((short)aditionalProperties);
 
 		byteBuffer.clear();
 
@@ -66,17 +69,6 @@ public class RegisterDeviceMessage extends ARemoteMeMessage {
 	}
 
 
-	public static void main(String[] args) {
-		byte[] b = new byte[6];
-		b[0]=(byte)0xe6;
-		b[1]=(byte)0xbc;
 
-		b[2]=(byte)0xa2;
-		b[3]=(byte)0xe5;
-		b[4]=(byte)0xad;
-		b[5]=(byte)0x97;
-
-		System.out.println(new String(b, StandardCharsets.UTF_8));
-	}
 
 }

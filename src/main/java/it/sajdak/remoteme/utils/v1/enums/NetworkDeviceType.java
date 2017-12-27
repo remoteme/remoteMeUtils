@@ -6,14 +6,14 @@ import it.sajdak.remoteme.utils.general.SparseArrayIdEnum;
 import java.util.Collection;
 import java.util.List;
 
-public enum LeafDeviceType implements Id_Enum<LeafDeviceType> {
+public enum NetworkDeviceType implements Id_Enum<NetworkDeviceType> {
 
-		OTHER(1),EXTERNAL_SCRIPT(2),SERIAL(3),NRF24(4),WEB_SOCKET(5),GPIO(6);
+		UNDEFINED(0),RASPBERRY_PI(1),ARDUINO(2);
 
 		private final int id;
 
 
-		LeafDeviceType(int id ) {
+		NetworkDeviceType(int id ) {
 			this.id = id;
 
 		}
@@ -22,13 +22,13 @@ public enum LeafDeviceType implements Id_Enum<LeafDeviceType> {
 		}
 
 
-		static SparseArrayIdEnum<LeafDeviceType> array = new SparseArrayIdEnum(LeafDeviceType.class);
+		static SparseArrayIdEnum<NetworkDeviceType> array = new SparseArrayIdEnum(NetworkDeviceType.class);
 
-		public static List<LeafDeviceType> getList(Collection<Integer> ids) {
+		public static List<NetworkDeviceType> getList(Collection<Integer> ids) {
 			return Id_Enum.getListInner(ids, array);
 		}
 
-		public static LeafDeviceType getById(int id) {
+		public static NetworkDeviceType getById(int id) {
 			return Id_Enum.getListInner(id, array);
 		}
 
