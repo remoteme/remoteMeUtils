@@ -8,7 +8,7 @@ import java.util.List;
 
 public enum NetworkDeviceType implements Id_Enum<NetworkDeviceType> {
 
-		UNDEFINED(0),RASPBERRY_PI(1),ARDUINO(2);
+	OTHER(0),RASPBERRY_PI(1),ARDUINO(2);
 
 		private final int id;
 

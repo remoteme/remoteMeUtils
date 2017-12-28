@@ -8,7 +8,7 @@ import java.util.List;
 
 public enum LeafDeviceType implements Id_Enum<LeafDeviceType> {
 
-		OTHER(1),EXTERNAL_SCRIPT(2),SERIAL(3),NRF24(4),WEB_SOCKET(5),GPIO(6);
+	OTHER_SOCKET(1),EXTERNAL_SCRIPT(2),SERIAL(3),NRF24(4),GPIO(5);
 
 		private final int id;
 
