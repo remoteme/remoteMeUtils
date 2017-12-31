@@ -19,7 +19,8 @@ public enum MessageType implements Id_Enum<MessageType> {
 		ADD_DATA(300),
 
 
-		LOG(20000);//systems
+		LOG(20000),//systems
+		SYSTEM_MESSAGE(20001);
 
 		private final int id;
 

@@ -17,10 +17,6 @@ import java.util.List;
 public class UserMessage extends ARemoteMeMessage {
 
 
-
-
-
-
 	UserMessageSettings renevalWhenFailType;//1
 	int receiverDeviceId;//2
 	int senderDeviceId;//2
