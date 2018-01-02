@@ -8,7 +8,6 @@ import java.util.List;
 
 public enum SyncMessageType implements Id_Enum<SyncMessageType> {
 
-	USER(0),
 
 	GET_WEBRTC_CONENCTED_DEVICE_ID(1),//reponse // 1 byte  1 - there is devivce 2 other bytes  deviceId 3-7 32int = sessionId
 	GET_FILES(2),// response files name as string with 0 at end of string
