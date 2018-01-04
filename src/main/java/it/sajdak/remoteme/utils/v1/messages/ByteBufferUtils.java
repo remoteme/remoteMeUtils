@@ -1,8 +1,6 @@
 package it.sajdak.remoteme.utils.v1.messages;
 
 
-import com.sun.xml.internal.messaging.saaj.util.ByteInputStream;
-import com.sun.xml.internal.messaging.saaj.util.ByteOutputStream;
 import it.sajdak.remoteme.utils.general.Pair;
 
 import javax.xml.bind.DatatypeConverter;
@@ -101,7 +99,7 @@ public class ByteBufferUtils {
 	public static byte[] compress(byte[] data) throws IOException  {
 
 
-		InputStream in = new ByteInputStream(data,data.length);
+		InputStream in = new ByteArrayInputStream(data);
 		ByteArrayOutputStream os = new ByteArrayOutputStream();
 
 		OutputStream out =new DeflaterOutputStream(os);
