@@ -15,7 +15,8 @@ public enum SyncMessageType implements Id_Enum<SyncMessageType> {
 	SAVE_FILE_CONTENT(4), // request (byte) 1 - append 0 addtoNew, filename, uncompreesedsize (int32),  zlib
 	REMOVE_FILE(5),// request filename
 	GET_FILE_SIZE(6),// request filename reponse byte 1-noproblem 0 problem, int32 size in bytes
-	RENAME_FILE(7);//request oldFileName, newFileName
+	RENAME_FILE(7),//request oldFileName, newFileName
+	GET_CONNECTED_DEVICES(8);//response conencted devices short
 	private final int id;
 
 
