@@ -39,11 +39,7 @@ public class UserMessage extends ARemoteMeMessage {
 		this.receiverDeviceId = receiverDeviceId;
 		this.senderDeviceId = senderDeviceId;
 		this.messageId = messageId;
-		this.message = new byte[data.size()];
-
-		for(int i=0;i<data.size();i++){
-			this.message[i]=data.get(i).byteValue();
-		}
+		this.message =ByteBufferUtils.getByteArray(data);
 
 
 	}

@@ -13,36 +13,37 @@ import java.nio.ByteBuffer;
 
 @Getter
 @Setter
-public class SyncMessage extends ASyncMessage {
+public class SyncUserMessage extends ASyncMessage {
 
 
-	int receiverDeviceId;//2
+	final int receiverDeviceId;//2
+	final int senderDeviceId;//2
 	final long messageId;//8
-	final SyncMessageType type;//2
-	byte message[];//size
+	final byte message[];//size
 
 
-	public SyncMessage(int receiverDeviceId , SyncMessageType type, String hexData) {
-		this( receiverDeviceId, type,  ByteBufferUtils.hexStringToByteArray(hexData));
+	public SyncUserMessage(int receiverDeviceId ,int senderDeviceId,  String hexData) {
+		this( receiverDeviceId, senderDeviceId,  ByteBufferUtils.hexStringToByteArray(hexData));
 	}
 
-	public SyncMessage(int receiverDeviceId, SyncMessageType type, byte[] data) {
+	public SyncUserMessage(int receiverDeviceId,int senderDeviceId,  byte[] data) {
+
 
 		this.receiverDeviceId = receiverDeviceId;
+		this.senderDeviceId=senderDeviceId;
 		this.messageId = generateRandom(receiverDeviceId);
-		this.type=type;
 		this.message =data;
+
 
 	}
 
 
 
-
-	public SyncMessage(ByteBuffer payload) {
+	public SyncUserMessage(ByteBuffer payload) {
 		payload.getShort();//taking size
 
-		type= SyncMessageType.getById(Short.toUnsignedInt(payload.get()));
 		receiverDeviceId = Short.toUnsignedInt(payload.getShort());
+		senderDeviceId = Short.toUnsignedInt(payload.getShort());
 		messageId = payload.getLong();
 		message = ByteBufferUtils.readRest(payload);
 	}
@@ -53,7 +54,7 @@ public class SyncMessage extends ASyncMessage {
 	public ByteBuffer toByteBuffer() {
 
 
-		int size=3+8+message.length;
+		int size=4+8+message.length;
 
 		ByteBuffer byteBuffer = ByteBuffer.allocate(size+4);
 
@@ -61,8 +62,8 @@ public class SyncMessage extends ASyncMessage {
 		byteBuffer.putShort((short)size);
 
 
-		byteBuffer.put((byte)type.getId());
 		byteBuffer.putShort((short)receiverDeviceId);
+		byteBuffer.putShort((short)senderDeviceId);
 		byteBuffer.putLong(messageId);
 		byteBuffer.put(message);
 
@@ -74,7 +75,7 @@ public class SyncMessage extends ASyncMessage {
 
 	@Override
 	public MessageType getMessageType() {
-		return MessageType.SYNC_MESSAGE;
+		return MessageType.USER_SYNC_MESSAGE;
 	}
 
 }

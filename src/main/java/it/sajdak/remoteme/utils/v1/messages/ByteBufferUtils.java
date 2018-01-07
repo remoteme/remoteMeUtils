@@ -164,4 +164,21 @@ public class ByteBufferUtils {
 		return ret;
 	}
 
+	public static byte[] getByteArray(List<Integer> data) {
+		byte[] ret = new byte[data.size()];
+
+		for(int i=0;i<data.size();i++){
+			ret[i]=data.get(i).byteValue();
+		}
+
+		return ret;
+	}
+
+	public static List<Integer> toIntList(byte[] bytes) {
+		List<Integer> ret = new ArrayList<>(bytes.length);
+		for (byte aByte : bytes) {
+			ret.add(Byte.toUnsignedInt(aByte));
+		}
+		return ret;
+	}
 }
