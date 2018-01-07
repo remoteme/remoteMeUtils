@@ -22,6 +22,10 @@ public enum LeafDeviceType implements Id_Enum<LeafDeviceType> {
 		}
 
 
+		public boolean isConnectable(){
+			return this==OTHER_SOCKET || this==EXTERNAL_SCRIPT;
+		}
+
 		static SparseArrayIdEnum<LeafDeviceType> array = new SparseArrayIdEnum(LeafDeviceType.class);
 
 		public static List<LeafDeviceType> getList(Collection<Integer> ids) {
