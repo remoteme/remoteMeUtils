@@ -23,7 +23,8 @@ public class LogMessage extends ARemoteMeMessage {
 	LogMessageLevel level;//1
 	String message;
 
-
+	protected LogMessage() {
+	}
 
 
 

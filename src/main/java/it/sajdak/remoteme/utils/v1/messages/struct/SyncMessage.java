@@ -17,10 +17,13 @@ public class SyncMessage extends ASyncMessage {
 
 
 	int receiverDeviceId;//2
-	final long messageId;//8
-	final SyncMessageType type;//2
+	long messageId;//8
+	SyncMessageType type;//2
 	byte message[];//size
 
+
+	protected SyncMessage() {
+	}
 
 	public SyncMessage(int receiverDeviceId , SyncMessageType type, String hexData) {
 		this( receiverDeviceId, type,  ByteBufferUtils.hexStringToByteArray(hexData));

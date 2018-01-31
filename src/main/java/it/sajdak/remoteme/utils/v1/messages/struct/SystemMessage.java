@@ -27,6 +27,10 @@ public class SystemMessage extends ARemoteMeMessage {
 	byte message[];//size
 	SystemMessageType systemMessageType;
 
+
+	public SystemMessage() {
+	}
+
 	public SystemMessage( int receiverDeviceId,SystemMessageType systemMessageType, List<Integer> data) {
 
 

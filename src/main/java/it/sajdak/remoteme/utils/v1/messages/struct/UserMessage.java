@@ -24,6 +24,8 @@ public class UserMessage extends ARemoteMeMessage {
 	byte message[];//size
 
 
+	protected UserMessage() {
+	}
 
 
 	public UserMessage(UserMessageSettings renevalWhenFailType, int receiverDeviceId, int senderDeviceId, int messageId, String hexData) {

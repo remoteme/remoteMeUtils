@@ -27,6 +27,10 @@ public class ByteBufferUtils {
 		return data;
 	}
 
+	public static String byteToHex(byte[] buff){
+		return DatatypeConverter.printHexBinary(buff).toUpperCase();
+	}
+
 	public static List<Integer> hexStringToListInteger(String s) {
 		byte[] b=hexStringToByteArray(s);
 		List<Integer> ret = new ArrayList<>(b.length);

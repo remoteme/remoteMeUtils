@@ -8,8 +8,10 @@ import it.sajdak.remoteme.utils.general.DateTimeUtils;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.nio.ByteBuffer;
@@ -27,7 +29,8 @@ public class AddDataMessage extends ARemoteMeMessage {
 	@Getter
 	@Setter
 	@AllArgsConstructor
-	public static class DataSeries{
+	@NoArgsConstructor
+	public static class DataSeries implements Serializable{
 		int seriesId;
 		double value;
 
@@ -38,10 +41,14 @@ public class AddDataMessage extends ARemoteMeMessage {
 
 
 
-	final long time;//2
-	final AddMessageSettings settings;//1
-	final List<DataSeries> dataSeries;
+	long time;//2
+	AddMessageSettings settings;//1
+	List<DataSeries> dataSeries;
 
+
+
+	protected AddDataMessage() {
+	}
 	public AddDataMessage(long time, int seriesId, double value) {
 		this.settings = AddMessageSettings.NO_ROUND;
 		dataSeries= new ArrayList<>(1);

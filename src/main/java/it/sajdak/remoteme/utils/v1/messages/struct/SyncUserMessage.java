@@ -16,11 +16,14 @@ import java.nio.ByteBuffer;
 public class SyncUserMessage extends ASyncMessage {
 
 
-	final int receiverDeviceId;//2
-	final int senderDeviceId;//2
-	final long messageId;//8
-	final byte message[];//size
+	 int receiverDeviceId;//2
+	 int senderDeviceId;//2
+	 long messageId;//8
+	 byte message[];//size
 
+
+	protected SyncUserMessage() {
+	}
 
 	public SyncUserMessage(int receiverDeviceId ,int senderDeviceId,  String hexData) {
 		this( receiverDeviceId, senderDeviceId,  ByteBufferUtils.hexStringToByteArray(hexData));

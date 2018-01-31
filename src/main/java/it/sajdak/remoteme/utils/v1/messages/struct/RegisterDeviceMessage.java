@@ -17,12 +17,14 @@ public class RegisterDeviceMessage extends ARemoteMeMessage {
 
 
 
-	final int deviceId;//2
-	final String deviceName;//size+1
-	final DeviceType deviceType;//1
-	final int aditionalProperties;//2  //leaf device type/ network devicetype
+	int deviceId;//2
+	String deviceName;//size+1
+	DeviceType deviceType;//1
+	int aditionalProperties;//2  //leaf device type/ network devicetype
 
 
+	protected RegisterDeviceMessage() {
+	}
 
 	public RegisterDeviceMessage(ByteBuffer payload) {
 		payload.getShort();//taking size

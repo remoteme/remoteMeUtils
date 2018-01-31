@@ -15,9 +15,11 @@ import java.nio.ByteBuffer;
 public class SyncResponseMessage extends ARemoteMeMessage {
 
 
-	final long messageId;//4
+	long messageId;//4
 	byte message[];//size
 
+	protected SyncResponseMessage() {
+	}
 
 	public SyncResponseMessage(long messageId , String hexData) {
 		this( messageId,   ByteBufferUtils.hexStringToByteArray(hexData));

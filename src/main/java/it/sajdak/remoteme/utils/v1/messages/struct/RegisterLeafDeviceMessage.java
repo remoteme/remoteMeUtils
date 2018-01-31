@@ -14,13 +14,14 @@ import java.nio.ByteBuffer;
 public class RegisterLeafDeviceMessage extends ARemoteMeMessage {
 
 
-	final int parentId;//2
-	final int deviceId;//2
-	final String deviceName;//size+1
-	final LeafDeviceType type;//2
+	int parentId;//2
+	int deviceId;//2
+	String deviceName;//size+1
+	LeafDeviceType type;//2
 
 
-
+	protected RegisterLeafDeviceMessage() {
+	}
 
 	public RegisterLeafDeviceMessage(ByteBuffer payload) {
 		payload.getShort();//taking size
