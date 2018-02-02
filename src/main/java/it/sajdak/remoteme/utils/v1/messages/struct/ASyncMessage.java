@@ -15,7 +15,9 @@ import java.nio.ByteBuffer;
 @Setter
 public abstract class ASyncMessage extends ARemoteMeMessage {
 
-
+	protected int receiverDeviceId;//2
+	long messageId;//8
+	byte message[];//size
 
 	/**
 	 * for this timeout should be not longer then 1 min
@@ -28,7 +30,8 @@ public abstract class ASyncMessage extends ARemoteMeMessage {
 
 
 
-	public abstract long getMessageId();
 
-
+	public int getReceiverDeviceId() {
+		return receiverDeviceId;
+	}
 }

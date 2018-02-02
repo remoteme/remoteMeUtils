@@ -16,10 +16,8 @@ import java.nio.ByteBuffer;
 public class SyncMessage extends ASyncMessage {
 
 
-	int receiverDeviceId;//2
-	long messageId;//8
 	SyncMessageType type;//2
-	byte message[];//size
+
 
 
 	protected SyncMessage() {
