@@ -18,12 +18,13 @@ public class RegisterLeafDeviceMessage extends ARemoteMeMessage {
 	int deviceId;//2
 	String deviceName;//size+1
 	LeafDeviceType type;//2
+	boolean restartParent;//1
 
 
 	protected RegisterLeafDeviceMessage() {
 	}
 
-	public RegisterLeafDeviceMessage(ByteBuffer payload) {
+	public RegisterLeafDeviceMessage(ByteBuffer payload ) {
 		payload.getShort();//taking size
 
 		parentId = payload.getShort();
@@ -31,22 +32,23 @@ public class RegisterLeafDeviceMessage extends ARemoteMeMessage {
 		deviceName = ByteBufferUtils.readString(payload);
 		type= LeafDeviceType.getById(Short.toUnsignedInt(payload.getShort()));
 
+		restartParent=  payload.get()==1;
 
 	}
 
 
-	public RegisterLeafDeviceMessage(int parentId, int deviceId, String deviceName, LeafDeviceType type ) {
+	public RegisterLeafDeviceMessage(int parentId, int deviceId, String deviceName, LeafDeviceType type,boolean restartParent ) {
 		this.parentId = parentId;
 		this.deviceId = deviceId;
 		this.deviceName = deviceName;
 		this.type = type;
-
+		this.restartParent=restartParent;
 	}
 
 	@Override
 	public ByteBuffer toByteBuffer() {
 		byte[] deviceNameB=ByteBufferUtils.writeString(deviceName);
-		int size=2+2+deviceNameB.length+1+2;
+		int size=2+2+deviceNameB.length+1+2+1;
 
 		ByteBuffer byteBuffer = ByteBuffer.allocate(size+4);
 
@@ -59,6 +61,7 @@ public class RegisterLeafDeviceMessage extends ARemoteMeMessage {
 		byteBuffer.putShort((short)deviceId);
 		byteBuffer.put(deviceNameB);
 		byteBuffer.putShort((short)type.getId());
+		byteBuffer.put((byte)(restartParent?1:0));
 
 
 		byteBuffer.clear();
@@ -71,4 +74,7 @@ public class RegisterLeafDeviceMessage extends ARemoteMeMessage {
 		return MessageType.REGISTER_CHILD_DEVICE;
 	}
 
+	public boolean isRestartParent() {
+		return restartParent;
+	}
 }
