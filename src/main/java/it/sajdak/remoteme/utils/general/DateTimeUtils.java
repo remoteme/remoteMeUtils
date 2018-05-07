@@ -1,5 +1,6 @@
 package it.sajdak.remoteme.utils.general;
 
+import javax.swing.text.DateFormatter;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -7,7 +8,11 @@ import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjuster;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.TimeZone;
+import java.util.function.Function;
+import java.util.regex.Pattern;
 
 public class DateTimeUtils {
 	public static final DateTimeFormatter ddmmyyyy_ = DateTimeFormatter.ofPattern("dd.MM.yyyy");
@@ -15,6 +20,16 @@ public class DateTimeUtils {
 	public static final DateTimeFormatter ddmmyyyyHHMMss_ = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");
 	public static final DateTimeFormatter ddmmyyyyHHMMRaw_ = DateTimeFormatter.ofPattern("ddMMyyyyHHmm");
 
+	static Map<Pattern,Function<String,LocalDateTime>> patterns;
+	static{
+		patterns= new HashMap<>();
+		patterns.put(Pattern.compile("\\d{2}.\\d{2}.\\d{4}"),date->LocalDate.parse(date, ddmmyyyy_.withZone(ZoneOffset.UTC)).atTime(0,0));
+		patterns.put(Pattern.compile("\\d{2}.\\d{2}.\\d{4}\\s\\d{2}:\\d{2}"),date->LocalDateTime.parse(date, ddmmyyyyHHMM_.withZone(ZoneOffset.UTC)));
+		patterns.put(Pattern.compile("\\d{2}.\\d{2}.\\d{4}\\s\\d{2}:\\d{2}:\\d{2}"),date->LocalDateTime.parse(date, ddmmyyyyHHMMss_.withZone(ZoneOffset.UTC)));
+		patterns.put(Pattern.compile("\\d{12}"),date->LocalDateTime.parse(date,ddmmyyyyHHMMRaw_.withZone(ZoneOffset.UTC)));
+
+
+	}
 
 	public static LocalDateTime getFromMillis(long millis){
 		return Instant.ofEpochMilli(millis).atZone(ZoneOffset.UTC).toLocalDateTime();
@@ -59,5 +74,16 @@ public class DateTimeUtils {
 
 	public static long getMillis(LocalDateTime date) {
 		return date.toInstant(ZoneOffset.UTC).toEpochMilli();
+	}
+
+	public static LocalDateTime getTime(String dt){
+		for (Map.Entry<Pattern, Function<String, LocalDateTime>> p : patterns.entrySet()) {
+			if (p.getKey().matcher(dt).matches()){
+
+				return  p.getValue().apply(dt);
+			}
+		}
+		throw new RuntimeException("date format not recongized");
+
 	}
 }

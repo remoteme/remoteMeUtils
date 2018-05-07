@@ -19,22 +19,24 @@ public class SyncUserMessage extends ASyncMessage {
 
 	 int senderDeviceId;//2
 
+	final boolean processReponse;
 
 	protected SyncUserMessage() {
+		processReponse=true;
 	}
 
-	public SyncUserMessage(int receiverDeviceId ,int senderDeviceId,  String hexData) {
-		this( receiverDeviceId, senderDeviceId,  ByteBufferUtils.hexStringToByteArray(hexData));
+	public SyncUserMessage(int receiverDeviceId ,int senderDeviceId,  String hexData,boolean processReponse) {
+		this( receiverDeviceId, senderDeviceId,  ByteBufferUtils.hexStringToByteArray(hexData),processReponse);
 	}
 
-	public SyncUserMessage(int receiverDeviceId,int senderDeviceId,  byte[] data) {
+	public SyncUserMessage(int receiverDeviceId,int senderDeviceId,  byte[] data,boolean processReponse) {
 
 
 		this.receiverDeviceId = receiverDeviceId;
 		this.senderDeviceId=senderDeviceId;
 		this.messageId = generateRandom(receiverDeviceId);
 		this.message =data;
-
+		this.processReponse=processReponse;
 
 	}
 
@@ -47,6 +49,7 @@ public class SyncUserMessage extends ASyncMessage {
 		senderDeviceId = Short.toUnsignedInt(payload.getShort());
 		messageId = payload.getLong();
 		message = ByteBufferUtils.readRest(payload);
+		processReponse=true;
 	}
 
 
