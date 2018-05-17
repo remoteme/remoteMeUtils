@@ -8,6 +8,7 @@ import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjuster;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TimeZone;
@@ -85,5 +86,14 @@ public class DateTimeUtils {
 		}
 		throw new RuntimeException("date format not recongized");
 
+	}
+
+	public static LocalDateTime min(LocalDateTime date1, LocalDateTime date2) {
+		return (date1.isBefore(date2))?date1:date2;
+
+	}
+
+	public static LocalDateTime getFromDate(Date expired) {
+		return expired.toInstant().atZone(ZoneOffset.UTC).toLocalDateTime();
 	}
 }
