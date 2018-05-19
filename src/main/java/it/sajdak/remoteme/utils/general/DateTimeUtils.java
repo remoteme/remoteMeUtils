@@ -96,4 +96,9 @@ public class DateTimeUtils {
 	public static LocalDateTime getFromDate(Date expired) {
 		return expired.toInstant().atZone(ZoneOffset.UTC).toLocalDateTime();
 	}
+
+	public static Date convert(LocalDateTime date) {
+		return new Date(getMillis(date));
+
+	}
 }
