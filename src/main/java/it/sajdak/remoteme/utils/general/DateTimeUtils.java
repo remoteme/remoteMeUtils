@@ -111,4 +111,8 @@ public class DateTimeUtils {
 	public static int getDiffrent(LocalDateTime date1, LocalDateTime date2) {
 		return (int)((getMillis(date1)- getMillis(date2))/1000);
 	}
+
+	public static boolean older(LocalDateTime lastPing, int seconds) {
+		return DateTimeUtils.getDiffrent(DateTimeUtils.now(),lastPing)>seconds;
+	}
 }
