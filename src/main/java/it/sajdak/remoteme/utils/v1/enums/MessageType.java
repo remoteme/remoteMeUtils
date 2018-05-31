@@ -20,7 +20,8 @@ public enum MessageType implements Id_Enum<MessageType> {
 
 
 		LOG(20000),//systems
-		SYSTEM_MESSAGE(20001);
+		SYSTEM_MESSAGE(20001),
+		WEB_RTC_CONNECTION_CHANGE(20002);
 
 		private final int id;
 
