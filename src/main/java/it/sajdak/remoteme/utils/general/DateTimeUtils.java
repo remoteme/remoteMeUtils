@@ -115,4 +115,8 @@ public class DateTimeUtils {
 	public static boolean older(LocalDateTime lastPing, int seconds) {
 		return DateTimeUtils.getDiffrent(DateTimeUtils.now(),lastPing)>seconds;
 	}
+
+	public static Long nowMillis() {
+		return getMillis(DateTimeUtils.now());
+	}
 }
