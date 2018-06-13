@@ -165,9 +165,12 @@ public class ByteBufferUtils {
 		return splitAndCompress(content, maxUncompressedSize);
 	}
 
-	public static List<Pair<Integer, byte[]>> splitAndCompress(String content, int maxUncompressedSize) {
+	public static List<Pair<Integer, byte[]>> splitAndCompress(byte[] content) {
+		return splitAndCompress(content, maxUncompressedSize);
+	}
+
+	public static List<Pair<Integer, byte[]>> splitAndCompress(byte[] bytesToSave, int maxUncompressedSize) {
 		List<Pair<Integer, byte[]>> ret = new ArrayList<>();
-		byte[] bytesToSave = content.getBytes(StandardCharsets.UTF_8);
 
 
 
@@ -184,6 +187,10 @@ public class ByteBufferUtils {
 			}
 		}
 		return ret;
+	}
+	public static List<Pair<Integer, byte[]>> splitAndCompress(String content, int maxUncompressedSize) {
+		byte[] bytesToSave = content.getBytes(StandardCharsets.UTF_8);
+		return splitAndCompress(bytesToSave, maxUncompressedSize);
 	}
 
 	public static byte[] getByteArray(List<Integer> data) {
