@@ -17,7 +17,8 @@ public enum SyncMessageType implements Id_Enum<SyncMessageType> {
 	REMOVE_DEVICE_DIRECTORY(9),
 	GET_FILE_SIZE(6),// request filename reponse byte 1-noproblem 0 problem, int32 size in bytes
 	RENAME_FILE(7),//request oldFileName, newFileName
-	GET_CONNECTED_DEVICES(8);//response conencted devices short
+	GET_CONNECTED_DEVICES(8),//response conencted devices short
+	GET_WEBSOCKET_SERVER_LOCAL(10);//is device has websocketserver return 1byte - 0 - no server 1- server etc,unt16_t port , localipaddress string
 	private final int id;
 
 
