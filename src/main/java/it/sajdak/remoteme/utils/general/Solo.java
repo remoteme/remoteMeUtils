@@ -2,7 +2,7 @@ package it.sajdak.remoteme.utils.general;
 
 import java.util.Objects;
 
-public class Single<T1> {
+public class Solo<T1> {
 	T1 first;
 
 	public T1 get() {
@@ -13,19 +13,19 @@ public class Single<T1> {
 		this.first = first;
 	}
 
-	public Single() {
+	public Solo() {
 	}
 
-	public Single(T1 first) {
+	public Solo(T1 first) {
 		this.first = first;
 	}
 
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
-		if (!(o instanceof Single)) return false;
-		Single<?> single = (Single<?>) o;
-		return Objects.equals(first, single.first);
+		if (!(o instanceof Solo)) return false;
+		Solo<?> solo = (Solo<?>) o;
+		return Objects.equals(first, solo.first);
 	}
 
 	@Override
