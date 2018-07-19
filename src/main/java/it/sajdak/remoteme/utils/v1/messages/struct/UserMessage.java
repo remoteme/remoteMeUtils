@@ -92,4 +92,7 @@ public class UserMessage extends ARemoteMeMessage {
 		return MessageType.USER_MESSAGE;
 	}
 
+	public byte[] getMessage() {
+		return message;
+	}
 }

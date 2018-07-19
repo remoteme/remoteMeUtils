@@ -48,9 +48,15 @@ public class AddDataMessage extends ARemoteMeMessage {
 
 
 	protected AddDataMessage() {
+
 	}
+
 	public AddDataMessage(long time, int seriesId, double value) {
-		this.settings = AddMessageSettings.NO_ROUND;
+		this(time, AddMessageSettings.NO_ROUND,seriesId, value);
+	}
+
+	public AddDataMessage(long time,AddMessageSettings settings, int seriesId, double value) {
+		this.settings = settings;
 		dataSeries= new ArrayList<>(1);
 		dataSeries.add(new DataSeries(seriesId, value));
 		this.time = time;

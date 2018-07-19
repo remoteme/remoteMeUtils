@@ -2,6 +2,7 @@ package it.sajdak.remoteme.utils.v1.messages.struct;
 
 
 
+import it.sajdak.remoteme.utils.v1.enums.NetworkDeviceType;
 import it.sajdak.remoteme.utils.v1.messages.ARemoteMeMessage;
 import it.sajdak.remoteme.utils.v1.messages.ByteBufferUtils;
 import it.sajdak.remoteme.utils.v1.enums.MessageType;
@@ -41,6 +42,10 @@ public class RegisterDeviceMessage extends ARemoteMeMessage {
 		this.deviceName = deviceName;
 		this.deviceType = deviceType;
 		this.aditionalProperties=anotherProperties;
+	}
+
+	public RegisterDeviceMessage(int deviceId, String name, NetworkDeviceType networkDeviceType) {
+		this(deviceId, name, DeviceType.NETWORK,networkDeviceType.getId() );
 	}
 
 	@Override
