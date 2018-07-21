@@ -70,44 +70,9 @@ public class AddDataMessage extends ARemoteMeMessage {
 
 
 
-		long timeTemp = payload.getLong();
-		settings = AddMessageSettings.getById(Byte.toUnsignedInt(payload.get()));
+		time= payload.getLong();
 
 
-
-
-		if (timeTemp<=0){
-			timeTemp = System.currentTimeMillis();
-		}
-
-
-		if (settings != AddMessageSettings.NO_ROUND) {
-			LocalDateTime local = DateTimeUtils.getFromMillis(timeTemp);
-
-			switch (settings){
-				case _1S	:local=DateTimeUtils.roundToSeconds(local,1);break;
-				case _2S	:local=DateTimeUtils.roundToSeconds(local,2);break;
-				case _5S	:local=DateTimeUtils.roundToSeconds(local,5);break;
-				case _10S	:local=DateTimeUtils.roundToSeconds(local,10);break;
-				case _15S	:local=DateTimeUtils.roundToSeconds(local,15);break;
-				case _20S	:local=DateTimeUtils.roundToSeconds(local,20);break;
-				case _30S	:local=DateTimeUtils.roundToSeconds(local,30);break;
-				case _1M	:local=DateTimeUtils.roundToMinutes(local,1);break;
-				case _5M	:local=DateTimeUtils.roundToMinutes(local,5);break;
-				case _10M	:local=DateTimeUtils.roundToMinutes(local,10);break;
-				case _15M	:local=DateTimeUtils.roundToMinutes(local,15);break;
-				case _30M	:local=DateTimeUtils.roundToMinutes(local,30);break;
-				case _1G	:local=DateTimeUtils.roundToHours(local,1);break;
-				case _2G	:local=DateTimeUtils.roundToHours(local,2);break;
-				case _3G	:local=DateTimeUtils.roundToHours(local,3);break;
-				case _4G	:local=DateTimeUtils.roundToHours(local,4);break;
-				case _5G	:local=DateTimeUtils.roundToHours(local,5);break;
-				case _6G	:local=DateTimeUtils.roundToHours(local,6);break;
-			}
-
-			timeTemp=DateTimeUtils.getMillis(local);
-		}
-		time=timeTemp;
 
 		size-=8+1;//round and time
 

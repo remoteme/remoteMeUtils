@@ -49,6 +49,11 @@ public class ByteBufferUtils {
 	}
 
 
+	public static byte[] readByteArray(ByteBuffer bb){
+		byte[] arr = new byte[bb.remaining()];
+		bb.get(arr);
+		return arr;
+	}
 	public static String readString(ByteBuffer is) {
 
 		ByteArrayOutputStream bb = new ByteArrayOutputStream(100);
