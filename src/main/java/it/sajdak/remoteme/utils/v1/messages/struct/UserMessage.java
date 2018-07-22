@@ -17,7 +17,7 @@ import java.util.List;
 public class UserMessage extends ARemoteMeMessage {
 
 
-	UserMessageSettings renevalWhenFailType;//1
+	UserMessageSettings userMessageSettings;//1
 	int receiverDeviceId;//2
 	int senderDeviceId;//2
 	int messageId;//2
@@ -28,16 +28,16 @@ public class UserMessage extends ARemoteMeMessage {
 	}
 
 
-	public UserMessage(UserMessageSettings renevalWhenFailType, int receiverDeviceId, int senderDeviceId, int messageId, String hexData) {
-		this(renevalWhenFailType, receiverDeviceId, senderDeviceId, messageId, ByteBufferUtils.hexStringToListInteger(hexData));
+	public UserMessage(UserMessageSettings userMessageSettings, int receiverDeviceId, int senderDeviceId, int messageId, String hexData) {
+		this(userMessageSettings, receiverDeviceId, senderDeviceId, messageId, ByteBufferUtils.hexStringToListInteger(hexData));
 	}
 
-	public UserMessage(UserMessageSettings renevalWhenFailType, int receiverDeviceId, int senderDeviceId, int messageId, List<Integer> data) {
+	public UserMessage(UserMessageSettings userMessageSettings, int receiverDeviceId, int senderDeviceId, int messageId, List<Integer> data) {
 		if (data.size()==1 && data.get(0)==null){
 			data.clear();
 		}
 
-		this.renevalWhenFailType = renevalWhenFailType;
+		this.userMessageSettings = userMessageSettings;
 		this.receiverDeviceId = receiverDeviceId;
 		this.senderDeviceId = senderDeviceId;
 		this.messageId = messageId;
@@ -52,7 +52,7 @@ public class UserMessage extends ARemoteMeMessage {
 	public UserMessage(ByteBuffer payload) {
 		payload.getShort();//taking size
 
-		renevalWhenFailType = UserMessageSettings.getById(Byte.toUnsignedInt(payload.get()));
+		userMessageSettings = UserMessageSettings.getById(Byte.toUnsignedInt(payload.get()));
 		receiverDeviceId = Short.toUnsignedInt(payload.getShort());
 		senderDeviceId = Short.toUnsignedInt(payload.getShort());
 		messageId = Short.toUnsignedInt(payload.getShort());
@@ -75,7 +75,7 @@ public class UserMessage extends ARemoteMeMessage {
 		byteBuffer.putShort((short)size);
 
 
-		byteBuffer.put((byte)renevalWhenFailType.getId());
+		byteBuffer.put((byte) userMessageSettings.getId());
 		byteBuffer.putShort((short)receiverDeviceId);
 		byteBuffer.putShort((short)senderDeviceId);
 		byteBuffer.putShort((short)messageId);

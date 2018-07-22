@@ -72,6 +72,7 @@ public class AddDataMessage extends ARemoteMeMessage {
 
 		time= payload.getLong();
 
+		settings = AddMessageSettings.getById(Byte.toUnsignedInt(payload.get()));
 
 
 		size-=8+1;//round and time
