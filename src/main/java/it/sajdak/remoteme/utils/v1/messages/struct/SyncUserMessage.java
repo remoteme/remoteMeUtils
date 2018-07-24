@@ -34,7 +34,7 @@ public class SyncUserMessage extends ASyncMessage {
 	}
 
 	public SyncUserMessage(int receiverDeviceId ,int senderDeviceId,  String hexData ) {
-		this( receiverDeviceId, senderDeviceId,  ByteBufferUtils.hexStringToByteArray(hexData),false);
+		this( receiverDeviceId, senderDeviceId,  hexData,false);
 	}
 
 	public SyncUserMessage(int receiverDeviceId,int senderDeviceId,  byte[] data,boolean sentFromGui ) {
