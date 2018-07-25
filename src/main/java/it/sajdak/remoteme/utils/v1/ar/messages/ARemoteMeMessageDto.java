@@ -1,11 +1,11 @@
-package it.sajdak.remoteme.utils.test;
+package it.sajdak.remoteme.utils.v1.ar.messages;
 
-import it.sajdak.remoteme.utils.v1.messages.ARemoteMeMessage;
-import it.sajdak.remoteme.utils.v1.messages.ByteBufferUtils;
-import it.sajdak.remoteme.utils.v1.messages.struct.AddDataMessage;
-import it.sajdak.remoteme.utils.v1.messages.struct.SyncResponseMessage;
-import it.sajdak.remoteme.utils.v1.messages.struct.SyncUserMessage;
-import it.sajdak.remoteme.utils.v1.messages.struct.UserMessage;
+import it.sajdak.remoteme.utils.v1.core.messages.ARemoteMeMessage;
+import it.sajdak.remoteme.utils.general.ByteBufferUtils;
+import it.sajdak.remoteme.utils.v1.core.messages.AddDataMessage;
+import it.sajdak.remoteme.utils.v1.core.messages.SyncResponseMessage;
+import it.sajdak.remoteme.utils.v1.core.messages.SyncUserMessage;
+import it.sajdak.remoteme.utils.v1.core.messages.UserMessage;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -1,17 +1,12 @@
-package it.sajdak.remoteme.utils.v1.messages.struct;
+package it.sajdak.remoteme.utils.v1.core.messages;
 
 
 import it.sajdak.remoteme.utils.v1.enums.MessageType;
-import it.sajdak.remoteme.utils.v1.enums.SystemMessageType;
 import it.sajdak.remoteme.utils.v1.enums.WebRTCConnectionStatus;
-import it.sajdak.remoteme.utils.v1.messages.ARemoteMeMessage;
-import it.sajdak.remoteme.utils.v1.messages.ByteBufferUtils;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.nio.ByteBuffer;
-import java.util.Collections;
-import java.util.List;
 
 
 @Getter

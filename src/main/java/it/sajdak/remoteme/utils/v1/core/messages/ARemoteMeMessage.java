@@ -1,4 +1,4 @@
-package it.sajdak.remoteme.utils.v1.messages;
+package it.sajdak.remoteme.utils.v1.core.messages;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import it.sajdak.remoteme.utils.v1.enums.MessageType;

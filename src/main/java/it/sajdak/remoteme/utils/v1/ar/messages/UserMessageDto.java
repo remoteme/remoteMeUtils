@@ -1,9 +1,9 @@
-package it.sajdak.remoteme.utils.test;
+package it.sajdak.remoteme.utils.v1.ar.messages;
 
 import io.swagger.annotations.ApiModelProperty;
 import it.sajdak.remoteme.utils.v1.enums.UserMessageSettings;
-import it.sajdak.remoteme.utils.v1.messages.ARemoteMeMessage;
-import it.sajdak.remoteme.utils.v1.messages.struct.UserMessage;
+import it.sajdak.remoteme.utils.v1.core.messages.ARemoteMeMessage;
+import it.sajdak.remoteme.utils.v1.core.messages.UserMessage;
 import lombok.Getter;
 import lombok.Setter;
 

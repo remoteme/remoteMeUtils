@@ -1,4 +1,4 @@
-package it.sajdak.remoteme.utils.test;
+package it.sajdak.remoteme.utils.v1.ar.messages;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import io.swagger.annotations.ApiModel;

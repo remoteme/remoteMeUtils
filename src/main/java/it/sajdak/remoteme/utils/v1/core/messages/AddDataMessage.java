@@ -1,10 +1,8 @@
-package it.sajdak.remoteme.utils.v1.messages.struct;
+package it.sajdak.remoteme.utils.v1.core.messages;
 
 
 import it.sajdak.remoteme.utils.v1.enums.AddMessageSettings;
-import it.sajdak.remoteme.utils.v1.messages.ARemoteMeMessage;
 import it.sajdak.remoteme.utils.v1.enums.MessageType;
-import it.sajdak.remoteme.utils.general.DateTimeUtils;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -15,7 +13,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.nio.ByteBuffer;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

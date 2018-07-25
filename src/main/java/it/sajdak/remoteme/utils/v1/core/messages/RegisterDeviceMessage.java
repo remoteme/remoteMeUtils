@@ -1,16 +1,14 @@
-package it.sajdak.remoteme.utils.v1.messages.struct;
+package it.sajdak.remoteme.utils.v1.core.messages;
 
 
 
-import it.sajdak.remoteme.utils.v1.enums.NetworkDeviceType;
-import it.sajdak.remoteme.utils.v1.messages.ARemoteMeMessage;
-import it.sajdak.remoteme.utils.v1.messages.ByteBufferUtils;
-import it.sajdak.remoteme.utils.v1.enums.MessageType;
 import it.sajdak.remoteme.utils.v1.enums.DeviceType;
+import it.sajdak.remoteme.utils.v1.enums.MessageType;
+import it.sajdak.remoteme.utils.v1.enums.NetworkDeviceType;
+import it.sajdak.remoteme.utils.general.ByteBufferUtils;
 import lombok.Getter;
 
 import java.nio.ByteBuffer;
-import java.nio.charset.StandardCharsets;
 
 
 @Getter

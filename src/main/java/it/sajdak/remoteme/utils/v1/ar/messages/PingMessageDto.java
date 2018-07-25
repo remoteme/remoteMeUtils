@@ -1,4 +1,4 @@
-package it.sajdak.remoteme.utils.test;
+package it.sajdak.remoteme.utils.v1.ar.messages;
 
 import lombok.Getter;
 import lombok.Setter;
