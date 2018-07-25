@@ -25,9 +25,7 @@ public class SyncUserMessage extends ASyncMessage {
 
 	}
 
-	public SyncUserMessage(int receiverDeviceId ,  String hexData ) {
-		this( receiverDeviceId, 0,  ByteBufferUtils.hexStringToByteArray(hexData),false);
-	}
+
 
 	public SyncUserMessage(int receiverDeviceId ,int senderDeviceId,  String hexData,boolean sentFromGui ) {
 		this( receiverDeviceId, senderDeviceId,  ByteBufferUtils.hexStringToByteArray(hexData),sentFromGui);
@@ -37,13 +35,18 @@ public class SyncUserMessage extends ASyncMessage {
 		this( receiverDeviceId, senderDeviceId,  hexData,false);
 	}
 
-	public SyncUserMessage(int receiverDeviceId,int senderDeviceId,  byte[] data,boolean sentFromGui ) {
+	public SyncUserMessage(int receiverDeviceId,int senderDeviceId,long messageId , byte[] data,boolean sentFromGui ) {
 
 		this.receiverDeviceId = receiverDeviceId;
 		this.senderDeviceId=senderDeviceId;
-		this.messageId = generateRandom(receiverDeviceId);
+		this.messageId = messageId;
 		this.message =data;
 		this.sentFromGui=sentFromGui;
+
+	}
+
+	public SyncUserMessage(int receiverDeviceId,int senderDeviceId,  byte[] data,boolean sentFromGui ) {
+		this(receiverDeviceId,senderDeviceId,generateRandom(receiverDeviceId),data, sentFromGui);
 
 	}
 

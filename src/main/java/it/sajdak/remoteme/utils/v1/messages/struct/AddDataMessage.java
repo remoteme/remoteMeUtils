@@ -17,6 +17,7 @@ import java.math.MathContext;
 import java.nio.ByteBuffer;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -56,14 +57,17 @@ public class AddDataMessage extends ARemoteMeMessage {
 	}
 
 	public AddDataMessage(long time,AddMessageSettings settings, int seriesId, double value) {
-		this.settings = settings;
-		dataSeries= new ArrayList<>(1);
-		dataSeries.add(new DataSeries(seriesId, value));
-		this.time = time;
+		this(time,settings,Collections.singletonList(new  DataSeries(seriesId, value)));
 
 	}
 
+	public AddDataMessage(long time,AddMessageSettings settings, List<DataSeries> dataSeries) {
+		this.settings = settings;
+		this.dataSeries= new ArrayList<>(dataSeries.size());
+		this.dataSeries.addAll(dataSeries);
+		this.time = time;
 
+	}
 
 	public AddDataMessage(ByteBuffer payload) {
 		int size = payload.getShort();//taking size
