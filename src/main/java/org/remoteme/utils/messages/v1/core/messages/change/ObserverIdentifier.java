@@ -8,20 +8,19 @@ import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 
 @Getter
-public class ObserverTypeAndName implements Serializable {
+public class ObserverIdentifier implements Serializable {
 
 
 	String name;
 	VariableOberverType type;
 
-	protected ObserverTypeAndName(){
+	protected ObserverIdentifier(){
 
 	}
 
-	public ObserverTypeAndName(String name, VariableOberverType type){
+	public ObserverIdentifier(String name, VariableOberverType type){
 		this.name=name;
 		this.type=type;
-
 	}
 
 
@@ -29,7 +28,7 @@ public class ObserverTypeAndName implements Serializable {
 
 
 
-	public ObserverTypeAndName(ByteBuffer output){
+	public ObserverIdentifier(ByteBuffer output){
 		type = VariableOberverType.getById(Short.toUnsignedInt(output.getShort()));
 		name =ByteBufferUtils.readString(output);
 

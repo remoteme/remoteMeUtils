@@ -14,37 +14,37 @@ import java.util.List;
 
 @Getter
 @Setter
-public class RegisterObserverMessage extends ARemoteMeMessage {
-
-
+public class ObserverChangeMessage extends ARemoteMeMessage {
 
 	int senderDeviceId;//2
+	boolean sendToSender;
 
-	List<ObserverTypeAndName> observers;
+	List<AObserverState> states;
 
 
-	public RegisterObserverMessage(int senderDeviceId, List<ObserverTypeAndName> observers) {
+	public ObserverChangeMessage(int senderDeviceId, boolean sendToSender, List<AObserverState> states) {
 
 		this.senderDeviceId=senderDeviceId;
-		this.observers = new ArrayList<>(observers);
+		this.sendToSender=sendToSender;
+		this.states = new ArrayList<>(states);
 	}
 
 
-	protected RegisterObserverMessage() {
+	protected ObserverChangeMessage() {
 	}
 
 
 
-	public RegisterObserverMessage(ByteBuffer payload) {
+	public ObserverChangeMessage(ByteBuffer payload) {
 		payload.getShort();//taking size
 
-
 		senderDeviceId = Short.toUnsignedInt(payload.getShort());
+		sendToSender = payload.get()==1;
 		int count = Short.toUnsignedInt(payload.getShort());
 
-		observers = new ArrayList<>(count);
+		states = new ArrayList<>(count);
 		for(int i=0;i<count;i++){
-			observers.add(new ObserverTypeAndName(payload));
+			states.add(AObserverState.get(payload));
 		}
 
 	}
@@ -56,9 +56,9 @@ public class RegisterObserverMessage extends ARemoteMeMessage {
 	public ByteBuffer toByteBuffer() {
 
 
-		int size=2+2;
-		for (ObserverTypeAndName state : observers) {
-			size+=2+state.getName().length()+1;
+		int size=2+2+1;
+		for (AObserverState state : states) {
+			size+=state.getSize();
 		}
 
 		ByteBuffer byteBuffer = ByteBuffer.allocate(size+4);
@@ -67,11 +67,11 @@ public class RegisterObserverMessage extends ARemoteMeMessage {
 		byteBuffer.putShort((short)size);
 
 
-
 		byteBuffer.putShort((short)senderDeviceId);
-		byteBuffer.putShort((short)observers.size());
+		byteBuffer.put((byte)(sendToSender?1:0));
+		byteBuffer.putShort((short)states.size());
 
-		for (ObserverTypeAndName state : observers) {
+		for (AObserverState state : states) {
 			state.serialize(byteBuffer);
 		}
 
@@ -83,7 +83,7 @@ public class RegisterObserverMessage extends ARemoteMeMessage {
 
 	@Override
 	public MessageType getMessageType() {
-		return MessageType.REBISTER_OBSERVER_MESSAGE;
+		return MessageType.OBSERVER_CHANGE_MESSAGE;
 	}
 
 

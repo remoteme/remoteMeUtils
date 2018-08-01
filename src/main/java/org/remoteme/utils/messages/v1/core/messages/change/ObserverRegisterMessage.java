@@ -14,38 +14,37 @@ import java.util.List;
 
 @Getter
 @Setter
-public class ChangeMessage extends ARemoteMeMessage {
+public class ObserverRegisterMessage extends ARemoteMeMessage {
 
 
 
 	int senderDeviceId;//2
 
+	List<ObserverIdentifier> observers;
 
-	List<AObserverState> states;
 
-
-	public ChangeMessage(int senderDeviceId,List<AObserverState> states) {
+	public ObserverRegisterMessage(int senderDeviceId, List<ObserverIdentifier> observers) {
 
 		this.senderDeviceId=senderDeviceId;
-
-		this.states = new ArrayList<>(states);
+		this.observers = new ArrayList<>(observers);
 	}
 
 
-	protected ChangeMessage() {
+	protected ObserverRegisterMessage() {
 	}
 
 
 
-	public ChangeMessage(ByteBuffer payload) {
+	public ObserverRegisterMessage(ByteBuffer payload) {
 		payload.getShort();//taking size
+
 
 		senderDeviceId = Short.toUnsignedInt(payload.getShort());
 		int count = Short.toUnsignedInt(payload.getShort());
 
-		states = new ArrayList<>(count);
+		observers = new ArrayList<>(count);
 		for(int i=0;i<count;i++){
-			states.add(AObserverState.get(payload));
+			observers.add(new ObserverIdentifier(payload));
 		}
 
 	}
@@ -58,8 +57,8 @@ public class ChangeMessage extends ARemoteMeMessage {
 
 
 		int size=2+2;
-		for (AObserverState state : states) {
-			size+=state.getSize();
+		for (ObserverIdentifier state : observers) {
+			size+=2+state.getName().length()+1;
 		}
 
 		ByteBuffer byteBuffer = ByteBuffer.allocate(size+4);
@@ -68,10 +67,11 @@ public class ChangeMessage extends ARemoteMeMessage {
 		byteBuffer.putShort((short)size);
 
 
-		byteBuffer.putShort((short)senderDeviceId);
-		byteBuffer.putShort((short)states.size());
 
-		for (AObserverState state : states) {
+		byteBuffer.putShort((short)senderDeviceId);
+		byteBuffer.putShort((short)observers.size());
+
+		for (ObserverIdentifier state : observers) {
 			state.serialize(byteBuffer);
 		}
 
@@ -83,7 +83,7 @@ public class ChangeMessage extends ARemoteMeMessage {
 
 	@Override
 	public MessageType getMessageType() {
-		return MessageType.OBSERVER_CHANGE_MESSAGE;
+		return MessageType.REBISTER_OBSERVER_MESSAGE;
 	}
 
 

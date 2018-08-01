@@ -79,6 +79,9 @@ public abstract class AObserverState<T> implements Serializable {
 
 
 	}
+	public ObserverIdentifier getIdentifier(){
+		return new ObserverIdentifier(name, getType());
+	}
 
 	protected void setData(T data) {
 		this.data = data;

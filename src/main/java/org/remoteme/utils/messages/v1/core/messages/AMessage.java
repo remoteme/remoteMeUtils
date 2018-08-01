@@ -7,10 +7,10 @@ import io.swagger.annotations.ApiModel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.remoteme.utils.messages.v1.core.messages.arLite.AARLiteMessage;
 import org.remoteme.utils.messages.v1.core.messages.arLite.PingMessage;
-import org.remoteme.utils.messages.v1.core.messages.change.ChangeMessage;
-import org.remoteme.utils.messages.v1.core.messages.change.RegisterObserverMessage;
+import org.remoteme.utils.messages.v1.core.messages.change.ObserverChangeMessage;
+import org.remoteme.utils.messages.v1.core.messages.change.ObserverChangePropagateMessage;
+import org.remoteme.utils.messages.v1.core.messages.change.ObserverRegisterMessage;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.AddDataMessage;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.LogMessage;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.RegisterDeviceMessage;
@@ -23,9 +23,6 @@ import org.remoteme.utils.messages.v1.core.messages.remoteMe.UserMessage;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.WebRRCConnectionStatusChangeMessage;
 
 import java.io.Serializable;
-import java.nio.ByteBuffer;
-
-
 
 
 @Getter
@@ -43,8 +40,9 @@ import java.nio.ByteBuffer;
 		@JsonSubTypes.Type(value = LogMessage.class, name = "LogMessage"),
 		@JsonSubTypes.Type(value = RegisterLeafDeviceMessage.class, name = "RegisterLeafDeviceMessage"),
 		@JsonSubTypes.Type(value = WebRRCConnectionStatusChangeMessage.class, name = "WebRRCConnectionStatusChangeMessage"),
-		@JsonSubTypes.Type(value = ChangeMessage.class, name = "ChangeMessage"),
-		@JsonSubTypes.Type(value = RegisterObserverMessage.class, name = "RegisterObserverMessage"),
+		@JsonSubTypes.Type(value = ObserverChangeMessage.class, name = "ObserverChangeMessage"),
+		@JsonSubTypes.Type(value = ObserverRegisterMessage.class, name = "ObserverRegisterMessage"),
+		@JsonSubTypes.Type(value = ObserverChangePropagateMessage.class, name = "ObserverChangePropagateMessage"),
 
 })
 @ApiModel(value="SuperModel", discriminator = "foo")

@@ -7,8 +7,9 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import org.remoteme.utils.messages.v1.core.messages.AMessage;
-import org.remoteme.utils.messages.v1.core.messages.change.ChangeMessage;
-import org.remoteme.utils.messages.v1.core.messages.change.RegisterObserverMessage;
+import org.remoteme.utils.messages.v1.core.messages.change.ObserverChangeMessage;
+import org.remoteme.utils.messages.v1.core.messages.change.ObserverChangePropagateMessage;
+import org.remoteme.utils.messages.v1.core.messages.change.ObserverRegisterMessage;
 import org.remoteme.utils.messages.v1.enums.MessageType;
 
 import java.nio.ByteBuffer;
@@ -47,8 +48,9 @@ public abstract class ARemoteMeMessage extends AMessage {
 			case SYSTEM_MESSAGE:return new SystemMessage(payload);
 			case WEB_RTC_CONNECTION_CHANGE:return new WebRRCConnectionStatusChangeMessage(payload);
 
-			case OBSERVER_CHANGE_MESSAGE:return new ChangeMessage(payload);
-			case REBISTER_OBSERVER_MESSAGE:return new RegisterObserverMessage(payload);
+			case OBSERVER_CHANGE_MESSAGE:return new ObserverChangeMessage(payload);
+			case REBISTER_OBSERVER_MESSAGE:return new ObserverRegisterMessage(payload);
+			case OBSERVER_CHANGE_PROPAGATE_MESSAGE:return new ObserverChangePropagateMessage(payload);
 		}
 
 		throw new RuntimeException("should not happen  ");//we have all in switch

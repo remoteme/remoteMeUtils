@@ -9,10 +9,11 @@ import org.junit.Test;
 import org.remoteme.utils.jackson.JacksonHelper;
 import org.remoteme.utils.messages.v1.core.messages.change.AObserverState;
 import org.remoteme.utils.messages.v1.core.messages.change.BooleanObserverState;
-import org.remoteme.utils.messages.v1.core.messages.change.ChangeMessage;
-import org.remoteme.utils.messages.v1.core.messages.change.ObserverTypeAndName;
+import org.remoteme.utils.messages.v1.core.messages.change.ObserverChangeMessage;
+import org.remoteme.utils.messages.v1.core.messages.change.ObserverChangePropagateMessage;
+import org.remoteme.utils.messages.v1.core.messages.change.ObserverIdentifier;
 import org.remoteme.utils.messages.v1.core.messages.change.NumberObserverState;
-import org.remoteme.utils.messages.v1.core.messages.change.RegisterObserverMessage;
+import org.remoteme.utils.messages.v1.core.messages.change.ObserverRegisterMessage;
 import org.remoteme.utils.messages.v1.core.messages.change.VariableOberverType;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.ARemoteMeMessage;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.AddDataMessage;
@@ -133,26 +134,40 @@ public class ARemoteMeMessageSerializationTest {
 		states.add(new NumberObserverState("pam2",123));
 		states.add(new NumberObserverState("pam3",123));
 
-		ChangeMessage um = new ChangeMessage(123,states);
-
+		ObserverChangeMessage um = new ObserverChangeMessage(123,false,states);
 
 		assertThat(um, reflectEquals(serializeDeserialize(um),"states"));
-		reflectArrays(um.getStates(),  ((ChangeMessage)serializeDeserialize(um)).getStates());
+		reflectArrays(um.getStates(),  ((ObserverChangeMessage)serializeDeserialize(um)).getStates());
+
+	}
+
+	@Test
+	public void changePropagateMessage(){
+
+		List<AObserverState<?>> states = new ArrayList<>();
+		states.add(new BooleanObserverState("pam1",true));
+		states.add(new NumberObserverState("pam2",123));
+		states.add(new NumberObserverState("pam3",123));
+
+		ObserverChangePropagateMessage um = new ObserverChangePropagateMessage(123,states);
+
+		assertThat(um, reflectEquals(serializeDeserialize(um),"states"));
+		reflectArrays(um.getStates(),  ((ObserverChangePropagateMessage)serializeDeserialize(um)).getStates());
 
 	}
 	@Test
 	public void RegisterObserverMessage(){
 
-		List<ObserverTypeAndName> states = new ArrayList<>();
-		states.add(new ObserverTypeAndName("pam1",VariableOberverType.NUMBER));
-		states.add(new ObserverTypeAndName("pam2",VariableOberverType.BOOLEAN));
+		List<ObserverIdentifier> states = new ArrayList<>();
+		states.add(new ObserverIdentifier("pam1",VariableOberverType.NUMBER));
+		states.add(new ObserverIdentifier("pam2",VariableOberverType.BOOLEAN));
 
-		RegisterObserverMessage um = new RegisterObserverMessage(456,states);
+		ObserverRegisterMessage um = new ObserverRegisterMessage(456,states);
 
 
 		System.out.println(JacksonHelper.serialize(um));
 		assertThat(um, reflectEquals(serializeDeserialize(um),"states"));
-		reflectArrays(um.getObservers(),  ((RegisterObserverMessage)serializeDeserialize(um)).getObservers());
+		reflectArrays(um.getObservers(),  ((ObserverRegisterMessage)serializeDeserialize(um)).getObservers());
 
 	}
 
