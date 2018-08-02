@@ -49,7 +49,7 @@ public abstract class ARemoteMeMessage extends AMessage {
 			case WEB_RTC_CONNECTION_CHANGE:return new WebRRCConnectionStatusChangeMessage(payload);
 
 			case OBSERVER_CHANGE_MESSAGE:return new ObserverChangeMessage(payload);
-			case REBISTER_OBSERVER_MESSAGE:return new ObserverRegisterMessage(payload);
+			case OBSERVER_REGISTER_MESSAGE:return new ObserverRegisterMessage(payload);
 			case OBSERVER_CHANGE_PROPAGATE_MESSAGE:return new ObserverChangePropagateMessage(payload);
 		}
 

@@ -21,7 +21,7 @@ public class AARLiteMessageSerializationTest {
 	@Test
 	public void pingMessage(){
 		PingMessage userMessage = new PingMessage();
-
+		System.out.println(JacksonHelper.serialize(userMessage));
 		assertThat(userMessage, reflectEquals(serializeDeserialize(userMessage)));
 
 

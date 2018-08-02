@@ -12,8 +12,8 @@ import java.nio.charset.StandardCharsets;
 @Getter
 @JsonTypeInfo(use=JsonTypeInfo.Id.NAME, include=JsonTypeInfo.As.PROPERTY, property="type")
 @JsonSubTypes({
-		@JsonSubTypes.Type(value = BooleanObserverState.class, name = "bool"),
-		@JsonSubTypes.Type(value = NumberObserverState.class, name = "number")
+		@JsonSubTypes.Type(value = BooleanObserverState.class, name = "BOOLEAN"),
+		@JsonSubTypes.Type(value = NumberObserverState.class, name = "INTEGER")
 })
 public abstract class AObserverState<T> implements Serializable {
 
@@ -37,7 +37,7 @@ public abstract class AObserverState<T> implements Serializable {
 			case BOOLEAN:
 				ret  = new BooleanObserverState(output);
 				break;
-			case NUMBER:
+			case INTEGER:
 				ret  = new NumberObserverState(output);
 				break;
 				default:

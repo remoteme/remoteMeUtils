@@ -32,6 +32,6 @@ public class NumberObserverState extends AObserverState<Integer> {
 
 	@Override
 	protected VariableOberverType getType() {
-		return VariableOberverType.NUMBER;
+		return VariableOberverType.INTEGER;
 	}
 }

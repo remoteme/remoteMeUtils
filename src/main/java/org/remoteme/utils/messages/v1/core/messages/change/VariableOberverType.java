@@ -8,7 +8,7 @@ import java.util.Collection;
 import java.util.List;
 
 public enum VariableOberverType implements Id_Enum<VariableOberverType> {
-    	BOOLEAN(0), NUMBER(1);
+    	BOOLEAN(0), INTEGER(1);
 
 
 		private final int id;

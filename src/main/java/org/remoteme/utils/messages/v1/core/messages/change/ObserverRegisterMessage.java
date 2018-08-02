@@ -83,7 +83,7 @@ public class ObserverRegisterMessage extends ARemoteMeMessage {
 
 	@Override
 	public MessageType getMessageType() {
-		return MessageType.REBISTER_OBSERVER_MESSAGE;
+		return MessageType.OBSERVER_REGISTER_MESSAGE;
 	}
 
 

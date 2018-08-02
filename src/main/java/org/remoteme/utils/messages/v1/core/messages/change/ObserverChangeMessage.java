@@ -9,7 +9,10 @@ import org.remoteme.utils.messages.v1.enums.MessageType;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 @Getter
@@ -17,15 +20,15 @@ import java.util.List;
 public class ObserverChangeMessage extends ARemoteMeMessage {
 
 	int senderDeviceId;//2
-	boolean sendToSender;
+	Set<Integer> ignoreReceivers;
 
 	List<AObserverState> states;
 
 
-	public ObserverChangeMessage(int senderDeviceId, boolean sendToSender, List<AObserverState> states) {
+	public ObserverChangeMessage(int senderDeviceId, Collection<Integer> ignoreReceivers, List<AObserverState> states) {
 
 		this.senderDeviceId=senderDeviceId;
-		this.sendToSender=sendToSender;
+		this.ignoreReceivers=new HashSet<>(ignoreReceivers);
 		this.states = new ArrayList<>(states);
 	}
 
@@ -39,7 +42,13 @@ public class ObserverChangeMessage extends ARemoteMeMessage {
 		payload.getShort();//taking size
 
 		senderDeviceId = Short.toUnsignedInt(payload.getShort());
-		sendToSender = payload.get()==1;
+
+		int receiverSize = Byte.toUnsignedInt(payload.get());
+		ignoreReceivers= new HashSet<>(receiverSize);
+		for (int i = 0; i < receiverSize; i++) {
+			ignoreReceivers.add(Short.toUnsignedInt(payload.getShort()));
+		}
+
 		int count = Short.toUnsignedInt(payload.getShort());
 
 		states = new ArrayList<>(count);
@@ -56,7 +65,7 @@ public class ObserverChangeMessage extends ARemoteMeMessage {
 	public ByteBuffer toByteBuffer() {
 
 
-		int size=2+2+1;
+		int size=2+2+1+ignoreReceivers.size()*2;
 		for (AObserverState state : states) {
 			size+=state.getSize();
 		}
@@ -68,7 +77,12 @@ public class ObserverChangeMessage extends ARemoteMeMessage {
 
 
 		byteBuffer.putShort((short)senderDeviceId);
-		byteBuffer.put((byte)(sendToSender?1:0));
+
+		byteBuffer.put((byte)(ignoreReceivers.size()));
+		for (int ignoreReceiver : ignoreReceivers) {
+			byteBuffer.putShort((short)ignoreReceiver);
+		}
+
 		byteBuffer.putShort((short)states.size());
 
 		for (AObserverState state : states) {

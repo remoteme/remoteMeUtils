@@ -134,8 +134,9 @@ public class ARemoteMeMessageSerializationTest {
 		states.add(new NumberObserverState("pam2",123));
 		states.add(new NumberObserverState("pam3",123));
 
-		ObserverChangeMessage um = new ObserverChangeMessage(123,false,states);
+		ObserverChangeMessage um = new ObserverChangeMessage(123,Arrays.asList(1,2,3,4),states);
 
+		System.out.println(JacksonHelper.serialize(um));
 		assertThat(um, reflectEquals(serializeDeserialize(um),"states"));
 		reflectArrays(um.getStates(),  ((ObserverChangeMessage)serializeDeserialize(um)).getStates());
 
@@ -159,14 +160,15 @@ public class ARemoteMeMessageSerializationTest {
 	public void RegisterObserverMessage(){
 
 		List<ObserverIdentifier> states = new ArrayList<>();
-		states.add(new ObserverIdentifier("pam1",VariableOberverType.NUMBER));
-		states.add(new ObserverIdentifier("pam2",VariableOberverType.BOOLEAN));
+		states.add(new ObserverIdentifier("motor",VariableOberverType.INTEGER));
+		states.add(new ObserverIdentifier("led",VariableOberverType.BOOLEAN));
 
 		ObserverRegisterMessage um = new ObserverRegisterMessage(456,states);
 
 
+
 		System.out.println(JacksonHelper.serialize(um));
-		assertThat(um, reflectEquals(serializeDeserialize(um),"states"));
+		assertThat(um, reflectEquals(serializeDeserialize(um),"observers"));
 		reflectArrays(um.getObservers(),  ((ObserverRegisterMessage)serializeDeserialize(um)).getObservers());
 
 	}
