@@ -7,6 +7,11 @@ public class NumberObserverState extends AObserverState<Integer> {
 	protected NumberObserverState() {
 	}
 
+	@Override
+	public String getDataString() {
+		return String.valueOf(getData());
+	}
+
 	public NumberObserverState(String name, Integer data) {
 		super(name, data);
 	}

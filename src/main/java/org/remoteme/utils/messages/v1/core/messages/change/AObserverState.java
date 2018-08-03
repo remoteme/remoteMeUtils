@@ -86,4 +86,7 @@ public abstract class AObserverState<T> implements Serializable {
 	protected void setData(T data) {
 		this.data = data;
 	}
+
+	public abstract String getDataString();
+
 }

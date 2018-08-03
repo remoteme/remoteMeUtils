@@ -18,14 +18,14 @@ public class ObserverRegisterMessage extends ARemoteMeMessage {
 
 
 
-	int senderDeviceId;//2
+	int deviceId;//2
 
 	List<ObserverIdentifier> observers;
 
 
-	public ObserverRegisterMessage(int senderDeviceId, List<ObserverIdentifier> observers) {
+	public ObserverRegisterMessage(int deviceId, List<ObserverIdentifier> observers) {
 
-		this.senderDeviceId=senderDeviceId;
+		this.deviceId=deviceId;
 		this.observers = new ArrayList<>(observers);
 	}
 
@@ -39,7 +39,7 @@ public class ObserverRegisterMessage extends ARemoteMeMessage {
 		payload.getShort();//taking size
 
 
-		senderDeviceId = Short.toUnsignedInt(payload.getShort());
+		deviceId = Short.toUnsignedInt(payload.getShort());
 		int count = Short.toUnsignedInt(payload.getShort());
 
 		observers = new ArrayList<>(count);
@@ -68,7 +68,7 @@ public class ObserverRegisterMessage extends ARemoteMeMessage {
 
 
 
-		byteBuffer.putShort((short)senderDeviceId);
+		byteBuffer.putShort((short)deviceId);
 		byteBuffer.putShort((short)observers.size());
 
 		for (ObserverIdentifier state : observers) {

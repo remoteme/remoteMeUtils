@@ -17,6 +17,11 @@ public class BooleanObserverState extends AObserverState<Boolean> {
 	}
 
 	@Override
+	public String getDataString() {
+		return getData()?"true":"false";
+	}
+
+	@Override
 	protected void serializeData(ByteBuffer output) {
 		output.put((byte)(getData()?1:0));
 	}
