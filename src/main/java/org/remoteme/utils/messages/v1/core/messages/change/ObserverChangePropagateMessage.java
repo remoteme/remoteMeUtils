@@ -22,14 +22,17 @@ ta wiadomosc jest wysylana do urzadzen
 public class ObserverChangePropagateMessage extends ARemoteMeMessage {
 
 	int senderDeviceId;//2
+	int receiveDeviceId;//2
 
 	List<AObserverState<?>> states;
 
 
-	public ObserverChangePropagateMessage(int senderDeviceId , List<AObserverState<?>> states) {
+	public ObserverChangePropagateMessage(int senderDeviceId ,int receiveDeviceId, List<AObserverState<?>> states) {
 
 		this.senderDeviceId=senderDeviceId;
 		this.states = new ArrayList<>(states);
+		this.receiveDeviceId=receiveDeviceId;
+
 	}
 
 
@@ -42,6 +45,7 @@ public class ObserverChangePropagateMessage extends ARemoteMeMessage {
 		payload.getShort();//taking size
 
 		senderDeviceId = Short.toUnsignedInt(payload.getShort());
+		receiveDeviceId = Short.toUnsignedInt(payload.getShort());
 		int count = Short.toUnsignedInt(payload.getShort());
 
 		states = new ArrayList<>(count);
@@ -58,7 +62,7 @@ public class ObserverChangePropagateMessage extends ARemoteMeMessage {
 	public ByteBuffer toByteBuffer() {
 
 
-		int size=2+2;
+		int size=2+2+2;
 		for (AObserverState state : states) {
 			size+=state.getSize();
 		}
@@ -70,6 +74,7 @@ public class ObserverChangePropagateMessage extends ARemoteMeMessage {
 
 
 		byteBuffer.putShort((short)senderDeviceId);
+		byteBuffer.putShort((short)receiveDeviceId);
 		byteBuffer.putShort((short)states.size());
 
 		for (AObserverState state : states) {

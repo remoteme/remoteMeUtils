@@ -150,7 +150,7 @@ public class ARemoteMeMessageSerializationTest {
 		states.add(new NumberObserverState("pam2",123));
 		states.add(new NumberObserverState("pam3",123));
 
-		ObserverChangePropagateMessage um = new ObserverChangePropagateMessage(123,states);
+		ObserverChangePropagateMessage um = new ObserverChangePropagateMessage(123,456,states);
 
 		assertThat(um, reflectEquals(serializeDeserialize(um),"states"));
 		reflectArrays(um.getStates(),  ((ObserverChangePropagateMessage)serializeDeserialize(um)).getStates());
