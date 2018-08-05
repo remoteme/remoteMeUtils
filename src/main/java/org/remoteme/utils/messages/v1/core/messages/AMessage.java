@@ -24,7 +24,6 @@ import org.remoteme.utils.messages.v1.core.messages.remoteMe.WebRRCConnectionSta
 
 import java.io.Serializable;
 
-
 @Getter
 @Setter
 @JsonTypeInfo(use=JsonTypeInfo.Id.NAME, include=JsonTypeInfo.As.PROPERTY, property="type")
