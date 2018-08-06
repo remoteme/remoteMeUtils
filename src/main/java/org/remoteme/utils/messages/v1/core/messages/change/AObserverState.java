@@ -13,7 +13,13 @@ import java.nio.charset.StandardCharsets;
 @JsonTypeInfo(use=JsonTypeInfo.Id.NAME, include=JsonTypeInfo.As.PROPERTY, property="type")
 @JsonSubTypes({
 		@JsonSubTypes.Type(value = BooleanObserverState.class, name = "BOOLEAN"),
-		@JsonSubTypes.Type(value = NumberObserverState.class, name = "INTEGER")
+		@JsonSubTypes.Type(value = NumberObserverState.class, name = "INTEGER"),
+		@JsonSubTypes.Type(value = TextObserverState.class, name = "TEXT"),
+		@JsonSubTypes.Type(value = SmallInteger3ObserverState.class, name = "SMALL_INTEGER_3"),
+		@JsonSubTypes.Type(value = SmallInteger2ObserverState.class, name = "SMALL_INTEGER_2"),
+		@JsonSubTypes.Type(value = IntegerBooleanObserverState.class, name = "INTEGER_BOOLEAN"),
+		@JsonSubTypes.Type(value = DoubleObserverState.class, name = "DOUBLE"),
+
 })
 public abstract class AObserverState<T> implements Serializable {
 
@@ -85,6 +91,9 @@ public abstract class AObserverState<T> implements Serializable {
 
 	protected void setData(T data) {
 		this.data = data;
+	}
+	protected T getData() {
+		return data;
 	}
 
 	public abstract String getDataString();
