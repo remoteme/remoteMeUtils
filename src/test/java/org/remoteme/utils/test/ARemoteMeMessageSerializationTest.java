@@ -9,11 +9,16 @@ import org.junit.Test;
 import org.remoteme.utils.jackson.JacksonHelper;
 import org.remoteme.utils.messages.v1.core.messages.change.AObserverState;
 import org.remoteme.utils.messages.v1.core.messages.change.BooleanObserverState;
+import org.remoteme.utils.messages.v1.core.messages.change.DoubleObserverState;
+import org.remoteme.utils.messages.v1.core.messages.change.IntegerBooleanObserverState;
 import org.remoteme.utils.messages.v1.core.messages.change.ObserverChangeMessage;
 import org.remoteme.utils.messages.v1.core.messages.change.ObserverChangePropagateMessage;
 import org.remoteme.utils.messages.v1.core.messages.change.ObserverIdentifier;
-import org.remoteme.utils.messages.v1.core.messages.change.NumberObserverState;
+import org.remoteme.utils.messages.v1.core.messages.change.IntegerObserverState;
 import org.remoteme.utils.messages.v1.core.messages.change.ObserverRegisterMessage;
+import org.remoteme.utils.messages.v1.core.messages.change.SmallInteger2ObserverState;
+import org.remoteme.utils.messages.v1.core.messages.change.SmallInteger3ObserverState;
+import org.remoteme.utils.messages.v1.core.messages.change.TextObserverState;
 import org.remoteme.utils.messages.v1.core.messages.change.VariableOberverType;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.ARemoteMeMessage;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.AddDataMessage;
@@ -131,8 +136,92 @@ public class ARemoteMeMessageSerializationTest {
 
 		List<AObserverState> states = new ArrayList<>();
 		states.add(new BooleanObserverState("pam1",true));
-		states.add(new NumberObserverState("pam2",123));
-		states.add(new NumberObserverState("pam3",123));
+		states.add(new IntegerObserverState("pam2",123));
+		states.add(new IntegerObserverState("pam3",123));
+
+		ObserverChangeMessage um = new ObserverChangeMessage(123,Arrays.asList(1,2,3,4),states);
+
+		System.out.println(JacksonHelper.serialize(um));
+		assertThat(um, reflectEquals(serializeDeserialize(um),"states"));
+		reflectArrays(um.getStates(),  ((ObserverChangeMessage)serializeDeserialize(um)).getStates());
+
+	}
+
+	@Test
+	public void integerObserverState(){
+
+		List<AObserverState> states = new ArrayList<>();
+		states.add(new IntegerObserverState("pam2",123));
+
+		ObserverChangeMessage um = new ObserverChangeMessage(123,Arrays.asList(1,2,3,4),states);
+
+		System.out.println(JacksonHelper.serialize(um));
+		assertThat(um, reflectEquals(serializeDeserialize(um),"states"));
+		reflectArrays(um.getStates(),  ((ObserverChangeMessage)serializeDeserialize(um)).getStates());
+
+	}
+
+	@Test
+	public void textObserverState(){
+
+		List<AObserverState> states = new ArrayList<>();
+		states.add(new TextObserverState("pam2","maciekółś"));
+
+		ObserverChangeMessage um = new ObserverChangeMessage(123,Arrays.asList(1,2,3,4),states);
+
+		System.out.println(JacksonHelper.serialize(um));
+		assertThat(um, reflectEquals(serializeDeserialize(um),"states"));
+		reflectArrays(um.getStates(),  ((ObserverChangeMessage)serializeDeserialize(um)).getStates());
+
+	}
+
+	@Test
+	public void smallInteger3ObserverState(){
+
+		List<AObserverState> states = new ArrayList<>();
+		states.add(new SmallInteger3ObserverState("pam2",new SmallInteger3ObserverState.SmallInteger3(12,345,-6789)));
+
+		ObserverChangeMessage um = new ObserverChangeMessage(123,Arrays.asList(1,2,3,4),states);
+
+		System.out.println(JacksonHelper.serialize(um));
+		assertThat(um, reflectEquals(serializeDeserialize(um),"states"));
+		reflectArrays(um.getStates(),  ((ObserverChangeMessage)serializeDeserialize(um)).getStates());
+
+	}
+
+	@Test
+	public void smallInteger2ObserverState(){
+
+		List<AObserverState> states = new ArrayList<>();
+		states.add(new SmallInteger2ObserverState("pam2",new SmallInteger2ObserverState.SmallInteger2(12,-6789)));
+
+		ObserverChangeMessage um = new ObserverChangeMessage(123,Arrays.asList(1,2,3,4),states);
+
+		System.out.println(JacksonHelper.serialize(um));
+		assertThat(um, reflectEquals(serializeDeserialize(um),"states"));
+		reflectArrays(um.getStates(),  ((ObserverChangeMessage)serializeDeserialize(um)).getStates());
+
+	}
+
+	@Test
+	public void integerBooleanObserverState(){
+
+		List<AObserverState> states = new ArrayList<>();
+		states.add(new IntegerBooleanObserverState("pam2",new IntegerBooleanObserverState.IntegerBoolean(1234,true)));
+
+		ObserverChangeMessage um = new ObserverChangeMessage(123,Arrays.asList(1,2,3,4),states);
+
+		System.out.println(JacksonHelper.serialize(um));
+		assertThat(um, reflectEquals(serializeDeserialize(um),"states"));
+		reflectArrays(um.getStates(),  ((ObserverChangeMessage)serializeDeserialize(um)).getStates());
+
+	}
+
+	@Test
+	public void doubleObserverState(){
+
+		List<AObserverState> states = new ArrayList<>();
+		states.add(new DoubleObserverState("pam2",-1234.5677));
 
 		ObserverChangeMessage um = new ObserverChangeMessage(123,Arrays.asList(1,2,3,4),states);
 
@@ -147,8 +236,8 @@ public class ARemoteMeMessageSerializationTest {
 
 		List<AObserverState<?>> states = new ArrayList<>();
 		states.add(new BooleanObserverState("pam1",true));
-		states.add(new NumberObserverState("pam2",123));
-		states.add(new NumberObserverState("pam3",123));
+		states.add(new IntegerObserverState("pam2",123));
+		states.add(new IntegerObserverState("pam3",123));
 
 		ObserverChangePropagateMessage um = new ObserverChangePropagateMessage(123,456,states);
 

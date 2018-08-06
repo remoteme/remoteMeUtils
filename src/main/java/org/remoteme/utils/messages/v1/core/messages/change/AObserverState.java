@@ -13,7 +13,7 @@ import java.nio.charset.StandardCharsets;
 @JsonTypeInfo(use=JsonTypeInfo.Id.NAME, include=JsonTypeInfo.As.PROPERTY, property="type")
 @JsonSubTypes({
 		@JsonSubTypes.Type(value = BooleanObserverState.class, name = "BOOLEAN"),
-		@JsonSubTypes.Type(value = NumberObserverState.class, name = "INTEGER"),
+		@JsonSubTypes.Type(value = IntegerObserverState.class, name = "INTEGER"),
 		@JsonSubTypes.Type(value = TextObserverState.class, name = "TEXT"),
 		@JsonSubTypes.Type(value = SmallInteger3ObserverState.class, name = "SMALL_INTEGER_3"),
 		@JsonSubTypes.Type(value = SmallInteger2ObserverState.class, name = "SMALL_INTEGER_2"),
@@ -44,10 +44,26 @@ public abstract class AObserverState<T> implements Serializable {
 				ret  = new BooleanObserverState(output);
 				break;
 			case INTEGER:
-				ret  = new NumberObserverState(output);
+				ret  = new IntegerObserverState(output);
 				break;
-				default:
-					throw new RuntimeException("no state for type "+type);
+			case TEXT:
+				ret  = new TextObserverState(output);
+				break;
+			case SMALL_INTEGER_3:
+				ret  = new SmallInteger3ObserverState(output);
+				break;
+			case SMALL_INTEGER_2:
+				ret  = new SmallInteger2ObserverState(output);
+				break;
+			case INTEGER_BOOLEAN:
+				ret  = new IntegerBooleanObserverState(output);
+				break;
+			case DOUBLE:
+				ret  = new DoubleObserverState(output);
+				break;
+
+			default:
+				throw new RuntimeException("no state for type "+type);
 		}
 
 

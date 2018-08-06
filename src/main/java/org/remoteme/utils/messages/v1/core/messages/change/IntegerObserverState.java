@@ -2,9 +2,9 @@ package org.remoteme.utils.messages.v1.core.messages.change;
 
 import java.nio.ByteBuffer;
 
-public class NumberObserverState extends AObserverState<Integer> {
+public class IntegerObserverState extends AObserverState<Integer> {
 
-	protected NumberObserverState() {
+	protected IntegerObserverState() {
 	}
 
 	@Override
@@ -12,11 +12,11 @@ public class NumberObserverState extends AObserverState<Integer> {
 		return String.valueOf(getData());
 	}
 
-	public NumberObserverState(String name, Integer data) {
+	public IntegerObserverState(String name, Integer data) {
 		super(name, data);
 	}
 
-	public NumberObserverState(ByteBuffer output) {
+	public IntegerObserverState(ByteBuffer output) {
 		super(output);
 	}
 
