@@ -239,9 +239,14 @@ public class ARemoteMeMessageSerializationTest {
 
 		List<AObserverState<?>> states = new ArrayList<>();
 		states.add(new BooleanObserverState("pam1",true));
-		states.add(new IntegerObserverState("pam2",123));
-		states.add(new IntegerObserverState("pam3",123));
+		states.add(new DoubleObserverState("pam2",123.456));
+		states.add(new IntegerBooleanObserverState("pam3",123,true));
+		states.add(new IntegerObserverState("pam3",-1345));
+		states.add(new SmallInteger2ObserverState("pam3",123,-4567));
+		states.add(new SmallInteger3ObserverState("pam3",123,-12345,6543));
 		states.add(new Text2ObserverState("pam3","text1","text2"));
+		states.add(new TextObserverState("pam3","text"));
+
 
 
 

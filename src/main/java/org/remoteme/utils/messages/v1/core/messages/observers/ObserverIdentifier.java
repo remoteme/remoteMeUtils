@@ -34,7 +34,7 @@ public class ObserverIdentifier implements Serializable {
 
 	}
 
-	protected  void serialize(ByteBuffer output){
+	public  void serialize(ByteBuffer output){
 		output.putShort((short) getType().getId());
 		output.put(getName().getBytes(StandardCharsets.UTF_8));
 		output.put((byte)0);

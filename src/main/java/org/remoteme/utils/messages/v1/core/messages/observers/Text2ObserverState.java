@@ -18,8 +18,8 @@ public class Text2ObserverState extends AObserverState<Text2ObserverState.Text2>
 	@AllArgsConstructor
 	@NoArgsConstructor
 	public static class Text2 implements Serializable {
-		String text1;
-		String text2;
+		String t1;
+		String t2;
 	}
 	protected Text2ObserverState() {
 	}
@@ -39,8 +39,8 @@ public class Text2ObserverState extends AObserverState<Text2ObserverState.Text2>
 
 	@Override
 	protected void serializeData(ByteBuffer output) {
-		output.put(ByteBufferUtils.writeString(getData().getText1()));
-		output.put(ByteBufferUtils.writeString(getData().getText2()));
+		output.put(ByteBufferUtils.writeString(getData().getT1()));
+		output.put(ByteBufferUtils.writeString(getData().getT2()));
 	}
 
 	@Override
@@ -51,7 +51,7 @@ public class Text2ObserverState extends AObserverState<Text2ObserverState.Text2>
 
 	@Override
 	protected int getDataSize() {
-		return ByteBufferUtils.writeString(getData().getText1()).length+ByteBufferUtils.writeString(getData().getText2()).length;
+		return ByteBufferUtils.writeString(getData().getT1()).length+ByteBufferUtils.writeString(getData().getT2()).length;
 	}
 
 	@Override
