@@ -7,19 +7,22 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
 import org.remoteme.utils.jackson.JacksonHelper;
-import org.remoteme.utils.messages.v1.core.messages.change.AObserverState;
-import org.remoteme.utils.messages.v1.core.messages.change.BooleanObserverState;
-import org.remoteme.utils.messages.v1.core.messages.change.DoubleObserverState;
-import org.remoteme.utils.messages.v1.core.messages.change.IntegerBooleanObserverState;
-import org.remoteme.utils.messages.v1.core.messages.change.ObserverChangeMessage;
-import org.remoteme.utils.messages.v1.core.messages.change.ObserverChangePropagateMessage;
-import org.remoteme.utils.messages.v1.core.messages.change.ObserverIdentifier;
-import org.remoteme.utils.messages.v1.core.messages.change.IntegerObserverState;
-import org.remoteme.utils.messages.v1.core.messages.change.ObserverRegisterMessage;
-import org.remoteme.utils.messages.v1.core.messages.change.SmallInteger2ObserverState;
-import org.remoteme.utils.messages.v1.core.messages.change.SmallInteger3ObserverState;
-import org.remoteme.utils.messages.v1.core.messages.change.TextObserverState;
-import org.remoteme.utils.messages.v1.core.messages.change.VariableOberverType;
+import org.remoteme.utils.messages.v1.core.messages.observerStates.AObserverState;
+import org.remoteme.utils.messages.v1.core.messages.observerStates.BooleanObserverState;
+import org.remoteme.utils.messages.v1.core.messages.observerStates.DoubleObserverState;
+import org.remoteme.utils.messages.v1.core.messages.observerStates.IntegerBooleanObserverState;
+import org.remoteme.utils.messages.v1.core.messages.remoteMe.ObserverChangeMessage;
+import org.remoteme.utils.messages.v1.core.messages.remoteMe.ObserverChangePropagateMessage;
+import org.remoteme.utils.messages.v1.core.messages.observerStates.ObserverIdentifier;
+import org.remoteme.utils.messages.v1.core.messages.observerStates.IntegerObserverState;
+import org.remoteme.utils.messages.v1.core.messages.remoteMe.ObserverRegisterMessage;
+import org.remoteme.utils.messages.v1.core.messages.remoteMe.ObserverRemoveMessage;
+import org.remoteme.utils.messages.v1.core.messages.remoteMe.ObserverRenameMessage;
+import org.remoteme.utils.messages.v1.core.messages.observerStates.SmallInteger2ObserverState;
+import org.remoteme.utils.messages.v1.core.messages.observerStates.SmallInteger3ObserverState;
+import org.remoteme.utils.messages.v1.core.messages.observerStates.Text2ObserverState;
+import org.remoteme.utils.messages.v1.core.messages.observerStates.TextObserverState;
+import org.remoteme.utils.messages.v1.core.messages.observerStates.VariableOberverType;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.ARemoteMeMessage;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.AddDataMessage;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.RegisterDeviceMessage;
@@ -238,13 +241,19 @@ public class ARemoteMeMessageSerializationTest {
 		states.add(new BooleanObserverState("pam1",true));
 		states.add(new IntegerObserverState("pam2",123));
 		states.add(new IntegerObserverState("pam3",123));
+		states.add(new Text2ObserverState("pam3","text1","text2"));
+
+
 
 		ObserverChangePropagateMessage um = new ObserverChangePropagateMessage(123,456,states);
+
+		System.out.println(JacksonHelper.serialize(um));
 
 		assertThat(um, reflectEquals(serializeDeserialize(um),"states"));
 		reflectArrays(um.getStates(),  ((ObserverChangePropagateMessage)serializeDeserialize(um)).getStates());
 
 	}
+
 	@Test
 	public void RegisterObserverMessage(){
 
@@ -259,6 +268,37 @@ public class ARemoteMeMessageSerializationTest {
 		System.out.println(JacksonHelper.serialize(um));
 		assertThat(um, reflectEquals(serializeDeserialize(um),"observers"));
 		reflectArrays(um.getObservers(),  ((ObserverRegisterMessage)serializeDeserialize(um)).getObservers());
+
+	}
+
+
+	@Test
+	public void renameObserverTest(){
+
+
+		ObserverRenameMessage um = new ObserverRenameMessage(1234,"someOldName","someNewName",VariableOberverType.BOOLEAN);
+
+
+
+
+		System.out.println(JacksonHelper.serialize(um));
+		assertThat(um, reflectEquals(serializeDeserialize(um)));
+
+
+	}
+
+	@Test
+	public void removeObserverTest(){
+
+
+		ObserverRemoveMessage um = new ObserverRemoveMessage(12534,"someName",VariableOberverType.TEXT_2);
+
+
+
+
+		System.out.println(JacksonHelper.serialize(um));
+		assertThat(um, reflectEquals(serializeDeserialize(um)));
+
 
 	}
 

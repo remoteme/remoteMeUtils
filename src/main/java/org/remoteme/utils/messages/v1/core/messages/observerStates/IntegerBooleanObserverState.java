@@ -1,16 +1,13 @@
-package org.remoteme.utils.messages.v1.core.messages.change;
+package org.remoteme.utils.messages.v1.core.messages.observerStates;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.remoteme.utils.general.ByteBufferUtils;
 
 import java.io.Serializable;
 import java.nio.ByteBuffer;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 
 public class IntegerBooleanObserverState extends AObserverState<IntegerBooleanObserverState.IntegerBoolean> {
 

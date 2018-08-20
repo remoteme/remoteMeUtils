@@ -1,10 +1,10 @@
-package org.remoteme.utils.messages.v1.core.messages.change;
+package org.remoteme.utils.messages.v1.core.messages.remoteMe;
 
 
 
 import lombok.Getter;
 import lombok.Setter;
-import org.remoteme.utils.messages.v1.core.messages.remoteMe.ARemoteMeMessage;
+import org.remoteme.utils.messages.v1.core.messages.observerStates.AObserverState;
 import org.remoteme.utils.messages.v1.enums.MessageType;
 
 import java.nio.ByteBuffer;

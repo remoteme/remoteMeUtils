@@ -1,4 +1,4 @@
-package org.remoteme.utils.messages.v1.core.messages.change;
+package org.remoteme.utils.messages.v1.core.messages.observerStates;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -19,6 +19,7 @@ import java.nio.charset.StandardCharsets;
 		@JsonSubTypes.Type(value = SmallInteger2ObserverState.class, name = "SMALL_INTEGER_2"),
 		@JsonSubTypes.Type(value = IntegerBooleanObserverState.class, name = "INTEGER_BOOLEAN"),
 		@JsonSubTypes.Type(value = DoubleObserverState.class, name = "DOUBLE"),
+		@JsonSubTypes.Type(value = Text2ObserverState.class, name = "TEXT_2"),
 
 })
 public abstract class AObserverState<T> implements Serializable {
@@ -60,6 +61,9 @@ public abstract class AObserverState<T> implements Serializable {
 				break;
 			case DOUBLE:
 				ret  = new DoubleObserverState(output);
+				break;
+			case TEXT_2:
+				ret  = new Text2ObserverState(output);
 				break;
 
 			default:

@@ -8,9 +8,11 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.remoteme.utils.messages.v1.core.messages.arLite.PingMessage;
-import org.remoteme.utils.messages.v1.core.messages.change.ObserverChangeMessage;
-import org.remoteme.utils.messages.v1.core.messages.change.ObserverChangePropagateMessage;
-import org.remoteme.utils.messages.v1.core.messages.change.ObserverRegisterMessage;
+import org.remoteme.utils.messages.v1.core.messages.remoteMe.ObserverChangeMessage;
+import org.remoteme.utils.messages.v1.core.messages.remoteMe.ObserverChangePropagateMessage;
+import org.remoteme.utils.messages.v1.core.messages.remoteMe.ObserverRegisterMessage;
+import org.remoteme.utils.messages.v1.core.messages.remoteMe.ObserverRemoveMessage;
+import org.remoteme.utils.messages.v1.core.messages.remoteMe.ObserverRenameMessage;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.AddDataMessage;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.LogMessage;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.RegisterDeviceMessage;
@@ -42,6 +44,8 @@ import java.io.Serializable;
 		@JsonSubTypes.Type(value = ObserverChangeMessage.class, name = "ObserverChangeMessage"),
 		@JsonSubTypes.Type(value = ObserverRegisterMessage.class, name = "ObserverRegisterMessage"),
 		@JsonSubTypes.Type(value = ObserverChangePropagateMessage.class, name = "ObserverChangePropagateMessage"),
+		@JsonSubTypes.Type(value = ObserverRenameMessage.class, name = "ObserverRenameMessage"),
+		@JsonSubTypes.Type(value = ObserverRemoveMessage.class, name = "ObserverRemoveMessage"),
 
 })
 @ApiModel(value="SuperModel", discriminator = "foo")

@@ -1,4 +1,4 @@
-package org.remoteme.utils.messages.v1.core.messages.change;
+package org.remoteme.utils.messages.v1.core.messages.observerStates;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

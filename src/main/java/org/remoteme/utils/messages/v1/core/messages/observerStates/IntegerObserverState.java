@@ -1,10 +1,10 @@
-package org.remoteme.utils.messages.v1.core.messages.change;
+package org.remoteme.utils.messages.v1.core.messages.observerStates;
 
 import java.nio.ByteBuffer;
 
-public class DoubleObserverState extends AObserverState<Double> {
+public class IntegerObserverState extends AObserverState<Integer> {
 
-	protected DoubleObserverState() {
+	protected IntegerObserverState() {
 	}
 
 	@Override
@@ -12,31 +12,31 @@ public class DoubleObserverState extends AObserverState<Double> {
 		return String.valueOf(getData());
 	}
 
-	public DoubleObserverState(String name, Double data) {
+	public IntegerObserverState(String name, Integer data) {
 		super(name, data);
 	}
 
-	public DoubleObserverState(ByteBuffer output) {
+	public IntegerObserverState(ByteBuffer output) {
 		super(output);
 	}
 
 	@Override
 	protected void serializeData(ByteBuffer output) {
-		output.putDouble(getData());
+		output.putInt(getData());
 	}
 
 	@Override
 	protected void deSerializeData(ByteBuffer output) {
-		setData(output.getDouble());
+		setData(output.getInt());
 	}
 
 	@Override
 	protected int getDataSize() {
-		return 8;
+		return 4;
 	}
 
 	@Override
 	protected VariableOberverType getType() {
-		return VariableOberverType.DOUBLE;
+		return VariableOberverType.INTEGER;
 	}
 }

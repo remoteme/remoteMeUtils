@@ -222,4 +222,8 @@ public class ByteBufferUtils {
 		}
 		return ret;
 	}
+
+	public static int getStringLength(String newName) {
+		return newName.getBytes(StandardCharsets.UTF_8).length+1;
+	}
 }

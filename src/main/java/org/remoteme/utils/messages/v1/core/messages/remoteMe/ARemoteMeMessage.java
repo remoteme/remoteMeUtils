@@ -7,9 +7,6 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import org.remoteme.utils.messages.v1.core.messages.AMessage;
-import org.remoteme.utils.messages.v1.core.messages.change.ObserverChangeMessage;
-import org.remoteme.utils.messages.v1.core.messages.change.ObserverChangePropagateMessage;
-import org.remoteme.utils.messages.v1.core.messages.change.ObserverRegisterMessage;
 import org.remoteme.utils.messages.v1.enums.MessageType;
 
 import java.nio.ByteBuffer;
@@ -51,6 +48,8 @@ public abstract class ARemoteMeMessage extends AMessage {
 			case OBSERVER_CHANGE_MESSAGE:return new ObserverChangeMessage(payload);
 			case OBSERVER_REGISTER_MESSAGE:return new ObserverRegisterMessage(payload);
 			case OBSERVER_CHANGE_PROPAGATE_MESSAGE:return new ObserverChangePropagateMessage(payload);
+			case OBSERVER_REMOVE_MESSAGE:return new ObserverRemoveMessage(payload);
+			case OBSERVER_RENAME_MESSAGE:return new ObserverRenameMessage(payload);
 		}
 
 		throw new RuntimeException("should not happen  ");//we have all in switch
