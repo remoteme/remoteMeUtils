@@ -5,7 +5,7 @@ package org.remoteme.utils.messages.v1.core.messages.remoteMe;
 import lombok.Getter;
 import lombok.Setter;
 import org.remoteme.utils.general.ByteBufferUtils;
-import org.remoteme.utils.messages.v1.core.messages.observerStates.VariableOberverType;
+import org.remoteme.utils.messages.v1.core.messages.observers.VariableOberverType;
 import org.remoteme.utils.messages.v1.enums.MessageType;
 
 import java.nio.ByteBuffer;
