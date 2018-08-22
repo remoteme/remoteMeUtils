@@ -1,5 +1,7 @@
 package org.remoteme.utils.messages.v1.core.messages.observers;
 
+import org.remoteme.utils.messages.v1.enums.VariableOberverType;
+
 import java.nio.ByteBuffer;
 
 public class DoubleObserverState extends AObserverState<Double> {

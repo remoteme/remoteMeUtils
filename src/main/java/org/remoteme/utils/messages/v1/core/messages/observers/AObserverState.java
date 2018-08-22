@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.Getter;
 import org.remoteme.utils.general.ByteBufferUtils;
+import org.remoteme.utils.messages.v1.enums.VariableOberverType;
 
 import java.io.Serializable;
 import java.nio.ByteBuffer;
@@ -112,7 +113,7 @@ public abstract class AObserverState<T> implements Serializable {
 	protected void setData(T data) {
 		this.data = data;
 	}
-	protected T getData() {
+	public T getData() {
 		return data;
 	}
 

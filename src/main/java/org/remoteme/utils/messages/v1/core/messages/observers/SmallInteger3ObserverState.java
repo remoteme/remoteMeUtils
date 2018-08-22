@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.remoteme.utils.messages.v1.enums.VariableOberverType;
 
 import java.io.Serializable;
 import java.nio.ByteBuffer;

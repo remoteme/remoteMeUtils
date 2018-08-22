@@ -7,6 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
 import org.remoteme.utils.jackson.JacksonHelper;
+import org.remoteme.utils.messages.v1.core.messages.AMessage;
+import org.remoteme.utils.messages.v1.core.messages.arLite.NotifyAboutObserversMessage;
 import org.remoteme.utils.messages.v1.core.messages.observers.AObserverState;
 import org.remoteme.utils.messages.v1.core.messages.observers.BooleanObserverState;
 import org.remoteme.utils.messages.v1.core.messages.observers.DoubleObserverState;
@@ -22,7 +24,7 @@ import org.remoteme.utils.messages.v1.core.messages.observers.SmallInteger2Obser
 import org.remoteme.utils.messages.v1.core.messages.observers.SmallInteger3ObserverState;
 import org.remoteme.utils.messages.v1.core.messages.observers.Text2ObserverState;
 import org.remoteme.utils.messages.v1.core.messages.observers.TextObserverState;
-import org.remoteme.utils.messages.v1.core.messages.observers.VariableOberverType;
+import org.remoteme.utils.messages.v1.enums.VariableOberverType;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.ARemoteMeMessage;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.AddDataMessage;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.RegisterDeviceMessage;
@@ -306,17 +308,47 @@ public class ARemoteMeMessageSerializationTest {
 
 
 	}
+	@Test
+	public void notifyAboutObserversMessageTest(){
+
+
+		NotifyAboutObserversMessage um = new NotifyAboutObserversMessage();
+		List<ObserverIdentifier> identifiers = new ArrayList<>();
+		identifiers.add(new ObserverIdentifier("asd",VariableOberverType.BOOLEAN));
+		identifiers.add(new ObserverIdentifier("asd",VariableOberverType.TEXT_2));
+		um.setIdentifiers(identifiers);
+
+
+
+
+		System.out.println(JacksonHelper.serialize(um));
+		assertThat(um, reflectEquals(serializeDeserializeJson(um),"identifiers"));
+
+
+
+		reflectArrays(um.getIdentifiers(),  ((NotifyAboutObserversMessage)serializeDeserializeJson(um)).getIdentifiers());
+
+	}
+
+
 
 
 	public ARemoteMeMessage serializeDeserialize(ARemoteMeMessage message){
 		String str = JacksonHelper.serialize(message);
-		message=JacksonHelper.deserialize(str,ARemoteMeMessage.class);
+		message=(ARemoteMeMessage)JacksonHelper.deserialize(str,AMessage.class);
 
 
 		return ARemoteMeMessage.decode( message.toByteBuffer());
 
 
 	}
+	public AMessage serializeDeserializeJson(AMessage message){
+		String str = JacksonHelper.serialize(message);
+		return JacksonHelper.deserialize(str,AMessage.class);
 
+
+
+
+	}
 
 }

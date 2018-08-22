@@ -6,11 +6,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.remoteme.utils.general.ByteBufferUtils;
+import org.remoteme.utils.messages.v1.enums.VariableOberverType;
 
 import java.io.Serializable;
 import java.nio.ByteBuffer;
 
 public class Text2ObserverState extends AObserverState<Text2ObserverState.Text2> {
+
+
 
 	@EqualsAndHashCode
 	@Getter
@@ -30,7 +33,11 @@ public class Text2ObserverState extends AObserverState<Text2ObserverState.Text2>
 	}
 
 	public Text2ObserverState(String name, String data,String data2) {
-		super(name, new Text2(data, data2));
+		this(name, new Text2(data, data2));
+	}
+
+	public  Text2ObserverState(String name, Text2ObserverState.Text2 value) {
+		super(name, value);
 	}
 
 	public Text2ObserverState(ByteBuffer output) {

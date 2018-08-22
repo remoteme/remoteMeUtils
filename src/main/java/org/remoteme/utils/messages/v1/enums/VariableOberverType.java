@@ -1,4 +1,4 @@
-package org.remoteme.utils.messages.v1.core.messages.observers;
+package org.remoteme.utils.messages.v1.enums;
 
 
 import org.remoteme.utils.general.Id_Enum;

@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiModel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.remoteme.utils.messages.v1.core.messages.arLite.NotifyAboutObserversMessage;
 import org.remoteme.utils.messages.v1.core.messages.arLite.PingMessage;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.ObserverChangeMessage;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.ObserverChangePropagateMessage;
@@ -46,7 +47,7 @@ import java.io.Serializable;
 		@JsonSubTypes.Type(value = ObserverChangePropagateMessage.class, name = "ObserverChangePropagateMessage"),
 		@JsonSubTypes.Type(value = ObserverRenameMessage.class, name = "ObserverRenameMessage"),
 		@JsonSubTypes.Type(value = ObserverRemoveMessage.class, name = "ObserverRemoveMessage"),
-
+		@JsonSubTypes.Type(value = NotifyAboutObserversMessage.class, name = "NotifyAboutObserversMessage")
 })
 @ApiModel(value="SuperModel", discriminator = "foo")
 @Slf4j
