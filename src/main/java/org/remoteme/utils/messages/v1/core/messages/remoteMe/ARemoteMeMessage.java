@@ -45,11 +45,11 @@ public abstract class ARemoteMeMessage extends AMessage {
 			case SYSTEM_MESSAGE:return new SystemMessage(payload);
 			case WEB_RTC_CONNECTION_CHANGE:return new WebRRCConnectionStatusChangeMessage(payload);
 
-			case OBSERVER_CHANGE_MESSAGE:return new ObserverChangeMessage(payload);
-			case OBSERVER_REGISTER_MESSAGE:return new ObserverRegisterMessage(payload);
-			case OBSERVER_CHANGE_PROPAGATE_MESSAGE:return new ObserverChangePropagateMessage(payload);
-			case OBSERVER_REMOVE_MESSAGE:return new ObserverRemoveMessage(payload);
-			case OBSERVER_RENAME_MESSAGE:return new ObserverRenameMessage(payload);
+			case OBSERVER_CHANGE_MESSAGE:return new VariableChangeMessage(payload);
+			case OBSERVER_REGISTER_MESSAGE:return new VariableRegisterMessage(payload);
+			case OBSERVER_CHANGE_PROPAGATE_MESSAGE:return new VariableChangePropagateMessage(payload);
+			case OBSERVER_REMOVE_MESSAGE:return new VariableRemoveMessage(payload);
+			case OBSERVER_RENAME_MESSAGE:return new VariableRenameMessage(payload);
 		}
 
 		throw new RuntimeException("should not happen  ");//we have all in switch

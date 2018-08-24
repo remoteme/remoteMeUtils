@@ -4,7 +4,7 @@ package org.remoteme.utils.messages.v1.core.messages.remoteMe;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.remoteme.utils.messages.v1.core.messages.observers.AObserverState;
+import org.remoteme.utils.messages.v1.core.messages.variables.AVariableState;
 import org.remoteme.utils.messages.v1.enums.MessageType;
 
 import java.nio.ByteBuffer;
@@ -19,15 +19,15 @@ ta wiadomosc jest wysylana do urzadzen
 
 @Getter
 @Setter
-public class ObserverChangePropagateMessage extends ARemoteMeMessage {
+public class VariableChangePropagateMessage extends ARemoteMeMessage {
 
 	int senderDeviceId;//2
 	int receiveDeviceId;//2
 
-	List<AObserverState<?>> states;
+	List<AVariableState<?>> states;
 
 
-	public ObserverChangePropagateMessage(int senderDeviceId ,int receiveDeviceId, List<AObserverState<?>> states) {
+	public VariableChangePropagateMessage(int senderDeviceId ,int receiveDeviceId, List<AVariableState<?>> states) {
 
 		this.senderDeviceId=senderDeviceId;
 		this.states = new ArrayList<>(states);
@@ -36,12 +36,12 @@ public class ObserverChangePropagateMessage extends ARemoteMeMessage {
 	}
 
 
-	protected ObserverChangePropagateMessage() {
+	protected VariableChangePropagateMessage() {
 	}
 
 
 
-	public ObserverChangePropagateMessage(ByteBuffer payload) {
+	public VariableChangePropagateMessage(ByteBuffer payload) {
 		payload.getShort();//taking size
 
 		senderDeviceId = Short.toUnsignedInt(payload.getShort());
@@ -50,7 +50,7 @@ public class ObserverChangePropagateMessage extends ARemoteMeMessage {
 
 		states = new ArrayList<>(count);
 		for(int i=0;i<count;i++){
-			states.add(AObserverState.get(payload));
+			states.add(AVariableState.get(payload));
 		}
 
 	}
@@ -63,7 +63,7 @@ public class ObserverChangePropagateMessage extends ARemoteMeMessage {
 
 
 		int size=2+2+2;
-		for (AObserverState state : states) {
+		for (AVariableState state : states) {
 			size+=state.getSize();
 		}
 
@@ -77,7 +77,7 @@ public class ObserverChangePropagateMessage extends ARemoteMeMessage {
 		byteBuffer.putShort((short)receiveDeviceId);
 		byteBuffer.putShort((short)states.size());
 
-		for (AObserverState state : states) {
+		for (AVariableState state : states) {
 			state.serialize(byteBuffer);
 		}
 

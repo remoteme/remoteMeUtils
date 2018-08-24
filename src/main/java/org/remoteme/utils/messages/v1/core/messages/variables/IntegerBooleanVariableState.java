@@ -1,16 +1,16 @@
-package org.remoteme.utils.messages.v1.core.messages.observers;
+package org.remoteme.utils.messages.v1.core.messages.variables;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.remoteme.utils.messages.v1.enums.VariableOberverType;
+import org.remoteme.utils.messages.v1.enums.VariableType;
 
 import java.io.Serializable;
 import java.nio.ByteBuffer;
 
-public class IntegerBooleanObserverState extends AObserverState<IntegerBooleanObserverState.IntegerBoolean> {
+public class IntegerBooleanVariableState extends AVariableState<IntegerBooleanVariableState.IntegerBoolean> {
 
 
 
@@ -24,7 +24,7 @@ public class IntegerBooleanObserverState extends AObserverState<IntegerBooleanOb
 		boolean b;
 	}
 
-	protected IntegerBooleanObserverState() {
+	protected IntegerBooleanVariableState() {
 	}
 
 	@Override
@@ -32,15 +32,15 @@ public class IntegerBooleanObserverState extends AObserverState<IntegerBooleanOb
 		return String.valueOf(getData());
 	}
 
-	public IntegerBooleanObserverState(String name, IntegerBoolean data) {
+	public IntegerBooleanVariableState(String name, IntegerBoolean data) {
 		super(name, data);
 	}
 
-	public IntegerBooleanObserverState(String name, int value, boolean bool) {
+	public IntegerBooleanVariableState(String name, int value, boolean bool) {
 		this(name, new IntegerBoolean(value, bool));
 	}
 
-	public IntegerBooleanObserverState(ByteBuffer output) {
+	public IntegerBooleanVariableState(ByteBuffer output) {
 		super(output);
 	}
 
@@ -64,7 +64,7 @@ public class IntegerBooleanObserverState extends AObserverState<IntegerBooleanOb
 	}
 
 	@Override
-	protected VariableOberverType getType() {
-		return VariableOberverType.INTEGER_BOOLEAN;
+	protected VariableType getType() {
+		return VariableType.INTEGER_BOOLEAN;
 	}
 }

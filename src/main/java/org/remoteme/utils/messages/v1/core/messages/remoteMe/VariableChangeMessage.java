@@ -4,7 +4,7 @@ package org.remoteme.utils.messages.v1.core.messages.remoteMe;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.remoteme.utils.messages.v1.core.messages.observers.AObserverState;
+import org.remoteme.utils.messages.v1.core.messages.variables.AVariableState;
 import org.remoteme.utils.messages.v1.enums.MessageType;
 
 import java.nio.ByteBuffer;
@@ -17,15 +17,15 @@ import java.util.Set;
 
 @Getter
 @Setter
-public class ObserverChangeMessage extends ARemoteMeMessage {
+public class VariableChangeMessage extends ARemoteMeMessage {
 
 	int senderDeviceId;//2
 	Set<Integer> ignoreReceivers;
 
-	List<AObserverState> states;
+	List<AVariableState> states;
 
 
-	public ObserverChangeMessage(int senderDeviceId, Collection<Integer> ignoreReceivers, List<AObserverState> states) {
+	public VariableChangeMessage(int senderDeviceId, Collection<Integer> ignoreReceivers, List<AVariableState> states) {
 
 		this.senderDeviceId=senderDeviceId;
 		this.ignoreReceivers=new HashSet<>(ignoreReceivers);
@@ -33,12 +33,12 @@ public class ObserverChangeMessage extends ARemoteMeMessage {
 	}
 
 
-	protected ObserverChangeMessage() {
+	protected VariableChangeMessage() {
 	}
 
 
 
-	public ObserverChangeMessage(ByteBuffer payload) {
+	public VariableChangeMessage(ByteBuffer payload) {
 		payload.getShort();//taking size
 
 		senderDeviceId = Short.toUnsignedInt(payload.getShort());
@@ -53,7 +53,7 @@ public class ObserverChangeMessage extends ARemoteMeMessage {
 
 		states = new ArrayList<>(count);
 		for(int i=0;i<count;i++){
-			states.add(AObserverState.get(payload));
+			states.add(AVariableState.get(payload));
 		}
 
 	}
@@ -66,7 +66,7 @@ public class ObserverChangeMessage extends ARemoteMeMessage {
 
 
 		int size=2+2+1+ignoreReceivers.size()*2;
-		for (AObserverState state : states) {
+		for (AVariableState state : states) {
 			size+=state.getSize();
 		}
 
@@ -85,7 +85,7 @@ public class ObserverChangeMessage extends ARemoteMeMessage {
 
 		byteBuffer.putShort((short)states.size());
 
-		for (AObserverState state : states) {
+		for (AVariableState state : states) {
 			state.serialize(byteBuffer);
 		}
 

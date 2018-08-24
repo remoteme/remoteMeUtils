@@ -1,16 +1,16 @@
-package org.remoteme.utils.messages.v1.core.messages.observers;
+package org.remoteme.utils.messages.v1.core.messages.variables;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.remoteme.utils.messages.v1.enums.VariableOberverType;
+import org.remoteme.utils.messages.v1.enums.VariableType;
 
 import java.io.Serializable;
 import java.nio.ByteBuffer;
 
-public class SmallInteger3ObserverState extends AObserverState<SmallInteger3ObserverState.SmallInteger3> {
+public class SmallInteger3VariableState extends AVariableState<SmallInteger3VariableState.SmallInteger3> {
 
 	@EqualsAndHashCode
 	@Getter
@@ -23,7 +23,7 @@ public class SmallInteger3ObserverState extends AObserverState<SmallInteger3Obse
 		int i3;
 	}
 
-	protected SmallInteger3ObserverState() {
+	protected SmallInteger3VariableState() {
 	}
 
 	@Override
@@ -31,15 +31,15 @@ public class SmallInteger3ObserverState extends AObserverState<SmallInteger3Obse
 		return String.valueOf(getData());
 	}
 
-	public SmallInteger3ObserverState(String name, int v1,int v2,int v3) {
+	public SmallInteger3VariableState(String name, int v1,int v2,int v3) {
 		this(name, new SmallInteger3(v1, v2, v3));
 	}
 
-	public SmallInteger3ObserverState(String name, SmallInteger3ObserverState.SmallInteger3 data) {
+	public SmallInteger3VariableState(String name, SmallInteger3VariableState.SmallInteger3 data) {
 		super(name, data);
 	}
 
-	public SmallInteger3ObserverState(ByteBuffer output) {
+	public SmallInteger3VariableState(ByteBuffer output) {
 		super(output);
 	}
 
@@ -52,7 +52,7 @@ public class SmallInteger3ObserverState extends AObserverState<SmallInteger3Obse
 
 	@Override
 	protected void deSerializeData(ByteBuffer output) {
-		SmallInteger3ObserverState.SmallInteger3 si2 = new SmallInteger3ObserverState.SmallInteger3();
+		SmallInteger3VariableState.SmallInteger3 si2 = new SmallInteger3VariableState.SmallInteger3();
 		si2.setI1(output.getShort());
 		si2.setI2(output.getShort());
 		si2.setI3(output.getShort());
@@ -66,7 +66,7 @@ public class SmallInteger3ObserverState extends AObserverState<SmallInteger3Obse
 	}
 
 	@Override
-	protected VariableOberverType getType() {
-		return VariableOberverType.SMALL_INTEGER_3;
+	protected VariableType getType() {
+		return VariableType.SMALL_INTEGER_3;
 	}
 }

@@ -1,12 +1,12 @@
-package org.remoteme.utils.messages.v1.core.messages.observers;
+package org.remoteme.utils.messages.v1.core.messages.variables;
 
-import org.remoteme.utils.messages.v1.enums.VariableOberverType;
+import org.remoteme.utils.messages.v1.enums.VariableType;
 
 import java.nio.ByteBuffer;
 
-public class IntegerObserverState extends AObserverState<Integer> {
+public class IntegerVariableState extends AVariableState<Integer> {
 
-	protected IntegerObserverState() {
+	protected IntegerVariableState() {
 	}
 
 	@Override
@@ -14,11 +14,11 @@ public class IntegerObserverState extends AObserverState<Integer> {
 		return String.valueOf(getData());
 	}
 
-	public IntegerObserverState(String name, Integer data) {
+	public IntegerVariableState(String name, Integer data) {
 		super(name, data);
 	}
 
-	public IntegerObserverState(ByteBuffer output) {
+	public IntegerVariableState(ByteBuffer output) {
 		super(output);
 	}
 
@@ -38,7 +38,7 @@ public class IntegerObserverState extends AObserverState<Integer> {
 	}
 
 	@Override
-	protected VariableOberverType getType() {
-		return VariableOberverType.INTEGER;
+	protected VariableType getType() {
+		return VariableType.INTEGER;
 	}
 }

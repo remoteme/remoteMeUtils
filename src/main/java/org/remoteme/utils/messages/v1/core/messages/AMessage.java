@@ -7,13 +7,13 @@ import io.swagger.annotations.ApiModel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.remoteme.utils.messages.v1.core.messages.arLite.NotifyAboutObserversMessage;
+import org.remoteme.utils.messages.v1.core.messages.arLite.NotifyAboutVariablesMessage;
 import org.remoteme.utils.messages.v1.core.messages.arLite.PingMessage;
-import org.remoteme.utils.messages.v1.core.messages.remoteMe.ObserverChangeMessage;
-import org.remoteme.utils.messages.v1.core.messages.remoteMe.ObserverChangePropagateMessage;
-import org.remoteme.utils.messages.v1.core.messages.remoteMe.ObserverRegisterMessage;
-import org.remoteme.utils.messages.v1.core.messages.remoteMe.ObserverRemoveMessage;
-import org.remoteme.utils.messages.v1.core.messages.remoteMe.ObserverRenameMessage;
+import org.remoteme.utils.messages.v1.core.messages.remoteMe.VariableChangeMessage;
+import org.remoteme.utils.messages.v1.core.messages.remoteMe.VariableChangePropagateMessage;
+import org.remoteme.utils.messages.v1.core.messages.remoteMe.VariableRegisterMessage;
+import org.remoteme.utils.messages.v1.core.messages.remoteMe.VariableRemoveMessage;
+import org.remoteme.utils.messages.v1.core.messages.remoteMe.VariableRenameMessage;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.AddDataMessage;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.LogMessage;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.RegisterDeviceMessage;
@@ -42,12 +42,12 @@ import java.io.Serializable;
 		@JsonSubTypes.Type(value = LogMessage.class, name = "LogMessage"),
 		@JsonSubTypes.Type(value = RegisterLeafDeviceMessage.class, name = "RegisterLeafDeviceMessage"),
 		@JsonSubTypes.Type(value = WebRRCConnectionStatusChangeMessage.class, name = "WebRRCConnectionStatusChangeMessage"),
-		@JsonSubTypes.Type(value = ObserverChangeMessage.class, name = "ObserverChangeMessage"),
-		@JsonSubTypes.Type(value = ObserverRegisterMessage.class, name = "ObserverRegisterMessage"),
-		@JsonSubTypes.Type(value = ObserverChangePropagateMessage.class, name = "ObserverChangePropagateMessage"),
-		@JsonSubTypes.Type(value = ObserverRenameMessage.class, name = "ObserverRenameMessage"),
-		@JsonSubTypes.Type(value = ObserverRemoveMessage.class, name = "ObserverRemoveMessage"),
-		@JsonSubTypes.Type(value = NotifyAboutObserversMessage.class, name = "NotifyAboutObserversMessage")
+		@JsonSubTypes.Type(value = VariableChangeMessage.class, name = "VariableChangeMessage"),
+		@JsonSubTypes.Type(value = VariableRegisterMessage.class, name = "VariableRegisterMessage"),
+		@JsonSubTypes.Type(value = VariableChangePropagateMessage.class, name = "VariableChangePropagateMessage"),
+		@JsonSubTypes.Type(value = VariableRenameMessage.class, name = "VariableRenameMessage"),
+		@JsonSubTypes.Type(value = VariableRemoveMessage.class, name = "VariableRemoveMessage"),
+		@JsonSubTypes.Type(value = NotifyAboutVariablesMessage.class, name = "NotifyAboutVariablesMessage")
 })
 @ApiModel(value="SuperModel", discriminator = "foo")
 @Slf4j

@@ -4,7 +4,7 @@ package org.remoteme.utils.messages.v1.core.messages.remoteMe;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.remoteme.utils.messages.v1.core.messages.observers.ObserverIdentifier;
+import org.remoteme.utils.messages.v1.core.messages.variables.VariableIdentifier;
 import org.remoteme.utils.messages.v1.enums.MessageType;
 
 import java.nio.ByteBuffer;
@@ -14,37 +14,37 @@ import java.util.List;
 
 @Getter
 @Setter
-public class ObserverRegisterMessage extends ARemoteMeMessage {
+public class VariableRegisterMessage extends ARemoteMeMessage {
 
 
 
 	int deviceId;//2
 
-	List<ObserverIdentifier> observers;
+	List<VariableIdentifier> variables;
 
 
-	public ObserverRegisterMessage(int deviceId, List<ObserverIdentifier> observers) {
+	public VariableRegisterMessage(int deviceId, List<VariableIdentifier> variables) {
 
 		this.deviceId=deviceId;
-		this.observers = new ArrayList<>(observers);
+		this.variables = new ArrayList<>(variables);
 	}
 
 
-	protected ObserverRegisterMessage() {
+	protected VariableRegisterMessage() {
 	}
 
 
 
-	public ObserverRegisterMessage(ByteBuffer payload) {
+	public VariableRegisterMessage(ByteBuffer payload) {
 		payload.getShort();//taking size
 
 
 		deviceId = Short.toUnsignedInt(payload.getShort());
 		int count = Short.toUnsignedInt(payload.getShort());
 
-		observers = new ArrayList<>(count);
+		variables = new ArrayList<>(count);
 		for(int i=0;i<count;i++){
-			observers.add(new ObserverIdentifier(payload));
+			variables.add(new VariableIdentifier(payload));
 		}
 
 	}
@@ -57,7 +57,7 @@ public class ObserverRegisterMessage extends ARemoteMeMessage {
 
 
 		int size=2+2;
-		for (ObserverIdentifier state : observers) {
+		for (VariableIdentifier state : variables) {
 			size+=2+state.getName().length()+1;
 		}
 
@@ -69,9 +69,9 @@ public class ObserverRegisterMessage extends ARemoteMeMessage {
 
 
 		byteBuffer.putShort((short)deviceId);
-		byteBuffer.putShort((short)observers.size());
+		byteBuffer.putShort((short) variables.size());
 
-		for (ObserverIdentifier state : observers) {
+		for (VariableIdentifier state : variables) {
 			state.serialize(byteBuffer);
 		}
 

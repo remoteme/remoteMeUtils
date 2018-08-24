@@ -1,4 +1,4 @@
-package org.remoteme.utils.messages.v1.core.messages.observers;
+package org.remoteme.utils.messages.v1.core.messages.variables;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -6,12 +6,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.remoteme.utils.general.ByteBufferUtils;
-import org.remoteme.utils.messages.v1.enums.VariableOberverType;
+import org.remoteme.utils.messages.v1.enums.VariableType;
 
 import java.io.Serializable;
 import java.nio.ByteBuffer;
 
-public class Text2ObserverState extends AObserverState<Text2ObserverState.Text2> {
+public class Text2VariableState extends AVariableState<Text2VariableState.Text2> {
 
 
 
@@ -24,7 +24,7 @@ public class Text2ObserverState extends AObserverState<Text2ObserverState.Text2>
 		String t1;
 		String t2;
 	}
-	protected Text2ObserverState() {
+	protected Text2VariableState() {
 	}
 
 	@Override
@@ -32,15 +32,15 @@ public class Text2ObserverState extends AObserverState<Text2ObserverState.Text2>
 		return String.valueOf(getData());
 	}
 
-	public Text2ObserverState(String name, String data,String data2) {
+	public Text2VariableState(String name, String data,String data2) {
 		this(name, new Text2(data, data2));
 	}
 
-	public  Text2ObserverState(String name, Text2ObserverState.Text2 value) {
+	public  Text2VariableState(String name, Text2VariableState.Text2 value) {
 		super(name, value);
 	}
 
-	public Text2ObserverState(ByteBuffer output) {
+	public Text2VariableState(ByteBuffer output) {
 		super(output);
 	}
 
@@ -62,7 +62,7 @@ public class Text2ObserverState extends AObserverState<Text2ObserverState.Text2>
 	}
 
 	@Override
-	protected VariableOberverType getType() {
-		return VariableOberverType.TEXT_2;
+	protected VariableType getType() {
+		return VariableType.TEXT_2;
 	}
 }

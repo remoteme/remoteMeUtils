@@ -1,16 +1,16 @@
-package org.remoteme.utils.messages.v1.core.messages.observers;
+package org.remoteme.utils.messages.v1.core.messages.variables;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.remoteme.utils.messages.v1.enums.VariableOberverType;
+import org.remoteme.utils.messages.v1.enums.VariableType;
 
 import java.io.Serializable;
 import java.nio.ByteBuffer;
 
-public class SmallInteger2ObserverState extends AObserverState<SmallInteger2ObserverState.SmallInteger2> {
+public class SmallInteger2VariableState extends AVariableState<SmallInteger2VariableState.SmallInteger2> {
 
 
 
@@ -24,7 +24,7 @@ public class SmallInteger2ObserverState extends AObserverState<SmallInteger2Obse
 		int i2;
 	}
 
-	protected SmallInteger2ObserverState() {
+	protected SmallInteger2VariableState() {
 	}
 
 	@Override
@@ -32,15 +32,15 @@ public class SmallInteger2ObserverState extends AObserverState<SmallInteger2Obse
 		return String.valueOf(getData());
 	}
 
-	public SmallInteger2ObserverState(String name, SmallInteger2 data) {
+	public SmallInteger2VariableState(String name, SmallInteger2 data) {
 		super(name, data);
 	}
 
-	public SmallInteger2ObserverState(String name, int v1, int v2) {
+	public SmallInteger2VariableState(String name, int v1, int v2) {
 		this(name, new SmallInteger2(v1, v2));
 	}
 
-	public SmallInteger2ObserverState(ByteBuffer output) {
+	public SmallInteger2VariableState(ByteBuffer output) {
 		super(output);
 	}
 
@@ -65,7 +65,7 @@ public class SmallInteger2ObserverState extends AObserverState<SmallInteger2Obse
 	}
 
 	@Override
-	protected VariableOberverType getType() {
-		return VariableOberverType.SMALL_INTEGER_2;
+	protected VariableType getType() {
+		return VariableType.SMALL_INTEGER_2;
 	}
 }

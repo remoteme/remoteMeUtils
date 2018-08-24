@@ -5,7 +5,7 @@ package org.remoteme.utils.messages.v1.core.messages.remoteMe;
 import lombok.Getter;
 import lombok.Setter;
 import org.remoteme.utils.general.ByteBufferUtils;
-import org.remoteme.utils.messages.v1.enums.VariableOberverType;
+import org.remoteme.utils.messages.v1.enums.VariableType;
 import org.remoteme.utils.messages.v1.enums.MessageType;
 
 import java.nio.ByteBuffer;
@@ -13,16 +13,16 @@ import java.nio.ByteBuffer;
 
 @Getter
 @Setter
-public class ObserverRenameMessage extends ARemoteMeMessage {
+public class VariableRenameMessage extends ARemoteMeMessage {
 
 
 	int deviceId;
 	String oldName;
 	String newName;
-	VariableOberverType type;
+	VariableType type;
 
 
-	public ObserverRenameMessage(int deviceId,	String oldName,	String newName,	VariableOberverType type){
+	public VariableRenameMessage(int deviceId,	String oldName,	String newName,	VariableType type){
 		this.deviceId=deviceId;
 		this.oldName=oldName;
 		this.newName=newName;
@@ -31,15 +31,15 @@ public class ObserverRenameMessage extends ARemoteMeMessage {
 	}
 
 
-	protected ObserverRenameMessage() {
+	protected VariableRenameMessage() {
 	}
 
 
 
-	public ObserverRenameMessage(ByteBuffer payload) {
+	public VariableRenameMessage(ByteBuffer payload) {
 		payload.getShort();//taking size
 		deviceId= Short.toUnsignedInt(payload.getShort());
-		type= VariableOberverType.getById(Short.toUnsignedInt(payload.getShort()));
+		type= VariableType.getById(Short.toUnsignedInt(payload.getShort()));
 		oldName= ByteBufferUtils.readString(payload);
 		newName= ByteBufferUtils.readString(payload);
 

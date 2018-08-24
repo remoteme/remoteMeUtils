@@ -5,7 +5,7 @@ package org.remoteme.utils.messages.v1.core.messages.remoteMe;
 import lombok.Getter;
 import lombok.Setter;
 import org.remoteme.utils.general.ByteBufferUtils;
-import org.remoteme.utils.messages.v1.enums.VariableOberverType;
+import org.remoteme.utils.messages.v1.enums.VariableType;
 import org.remoteme.utils.messages.v1.enums.MessageType;
 
 import java.nio.ByteBuffer;
@@ -13,19 +13,19 @@ import java.nio.ByteBuffer;
 
 @Getter
 @Setter
-public class ObserverRemoveMessage extends ARemoteMeMessage {
+public class VariableRemoveMessage extends ARemoteMeMessage {
 
 
 	int deviceId;
 	String name;
-	VariableOberverType type;
+	VariableType type;
 
 
 
 
 
 
-	public ObserverRemoveMessage(int deviceId,String name,VariableOberverType type) {
+	public VariableRemoveMessage(int deviceId, String name, VariableType type) {
 		this.deviceId=deviceId;
 		this.name=name;
 		this.type=type;
@@ -33,16 +33,16 @@ public class ObserverRemoveMessage extends ARemoteMeMessage {
 	}
 
 
-	protected ObserverRemoveMessage() {
+	protected VariableRemoveMessage() {
 	}
 
 
 
-	public ObserverRemoveMessage(ByteBuffer payload) {
+	public VariableRemoveMessage(ByteBuffer payload) {
 		payload.getShort();//taking size
 
 		deviceId= Short.toUnsignedInt(payload.getShort());
-		type= VariableOberverType.getById(Short.toUnsignedInt(payload.getShort()));
+		type= VariableType.getById(Short.toUnsignedInt(payload.getShort()));
 		name = ByteBufferUtils.readString(payload);
 
 

@@ -1,20 +1,20 @@
-package org.remoteme.utils.messages.v1.core.messages.observers;
+package org.remoteme.utils.messages.v1.core.messages.variables;
 
-import org.remoteme.utils.messages.v1.enums.VariableOberverType;
+import org.remoteme.utils.messages.v1.enums.VariableType;
 
 import java.nio.ByteBuffer;
 
-public class BooleanObserverState extends AObserverState<Boolean> {
+public class BooleanVariableState extends AVariableState<Boolean> {
 
 
-	protected BooleanObserverState() {
+	protected BooleanVariableState() {
 	}
 
-	public BooleanObserverState(String name, Boolean data) {
+	public BooleanVariableState(String name, Boolean data) {
 		super(name, data);
 	}
 
-	public BooleanObserverState(ByteBuffer output) {
+	public BooleanVariableState(ByteBuffer output) {
 		super(output);
 	}
 
@@ -39,7 +39,7 @@ public class BooleanObserverState extends AObserverState<Boolean> {
 	}
 
 	@Override
-	protected VariableOberverType getType() {
-		return VariableOberverType.BOOLEAN;
+	protected VariableType getType() {
+		return VariableType.BOOLEAN;
 	}
 }

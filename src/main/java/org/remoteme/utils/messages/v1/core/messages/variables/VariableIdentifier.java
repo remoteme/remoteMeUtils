@@ -1,9 +1,9 @@
-package org.remoteme.utils.messages.v1.core.messages.observers;
+package org.remoteme.utils.messages.v1.core.messages.variables;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import org.remoteme.utils.general.ByteBufferUtils;
-import org.remoteme.utils.messages.v1.enums.VariableOberverType;
+import org.remoteme.utils.messages.v1.enums.VariableType;
 
 import java.io.Serializable;
 import java.nio.ByteBuffer;
@@ -11,17 +11,17 @@ import java.nio.charset.StandardCharsets;
 
 @Getter
 @EqualsAndHashCode
-public class ObserverIdentifier implements Serializable {
+public class VariableIdentifier implements Serializable {
 
 
 	String name;
-	VariableOberverType type;
+	VariableType type;
 
-	protected ObserverIdentifier(){
+	protected VariableIdentifier(){
 
 	}
 
-	public ObserverIdentifier(String name, VariableOberverType type){
+	public VariableIdentifier(String name, VariableType type){
 		this.name=name;
 		this.type=type;
 	}
@@ -31,8 +31,8 @@ public class ObserverIdentifier implements Serializable {
 
 
 
-	public ObserverIdentifier(ByteBuffer output){
-		type = VariableOberverType.getById(Short.toUnsignedInt(output.getShort()));
+	public VariableIdentifier(ByteBuffer output){
+		type = VariableType.getById(Short.toUnsignedInt(output.getShort()));
 		name =ByteBufferUtils.readString(output);
 
 	}
