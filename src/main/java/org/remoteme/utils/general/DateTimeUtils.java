@@ -116,4 +116,28 @@ public class DateTimeUtils {
 	public static Long nowMillis() {
 		return getMillis(DateTimeUtils.now());
 	}
+
+	public static int compareNullSafe(Date d1, Date d2) {
+		if (d1==null && d2==null){
+			return 0;
+		}else if ((d1!=null) && (d2!=null)){
+			return d1.compareTo(d2);
+		}else if (d1==null){
+			return 1;
+		}else{
+			return -1;
+		}
+	}
+
+	public static int compareNullSafe(LocalDateTime d1, LocalDateTime d2) {
+		if (d1==null && d2==null){
+			return 0;
+		}else if ((d1!=null) && (d2!=null)){
+			return d1.compareTo(d2);
+		}else if (d1==null){
+			return 1;
+		}else{
+			return -1;
+		}
+	}
 }

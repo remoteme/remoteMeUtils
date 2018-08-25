@@ -9,11 +9,13 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.remoteme.utils.messages.v1.core.messages.arLite.NotifyAboutVariablesMessage;
 import org.remoteme.utils.messages.v1.core.messages.arLite.PingMessage;
+import org.remoteme.utils.messages.v1.core.messages.arLite.CreateVariablesMessage;
+import org.remoteme.utils.messages.v1.core.messages.arLite.VariableRenameMessage;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.VariableChangeMessage;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.VariableChangePropagateMessage;
-import org.remoteme.utils.messages.v1.core.messages.remoteMe.VariableRegisterMessage;
-import org.remoteme.utils.messages.v1.core.messages.remoteMe.VariableRemoveMessage;
-import org.remoteme.utils.messages.v1.core.messages.remoteMe.VariableRenameMessage;
+import org.remoteme.utils.messages.v1.core.messages.remoteMe.VariableObserveMessage;
+import org.remoteme.utils.messages.v1.core.messages.arLite.VariableRemoveMessage;
+
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.AddDataMessage;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.LogMessage;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.RegisterDeviceMessage;
@@ -43,11 +45,14 @@ import java.io.Serializable;
 		@JsonSubTypes.Type(value = RegisterLeafDeviceMessage.class, name = "RegisterLeafDeviceMessage"),
 		@JsonSubTypes.Type(value = WebRRCConnectionStatusChangeMessage.class, name = "WebRRCConnectionStatusChangeMessage"),
 		@JsonSubTypes.Type(value = VariableChangeMessage.class, name = "VariableChangeMessage"),
-		@JsonSubTypes.Type(value = VariableRegisterMessage.class, name = "VariableRegisterMessage"),
+		@JsonSubTypes.Type(value = VariableObserveMessage.class, name = "VariableObserveMessage"),
 		@JsonSubTypes.Type(value = VariableChangePropagateMessage.class, name = "VariableChangePropagateMessage"),
+
+
 		@JsonSubTypes.Type(value = VariableRenameMessage.class, name = "VariableRenameMessage"),
 		@JsonSubTypes.Type(value = VariableRemoveMessage.class, name = "VariableRemoveMessage"),
-		@JsonSubTypes.Type(value = NotifyAboutVariablesMessage.class, name = "NotifyAboutVariablesMessage")
+		@JsonSubTypes.Type(value = NotifyAboutVariablesMessage.class, name = "NotifyAboutVariablesMessage"),
+		@JsonSubTypes.Type(value = CreateVariablesMessage.class, name = "CreateVariablesMessage"),
 })
 @ApiModel(value="SuperModel", discriminator = "foo")
 @Slf4j

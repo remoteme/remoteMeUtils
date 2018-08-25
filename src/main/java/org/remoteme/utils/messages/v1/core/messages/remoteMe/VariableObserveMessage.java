@@ -14,7 +14,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class VariableRegisterMessage extends ARemoteMeMessage {
+public class VariableObserveMessage extends ARemoteMeMessage {
 
 
 
@@ -23,19 +23,19 @@ public class VariableRegisterMessage extends ARemoteMeMessage {
 	List<VariableIdentifier> variables;
 
 
-	public VariableRegisterMessage(int deviceId, List<VariableIdentifier> variables) {
+	public VariableObserveMessage(int deviceId, List<VariableIdentifier> variables) {
 
 		this.deviceId=deviceId;
 		this.variables = new ArrayList<>(variables);
 	}
 
 
-	protected VariableRegisterMessage() {
+	protected VariableObserveMessage() {
 	}
 
 
 
-	public VariableRegisterMessage(ByteBuffer payload) {
+	public VariableObserveMessage(ByteBuffer payload) {
 		payload.getShort();//taking size
 
 
@@ -83,7 +83,7 @@ public class VariableRegisterMessage extends ARemoteMeMessage {
 
 	@Override
 	public MessageType getMessageType() {
-		return MessageType.OBSERVER_REGISTER_MESSAGE;
+		return MessageType.VARIABLE_OBSERVE_MESSAGE;
 	}
 
 

@@ -7,6 +7,7 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import org.remoteme.utils.messages.v1.core.messages.AMessage;
+import org.remoteme.utils.messages.v1.core.messages.arLite.VariableRemoveMessage;
 import org.remoteme.utils.messages.v1.enums.MessageType;
 
 import java.nio.ByteBuffer;
@@ -45,11 +46,9 @@ public abstract class ARemoteMeMessage extends AMessage {
 			case SYSTEM_MESSAGE:return new SystemMessage(payload);
 			case WEB_RTC_CONNECTION_CHANGE:return new WebRRCConnectionStatusChangeMessage(payload);
 
-			case OBSERVER_CHANGE_MESSAGE:return new VariableChangeMessage(payload);
-			case OBSERVER_REGISTER_MESSAGE:return new VariableRegisterMessage(payload);
-			case OBSERVER_CHANGE_PROPAGATE_MESSAGE:return new VariableChangePropagateMessage(payload);
-			case OBSERVER_REMOVE_MESSAGE:return new VariableRemoveMessage(payload);
-			case OBSERVER_RENAME_MESSAGE:return new VariableRenameMessage(payload);
+			case VARIABLE_CHANGE_MESSAGE:return new VariableChangeMessage(payload);
+			case VARIABLE_OBSERVE_MESSAGE:return new VariableObserveMessage(payload);
+			case VARIABLE_CHANGE_PROPAGATE_MESSAGE:return new VariableChangePropagateMessage(payload);
 		}
 
 		throw new RuntimeException("should not happen  ");//we have all in switch

@@ -9,6 +9,8 @@ import org.junit.Test;
 import org.remoteme.utils.jackson.JacksonHelper;
 import org.remoteme.utils.messages.v1.core.messages.AMessage;
 import org.remoteme.utils.messages.v1.core.messages.arLite.NotifyAboutVariablesMessage;
+import org.remoteme.utils.messages.v1.core.messages.arLite.VariableRenameMessage;
+import org.remoteme.utils.messages.v1.core.messages.remoteMe.VariableObserveMessage;
 import org.remoteme.utils.messages.v1.core.messages.variables.AVariableState;
 import org.remoteme.utils.messages.v1.core.messages.variables.BooleanVariableState;
 import org.remoteme.utils.messages.v1.core.messages.variables.DoubleVariableState;
@@ -17,9 +19,6 @@ import org.remoteme.utils.messages.v1.core.messages.remoteMe.VariableChangeMessa
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.VariableChangePropagateMessage;
 import org.remoteme.utils.messages.v1.core.messages.variables.VariableIdentifier;
 import org.remoteme.utils.messages.v1.core.messages.variables.IntegerVariableState;
-import org.remoteme.utils.messages.v1.core.messages.remoteMe.VariableRegisterMessage;
-import org.remoteme.utils.messages.v1.core.messages.remoteMe.VariableRemoveMessage;
-import org.remoteme.utils.messages.v1.core.messages.remoteMe.VariableRenameMessage;
 import org.remoteme.utils.messages.v1.core.messages.variables.SmallInteger2VariableState;
 import org.remoteme.utils.messages.v1.core.messages.variables.SmallInteger3VariableState;
 import org.remoteme.utils.messages.v1.core.messages.variables.Text2VariableState;
@@ -93,7 +92,7 @@ public class ARemoteMeMessageSerializationTest {
 
 	}
 
-	private <T> void reflectArrays(List<T> dataSeries, List<T> listMatcher) {
+	public static <T> void reflectArrays(List<T> dataSeries, List<T> listMatcher) {
 		Assert.assertEquals(dataSeries.size(),listMatcher.size());
 		for(int i=0;i<dataSeries.size();i++){
 			assertThat(dataSeries.get(i), reflectEquals(listMatcher.get(i)));
@@ -268,67 +267,16 @@ public class ARemoteMeMessageSerializationTest {
 		states.add(new VariableIdentifier("motor", VariableType.INTEGER));
 		states.add(new VariableIdentifier("led", VariableType.BOOLEAN));
 
-		VariableRegisterMessage um = new VariableRegisterMessage(456,states);
+		VariableObserveMessage um = new VariableObserveMessage(456,states);
 
 
 
 		System.out.println(JacksonHelper.serialize(um));
 		assertThat(um, reflectEquals(serializeDeserialize(um),"variables"));
-		reflectArrays(um.getVariables(),  ((VariableRegisterMessage)serializeDeserialize(um)).getVariables());
+		reflectArrays(um.getVariables(),  ((VariableObserveMessage)serializeDeserialize(um)).getVariables());
 
 	}
 
-
-	@Test
-	public void renameVariableTest(){
-
-
-		VariableRenameMessage um = new VariableRenameMessage(1234,"someOldName","someNewName", VariableType.BOOLEAN);
-
-
-
-
-		System.out.println(JacksonHelper.serialize(um));
-		assertThat(um, reflectEquals(serializeDeserialize(um)));
-
-
-	}
-
-	@Test
-	public void removeVariableTest(){
-
-
-		VariableRemoveMessage um = new VariableRemoveMessage(12534,"someName", VariableType.TEXT_2);
-
-
-
-
-		System.out.println(JacksonHelper.serialize(um));
-		assertThat(um, reflectEquals(serializeDeserialize(um)));
-
-
-	}
-	@Test
-	public void notifyAboutVariablesMessageTest(){
-
-
-		NotifyAboutVariablesMessage um = new NotifyAboutVariablesMessage();
-		List<VariableIdentifier> identifiers = new ArrayList<>();
-		identifiers.add(new VariableIdentifier("asd", VariableType.BOOLEAN));
-		identifiers.add(new VariableIdentifier("asd", VariableType.TEXT_2));
-		um.setIdentifiers(identifiers);
-
-
-
-
-		System.out.println(JacksonHelper.serialize(um));
-		assertThat(um, reflectEquals(serializeDeserializeJson(um),"identifiers"));
-
-
-
-		reflectArrays(um.getIdentifiers(),  ((NotifyAboutVariablesMessage)serializeDeserializeJson(um)).getIdentifiers());
-
-	}
 
 
 
@@ -339,14 +287,6 @@ public class ARemoteMeMessageSerializationTest {
 
 
 		return ARemoteMeMessage.decode( message.toByteBuffer());
-
-
-	}
-	public AMessage serializeDeserializeJson(AMessage message){
-		String str = JacksonHelper.serialize(message);
-		return JacksonHelper.deserialize(str,AMessage.class);
-
-
 
 
 	}

@@ -1,10 +1,11 @@
-package org.remoteme.utils.messages.v1.core.messages.remoteMe;
+package org.remoteme.utils.messages.v1.core.messages.arLite;
 
 
 
 import lombok.Getter;
 import lombok.Setter;
 import org.remoteme.utils.general.ByteBufferUtils;
+import org.remoteme.utils.messages.v1.core.messages.remoteMe.ARemoteMeMessage;
 import org.remoteme.utils.messages.v1.enums.VariableType;
 import org.remoteme.utils.messages.v1.enums.MessageType;
 
@@ -13,7 +14,7 @@ import java.nio.ByteBuffer;
 
 @Getter
 @Setter
-public class VariableRemoveMessage extends ARemoteMeMessage {
+public class VariableRemoveMessage extends AARLiteMessage {
 
 
 	int deviceId;
@@ -51,34 +52,7 @@ public class VariableRemoveMessage extends ARemoteMeMessage {
 
 
 
-	@Override
-	public ByteBuffer toByteBuffer() {
 
-
-		int size=2+2+ByteBufferUtils.getStringLength(name);
-
-		ByteBuffer byteBuffer = ByteBuffer.allocate(size+4);
-
-		byteBuffer.putShort((short)getMessageType().getId());
-		byteBuffer.putShort((short)size);
-
-
-		byteBuffer.putShort((short)deviceId);
-		byteBuffer.putShort((short)type.getId());
-		byteBuffer.put(ByteBufferUtils.writeString(name));
-
-
-
-		byteBuffer.clear();
-
-
-		return byteBuffer;
-	}
-
-	@Override
-	public MessageType getMessageType() {
-		return MessageType.OBSERVER_REMOVE_MESSAGE;
-	}
 
 
 }

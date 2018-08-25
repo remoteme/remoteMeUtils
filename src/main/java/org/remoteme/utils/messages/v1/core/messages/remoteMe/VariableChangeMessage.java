@@ -97,7 +97,7 @@ public class VariableChangeMessage extends ARemoteMeMessage {
 
 	@Override
 	public MessageType getMessageType() {
-		return MessageType.OBSERVER_CHANGE_MESSAGE;
+		return MessageType.VARIABLE_CHANGE_MESSAGE;
 	}
 
 
