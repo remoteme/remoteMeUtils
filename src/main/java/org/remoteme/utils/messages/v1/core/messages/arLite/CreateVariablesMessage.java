@@ -9,6 +9,7 @@ import lombok.Setter;
 import org.remoteme.utils.messages.v1.core.messages.variables.VariableIdentifier;
 import org.remoteme.utils.messages.v1.enums.VariableType;
 
+import java.io.Serializable;
 import java.util.List;
 
 
@@ -19,10 +20,17 @@ import java.util.List;
 @Setter
 public class CreateVariablesMessage extends AARLiteMessage {
 
-	String name;
-	VariableType type;
-	boolean persistent;
-	boolean history;
+	@NoArgsConstructor
+	@AllArgsConstructor
+	@Getter
+	@Setter
+	public static class VariableDetails implements Serializable {
+		String name;
+		VariableType type;
+		boolean persistent;
+		boolean history;
+	}
 
+	List<VariableDetails> variables;
 
 }

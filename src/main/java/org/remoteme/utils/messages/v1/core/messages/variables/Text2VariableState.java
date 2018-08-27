@@ -29,7 +29,7 @@ public class Text2VariableState extends AVariableState<Text2VariableState.Text2>
 
 	@Override
 	public String getDataString() {
-		return String.valueOf(getData());
+		return  getData().getT1()+", "+getData().getT2();
 	}
 
 	public Text2VariableState(String name, String data,String data2) {

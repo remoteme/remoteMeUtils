@@ -28,9 +28,8 @@ public class SmallInteger3VariableState extends AVariableState<SmallInteger3Vari
 
 	@Override
 	public String getDataString() {
-		return String.valueOf(getData());
+		return getData().getI1()+", "+getData().getI2()+", "+getData().getI3();
 	}
-
 	public SmallInteger3VariableState(String name, int v1,int v2,int v3) {
 		this(name, new SmallInteger3(v1, v2, v3));
 	}

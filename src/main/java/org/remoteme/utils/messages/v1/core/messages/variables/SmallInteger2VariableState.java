@@ -29,7 +29,7 @@ public class SmallInteger2VariableState extends AVariableState<SmallInteger2Vari
 
 	@Override
 	public String getDataString() {
-		return String.valueOf(getData());
+		return getData().getI1()+", "+getData().getI2();
 	}
 
 	public SmallInteger2VariableState(String name, SmallInteger2 data) {

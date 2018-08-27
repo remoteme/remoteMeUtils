@@ -8,6 +8,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.remoteme.utils.jackson.JacksonHelper;
 import org.remoteme.utils.messages.v1.core.messages.AMessage;
+import org.remoteme.utils.messages.v1.core.messages.arLite.CreateVariablesMessage;
 import org.remoteme.utils.messages.v1.core.messages.arLite.NotifyAboutVariablesMessage;
 import org.remoteme.utils.messages.v1.core.messages.arLite.VariableRenameMessage;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.VariableObserveMessage;
@@ -265,7 +266,11 @@ public class ARemoteMeMessageSerializationTest {
 
 		List<VariableIdentifier> states = new ArrayList<>();
 		states.add(new VariableIdentifier("motor", VariableType.INTEGER));
-		states.add(new VariableIdentifier("led", VariableType.BOOLEAN));
+		states.add(new VariableIdentifier("button1", VariableType.BOOLEAN));
+		states.add(new VariableIdentifier("button2", VariableType.BOOLEAN));
+		states.add(new VariableIdentifier("button3", VariableType.BOOLEAN));
+		states.add(new VariableIdentifier("relay1", VariableType.BOOLEAN));
+		states.add(new VariableIdentifier("relay2", VariableType.BOOLEAN));
 
 		VariableObserveMessage um = new VariableObserveMessage(456,states);
 
@@ -276,6 +281,8 @@ public class ARemoteMeMessageSerializationTest {
 		reflectArrays(um.getVariables(),  ((VariableObserveMessage)serializeDeserialize(um)).getVariables());
 
 	}
+
+
 
 
 

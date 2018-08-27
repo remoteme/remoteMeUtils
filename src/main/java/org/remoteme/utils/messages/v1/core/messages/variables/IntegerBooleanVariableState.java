@@ -29,7 +29,7 @@ public class IntegerBooleanVariableState extends AVariableState<IntegerBooleanVa
 
 	@Override
 	public String getDataString() {
-		return String.valueOf(getData());
+		return  getData().getI()+", "+getData().isB();
 	}
 
 	public IntegerBooleanVariableState(String name, IntegerBoolean data) {

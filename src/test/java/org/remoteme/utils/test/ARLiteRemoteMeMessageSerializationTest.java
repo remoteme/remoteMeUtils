@@ -104,9 +104,19 @@ public class ARLiteRemoteMeMessageSerializationTest {
 	@Test
 	public void cretateVariableMessage(){
 
-		CreateVariablesMessage um = new CreateVariablesMessage("someName", VariableType.TEXT_2,true,false);
-		assertThat(um, reflectEquals(serializeDeserializeJson(um)));
+		List<CreateVariablesMessage.VariableDetails> pam = new ArrayList<>();
+		pam.add(new CreateVariablesMessage.VariableDetails("gamepad", VariableType.TEXT_2,false,false));
+		pam.add(new CreateVariablesMessage.VariableDetails("button1", VariableType.BOOLEAN,true,false));
+		pam.add(new CreateVariablesMessage.VariableDetails("button2", VariableType.BOOLEAN,true,false));
+		pam.add(new CreateVariablesMessage.VariableDetails("button3", VariableType.BOOLEAN,true,false));
+		pam.add(new CreateVariablesMessage.VariableDetails("relay1", VariableType.BOOLEAN,true,false));
+		pam.add(new CreateVariablesMessage.VariableDetails("relay2", VariableType.BOOLEAN,true,false));
+		pam.add(new CreateVariablesMessage.VariableDetails("temperature", VariableType.DOUBLE,true,true));
 
+		CreateVariablesMessage um = new CreateVariablesMessage(pam);
+		System.out.println(JacksonHelper.serialize(um));
+		assertThat(um, reflectEquals(serializeDeserializeJson(um),"variables"));
+		reflectArrays(um.getVariables(),  ((CreateVariablesMessage)serializeDeserializeJson(um)).getVariables());
 
 	}
 
