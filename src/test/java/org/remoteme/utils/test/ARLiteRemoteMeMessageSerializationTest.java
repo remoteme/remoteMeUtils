@@ -85,7 +85,11 @@ public class ARLiteRemoteMeMessageSerializationTest {
 
 		VariableRenameMessage um = new VariableRenameMessage(1234,"someOldName","someNewName", VariableType.BOOLEAN);
 
-		assertThat(um, reflectEquals(serializeDeserializeJson(um)));
+		System.out.println(JacksonHelper.serialize(um));
+
+		assertThat(um, reflectEquals(serializeDeserializeJson(um),"data"));
+		assertThat(um.getData(), reflectEquals(((VariableRenameMessage)serializeDeserializeJson(um)).getData()));
+
 
 	}
 
@@ -96,7 +100,10 @@ public class ARLiteRemoteMeMessageSerializationTest {
 	public void removeVariableTest(){
 
 		VariableRemoveMessage um = new VariableRemoveMessage(12534,"someName", VariableType.TEXT_2);
-		assertThat(um, reflectEquals(serializeDeserializeJson(um)));
+
+		System.out.println(JacksonHelper.serialize(um));
+		assertThat(um, reflectEquals(serializeDeserializeJson(um),"data"));
+		assertThat(um.getData(), reflectEquals(((VariableRemoveMessage)serializeDeserializeJson(um)).getData()));
 
 
 	}

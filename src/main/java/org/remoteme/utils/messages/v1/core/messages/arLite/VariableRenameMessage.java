@@ -1,25 +1,35 @@
 package org.remoteme.utils.messages.v1.core.messages.arLite;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.remoteme.utils.messages.v1.enums.VariableType;
+
+import java.io.Serializable;
 
 @Getter
 @Setter
 public class VariableRenameMessage extends AARLiteMessage {
 
+	@Getter
+	@Setter
+	@AllArgsConstructor
+	@NoArgsConstructor
+	public class VariableRenameMessageData implements Serializable {
+		String oldName;
+		String newName;
+		VariableType type;
+	}
+
 
 	int deviceId;
-	String oldName;
-	String newName;
-	VariableType type;
+	VariableRenameMessageData data;
 
 
 	public VariableRenameMessage(int deviceId,	String oldName,	String newName,	VariableType type){
 		this.deviceId=deviceId;
-		this.oldName=oldName;
-		this.newName=newName;
-		this.type=type;
+		this.data=new VariableRenameMessageData(oldName, newName, type);
 
 	}
 
