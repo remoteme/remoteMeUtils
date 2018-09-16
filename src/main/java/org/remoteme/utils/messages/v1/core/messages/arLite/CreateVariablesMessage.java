@@ -6,8 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.remoteme.utils.messages.v1.core.messages.variables.VariableIdentifier;
-import org.remoteme.utils.messages.v1.enums.VariableType;
+import org.remoteme.utils.messages.v1.enums.variables.VariableType;
 
 import java.io.Serializable;
 import java.util.List;

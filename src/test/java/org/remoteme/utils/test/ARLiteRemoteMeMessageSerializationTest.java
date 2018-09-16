@@ -10,35 +10,10 @@ import org.remoteme.utils.messages.v1.core.messages.arLite.CreateVariablesMessag
 import org.remoteme.utils.messages.v1.core.messages.arLite.NotifyAboutVariablesMessage;
 import org.remoteme.utils.messages.v1.core.messages.arLite.VariableRemoveMessage;
 import org.remoteme.utils.messages.v1.core.messages.arLite.VariableRenameMessage;
-import org.remoteme.utils.messages.v1.core.messages.remoteMe.ARemoteMeMessage;
-import org.remoteme.utils.messages.v1.core.messages.remoteMe.AddDataMessage;
-import org.remoteme.utils.messages.v1.core.messages.remoteMe.RegisterDeviceMessage;
-import org.remoteme.utils.messages.v1.core.messages.remoteMe.RegisterLeafDeviceMessage;
-import org.remoteme.utils.messages.v1.core.messages.remoteMe.SyncMessage;
-import org.remoteme.utils.messages.v1.core.messages.remoteMe.SyncResponseMessage;
-import org.remoteme.utils.messages.v1.core.messages.remoteMe.SyncUserMessage;
-import org.remoteme.utils.messages.v1.core.messages.remoteMe.UserMessage;
-import org.remoteme.utils.messages.v1.core.messages.remoteMe.VariableChangeMessage;
-import org.remoteme.utils.messages.v1.core.messages.remoteMe.VariableChangePropagateMessage;
-import org.remoteme.utils.messages.v1.core.messages.remoteMe.VariableObserveMessage;
-import org.remoteme.utils.messages.v1.core.messages.variables.AVariableState;
-import org.remoteme.utils.messages.v1.core.messages.variables.BooleanVariableState;
-import org.remoteme.utils.messages.v1.core.messages.variables.DoubleVariableState;
-import org.remoteme.utils.messages.v1.core.messages.variables.IntegerBooleanVariableState;
-import org.remoteme.utils.messages.v1.core.messages.variables.IntegerVariableState;
-import org.remoteme.utils.messages.v1.core.messages.variables.SmallInteger2VariableState;
-import org.remoteme.utils.messages.v1.core.messages.variables.SmallInteger3VariableState;
-import org.remoteme.utils.messages.v1.core.messages.variables.Text2VariableState;
-import org.remoteme.utils.messages.v1.core.messages.variables.TextVariableState;
 import org.remoteme.utils.messages.v1.core.messages.variables.VariableIdentifier;
-import org.remoteme.utils.messages.v1.enums.LeafDeviceType;
-import org.remoteme.utils.messages.v1.enums.NetworkDeviceType;
-import org.remoteme.utils.messages.v1.enums.SyncMessageType;
-import org.remoteme.utils.messages.v1.enums.UserMessageSettings;
-import org.remoteme.utils.messages.v1.enums.VariableType;
+import org.remoteme.utils.messages.v1.enums.variables.VariableType;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static com.nitorcreations.Matchers.reflectEquals;
@@ -65,6 +40,7 @@ public class ARLiteRemoteMeMessageSerializationTest {
 		List<VariableIdentifier> identifiers = new ArrayList<>();
 		identifiers.add(new VariableIdentifier("asd", VariableType.BOOLEAN));
 		identifiers.add(new VariableIdentifier("asd", VariableType.TEXT_2));
+		identifiers.add(new VariableIdentifier("asd", VariableType.SMALL_INTEGER_2_TEXT_2));
 		um.setIdentifiers(identifiers);
 
 
@@ -109,10 +85,22 @@ public class ARLiteRemoteMeMessageSerializationTest {
 	}
 
 	@Test
+	public void SmallInteger2Text2Test(){
+
+		VariableRemoveMessage um = new VariableRemoveMessage(12534,"someName", VariableType.SMALL_INTEGER_2_TEXT_2);
+
+		System.out.println(JacksonHelper.serialize(um));
+		assertThat(um, reflectEquals(serializeDeserializeJson(um),"data"));
+		assertThat(um.getData(), reflectEquals(((VariableRemoveMessage)serializeDeserializeJson(um)).getData()));
+
+
+	}
+	@Test
 	public void cretateVariableMessage(){
 
 		List<CreateVariablesMessage.VariableDetails> pam = new ArrayList<>();
 		pam.add(new CreateVariablesMessage.VariableDetails("gamepad", VariableType.TEXT_2,false,false));
+		pam.add(new CreateVariablesMessage.VariableDetails("gamepad", VariableType.SMALL_INTEGER_2_TEXT_2,false,false));
 		pam.add(new CreateVariablesMessage.VariableDetails("button1", VariableType.BOOLEAN,true,false));
 		pam.add(new CreateVariablesMessage.VariableDetails("button2", VariableType.BOOLEAN,true,false));
 		pam.add(new CreateVariablesMessage.VariableDetails("button3", VariableType.BOOLEAN,true,false));

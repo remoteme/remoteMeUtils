@@ -6,13 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.remoteme.utils.general.ByteBufferUtils;
-import org.remoteme.utils.messages.v1.core.messages.remoteMe.ARemoteMeMessage;
-import org.remoteme.utils.messages.v1.enums.VariableType;
-import org.remoteme.utils.messages.v1.enums.MessageType;
+import org.remoteme.utils.messages.v1.enums.variables.VariableType;
 
 import java.io.Serializable;
-import java.nio.ByteBuffer;
 
 
 @Getter

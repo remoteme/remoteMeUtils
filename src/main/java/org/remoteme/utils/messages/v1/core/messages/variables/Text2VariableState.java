@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.remoteme.utils.general.ByteBufferUtils;
-import org.remoteme.utils.messages.v1.enums.VariableType;
+import org.remoteme.utils.messages.v1.enums.variables.VariableType;
 
 import java.io.Serializable;
 import java.nio.ByteBuffer;
@@ -21,15 +21,15 @@ public class Text2VariableState extends AVariableState<Text2VariableState.Text2>
 	@AllArgsConstructor
 	@NoArgsConstructor
 	public static class Text2 implements Serializable {
-		String t1;
-		String t2;
+		String s1;
+		String s2;
 	}
 	protected Text2VariableState() {
 	}
 
 	@Override
 	public String getDataString() {
-		return  getData().getT1()+", "+getData().getT2();
+		return  getData().getS1()+", "+getData().getS2();
 	}
 
 	public Text2VariableState(String name, String data,String data2) {
@@ -46,8 +46,8 @@ public class Text2VariableState extends AVariableState<Text2VariableState.Text2>
 
 	@Override
 	protected void serializeData(ByteBuffer output) {
-		output.put(ByteBufferUtils.writeString(getData().getT1()));
-		output.put(ByteBufferUtils.writeString(getData().getT2()));
+		output.put(ByteBufferUtils.writeString(getData().getS1()));
+		output.put(ByteBufferUtils.writeString(getData().getS2()));
 	}
 
 	@Override
@@ -58,7 +58,7 @@ public class Text2VariableState extends AVariableState<Text2VariableState.Text2>
 
 	@Override
 	protected int getDataSize() {
-		return ByteBufferUtils.writeString(getData().getT1()).length+ByteBufferUtils.writeString(getData().getT2()).length;
+		return ByteBufferUtils.writeString(getData().getS1()).length+ByteBufferUtils.writeString(getData().getS2()).length;
 	}
 
 	@Override

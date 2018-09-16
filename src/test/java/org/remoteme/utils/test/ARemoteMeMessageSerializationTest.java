@@ -8,9 +8,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.remoteme.utils.jackson.JacksonHelper;
 import org.remoteme.utils.messages.v1.core.messages.AMessage;
-import org.remoteme.utils.messages.v1.core.messages.arLite.CreateVariablesMessage;
-import org.remoteme.utils.messages.v1.core.messages.arLite.NotifyAboutVariablesMessage;
-import org.remoteme.utils.messages.v1.core.messages.arLite.VariableRenameMessage;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.VariableObserveMessage;
 import org.remoteme.utils.messages.v1.core.messages.variables.AVariableState;
 import org.remoteme.utils.messages.v1.core.messages.variables.BooleanVariableState;
@@ -24,7 +21,7 @@ import org.remoteme.utils.messages.v1.core.messages.variables.SmallInteger2Varia
 import org.remoteme.utils.messages.v1.core.messages.variables.SmallInteger3VariableState;
 import org.remoteme.utils.messages.v1.core.messages.variables.Text2VariableState;
 import org.remoteme.utils.messages.v1.core.messages.variables.TextVariableState;
-import org.remoteme.utils.messages.v1.enums.VariableType;
+import org.remoteme.utils.messages.v1.enums.variables.VariableType;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.ARemoteMeMessage;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.AddDataMessage;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.RegisterDeviceMessage;

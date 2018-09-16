@@ -1,6 +1,6 @@
 package org.remoteme.utils.messages.v1.core.messages.variables;
 
-import org.remoteme.utils.messages.v1.enums.VariableType;
+import org.remoteme.utils.messages.v1.enums.variables.VariableType;
 
 import java.nio.ByteBuffer;
 

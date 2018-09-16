@@ -3,6 +3,7 @@ package org.remoteme.utils.general;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -31,9 +32,11 @@ public class DateTimeUtils {
 	}
 
 	public static LocalDateTime getFromMillis(long millis) {
-		return Instant.ofEpochMilli(millis).atZone(ZoneOffset.UTC).toLocalDateTime();
+		return getFromMillis(millis,ZoneOffset.UTC);
 	}
-
+	public static LocalDateTime getFromMillis(long millis,ZoneId zone) {
+		return Instant.ofEpochMilli(millis).atZone(zone).toLocalDateTime();
+	}
 	public static LocalDateTime parseddmmyyyy(String ddmmyyyy) {
 
 		return LocalDate.parse(ddmmyyyy, ddmmyyyy_.withZone(ZoneOffset.UTC)).atTime(0, 0);
@@ -42,6 +45,12 @@ public class DateTimeUtils {
 	public static LocalDateTime parseddmmyyyyhhmmss(String ddmmyyyyhhmmss) {
 
 		return LocalDateTime.parse(ddmmyyyyhhmmss, ddmmyyyyHHMMss_.withZone(ZoneOffset.UTC));
+	}
+
+
+	public static String print(long date, String format, ZoneId zone) {
+		return DateTimeFormatter.ofPattern(format).format(DateTimeUtils.getFromMillis(date,zone));
+
 	}
 
 	public static String printddmmyyyyhhmm(LocalDateTime date) {

@@ -2,9 +2,8 @@ package org.remoteme.utils.messages.v1.core.messages.variables;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import lombok.Getter;
 import org.remoteme.utils.general.ByteBufferUtils;
-import org.remoteme.utils.messages.v1.enums.VariableType;
+import org.remoteme.utils.messages.v1.enums.variables.VariableType;
 
 import java.io.Serializable;
 import java.nio.ByteBuffer;
@@ -21,6 +20,7 @@ import java.nio.charset.StandardCharsets;
 		@JsonSubTypes.Type(value = IntegerBooleanVariableState.class, name = "INTEGER_BOOLEAN"),
 		@JsonSubTypes.Type(value = DoubleVariableState.class, name = "DOUBLE"),
 		@JsonSubTypes.Type(value = Text2VariableState.class, name = "TEXT_2"),
+		@JsonSubTypes.Type(value = SmallInteger2Text2VariableState.class, name = "SMALL_INTEGER_2_TEXT_2"),
 
 })
 public abstract class AVariableState<T> implements Serializable {
@@ -71,7 +71,9 @@ public abstract class AVariableState<T> implements Serializable {
 			case TEXT_2:
 				ret  = new Text2VariableState(output);
 				break;
-
+			case SMALL_INTEGER_2_TEXT_2:
+				ret  = new SmallInteger2Text2VariableState(output);
+				break;
 			default:
 				throw new RuntimeException("no state for type "+type);
 		}

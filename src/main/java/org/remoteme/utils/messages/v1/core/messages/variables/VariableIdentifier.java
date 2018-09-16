@@ -3,7 +3,7 @@ package org.remoteme.utils.messages.v1.core.messages.variables;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import org.remoteme.utils.general.ByteBufferUtils;
-import org.remoteme.utils.messages.v1.enums.VariableType;
+import org.remoteme.utils.messages.v1.enums.variables.VariableType;
 
 import java.io.Serializable;
 import java.nio.ByteBuffer;
