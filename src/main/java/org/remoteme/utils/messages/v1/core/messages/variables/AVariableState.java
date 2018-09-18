@@ -8,6 +8,7 @@ import org.remoteme.utils.messages.v1.enums.variables.VariableType;
 import java.io.Serializable;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 
 
 @JsonTypeInfo(use=JsonTypeInfo.Id.NAME, include=JsonTypeInfo.As.PROPERTY, property="type")
@@ -29,6 +30,28 @@ public abstract class AVariableState<T> implements Serializable {
 	String name;
 	T data;
 
+
+
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null) return false;
+		if (!(o instanceof AVariableState<?>)){
+			return false;
+		}
+		AVariableState<?> that = (AVariableState<?>) o;
+
+		if (getData() == null || getData().getClass() != that.getData().getClass()) return false;
+
+		return Objects.equals(getName(), that.getName()) && Objects.equals(getData(), that.getData());
+	}
+
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(getName(), getData());
+	}
 
 	protected AVariableState(){
 
@@ -115,6 +138,10 @@ public abstract class AVariableState<T> implements Serializable {
 	}
 	public VariableIdentifier getIdentifier(){
 		return new VariableIdentifier(name, getType());
+	}
+
+	protected void setName(String name) {
+		this.name = name;
 	}
 
 	protected void setData(T data) {

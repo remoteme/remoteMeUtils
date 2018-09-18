@@ -157,7 +157,10 @@ public class ARemoteMeMessageSerializationTest {
 
 		VariableChangeMessage um = new VariableChangeMessage(123,Arrays.asList(1,2,3,4),states);
 
-		System.out.println(JacksonHelper.serialize(um));
+		String serialize = JacksonHelper.serialize(um);
+		VariableChangeMessage deserialize = JacksonHelper.deserialize(serialize, VariableChangeMessage.class);
+		System.out.println(deserialize);
+		System.out.println(serialize);
 		assertThat(um, reflectEquals(serializeDeserialize(um),"states"));
 		reflectArrays(um.getStates(),  ((VariableChangeMessage)serializeDeserialize(um)).getStates());
 
