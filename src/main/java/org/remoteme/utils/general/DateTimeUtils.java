@@ -78,14 +78,25 @@ public class DateTimeUtils {
 		return dt.withSecond(0).withNano(0).withMinute(0).plusHours((65 - dt.getHour()) % hours);
 	}
 
+	public static LocalDateTime floorToDay(LocalDateTime dt) {
+		return dt.withSecond(0).withNano(0).withMinute(0).withHour(0);
+	}
+
 	public static LocalDateTime now() {
 		return LocalDateTime.now();
 	}
 
-	public static long getMillis(LocalDateTime date) {
-		return date.toInstant(ZoneOffset.UTC).toEpochMilli();
+	public static LocalDateTime now(ZoneId zone) {
+		return LocalDateTime.now(zone);
+
 	}
 
+	public static long getMillisUTC(LocalDateTime date) {
+		return getMillis(date,ZoneOffset.UTC);
+	}
+	public static long getMillis(LocalDateTime date,ZoneOffset zone) {
+		return date.toInstant(zone).toEpochMilli();
+	}
 	public static LocalDateTime getTime(String dt) {
 		for (Map.Entry<Pattern, Function<String, LocalDateTime>> p : patterns.entrySet()) {
 			if (p.getKey().matcher(dt).matches()) {
@@ -110,12 +121,12 @@ public class DateTimeUtils {
 		if (date == null) {
 			return null;
 		} else {
-			return new Date(getMillis(date));
+			return new Date(getMillisUTC(date));
 		}
 	}
 
 	public static int getDiffrent(LocalDateTime date1, LocalDateTime date2) {
-		return (int)((getMillis(date1)- getMillis(date2))/1000);
+		return (int)((getMillisUTC(date1)- getMillisUTC(date2))/1000);
 	}
 
 	public static boolean older(LocalDateTime lastPing, int seconds) {
@@ -123,7 +134,7 @@ public class DateTimeUtils {
 	}
 
 	public static Long nowMillis() {
-		return getMillis(DateTimeUtils.now());
+		return getMillisUTC(DateTimeUtils.now());
 	}
 
 	public static int compareNullSafe(Date d1, Date d2) {
@@ -149,4 +160,7 @@ public class DateTimeUtils {
 			return -1;
 		}
 	}
+
+
+
 }

@@ -27,9 +27,13 @@ public class VariableIdentifier implements Serializable {
 	}
 
 
-
-
-
+	@Override
+	public String toString() {
+		return "VI{" +
+				"name='" + name + '\'' +
+				", type=" + type +
+				'}';
+	}
 
 	public VariableIdentifier(ByteBuffer output){
 		type = VariableType.getById(Short.toUnsignedInt(output.getShort()));
