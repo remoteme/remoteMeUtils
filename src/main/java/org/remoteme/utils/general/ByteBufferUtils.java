@@ -1,17 +1,17 @@
 package org.remoteme.utils.general;
 
 
-
+import org.remoteme.utils.exceptions.HashEncryptException;
+import org.apache.commons.codec.binary.StringUtils;
 import javax.xml.bind.DatatypeConverter;
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.zip.DataFormatException;
 import java.util.zip.Deflater;
-
 import java.util.zip.Inflater;
 
 public class ByteBufferUtils {
@@ -40,11 +40,12 @@ public class ByteBufferUtils {
 	}
 
 
-	public static byte[] readByteArray(ByteBuffer bb){
+	public static byte[] readByteArray(ByteBuffer bb) {
 		byte[] arr = new byte[bb.remaining()];
 		bb.get(arr);
 		return arr;
 	}
+
 	public static String readString(ByteBuffer is) {
 
 		ByteArrayOutputStream bb = new ByteArrayOutputStream(100);
@@ -53,11 +54,8 @@ public class ByteBufferUtils {
 			bb.write(read1);
 		}
 
-		try {
-			return new String(bb.toByteArray(), StandardCharsets.UTF_8.name());
-		} catch (UnsupportedEncodingException e) {
-			throw new RuntimeException(e);
-		}
+		return StringUtils.newStringUtf8(bb.toByteArray());
+
 
 	}
 
@@ -119,40 +117,47 @@ public class ByteBufferUtils {
 
 	}*/
 
-	public static byte[] compress(byte[] data) throws IOException {
-		Deflater deflater = new Deflater(Deflater.BEST_COMPRESSION);
-		deflater.setInput(data);
-		ByteArrayOutputStream outputStream = new ByteArrayOutputStream(data.length);
-		deflater.finish();
-		byte[] buffer = new byte[1024];
-		while (!deflater.finished()) {
-			int count = deflater.deflate(buffer); // returns the generated code... index
-			outputStream.write(buffer, 0, count);
-		}
-		outputStream.close();
-		byte[] output = outputStream.toByteArray();
+	public static byte[] compress(byte[] data) throws HashEncryptException {
+		try {
 
-		return output;
+
+			Deflater deflater = new Deflater(Deflater.BEST_COMPRESSION);
+			deflater.setInput(data);
+			ByteArrayOutputStream outputStream = new ByteArrayOutputStream(data.length);
+			deflater.finish();
+			byte[] buffer = new byte[1024];
+			while (!deflater.finished()) {
+				int count = deflater.deflate(buffer); // returns the generated code... index
+				outputStream.write(buffer, 0, count);
+			}
+			outputStream.close();
+			byte[] output = outputStream.toByteArray();
+
+			return output;
+		} catch (Exception ex) {
+			throw new HashEncryptException();
+		}
 	}
-	public static byte[] decompress(byte[] data) throws IOException {
+
+	public static byte[] decompress(byte[] data) throws HashEncryptException {
 		try {
 
 			Inflater inflater = new Inflater();
-		inflater.setInput(data);
-		ByteArrayOutputStream outputStream = new ByteArrayOutputStream(data.length);
-		byte[] buffer = new byte[1024];
-		while (!inflater.finished()) {
-			int count = 0;
+			inflater.setInput(data);
+			ByteArrayOutputStream outputStream = new ByteArrayOutputStream(data.length);
+			byte[] buffer = new byte[1024];
+			while (!inflater.finished()) {
+				int count = 0;
 				count = inflater.inflate(buffer);
 
-			outputStream.write(buffer, 0, count);
-		}
-		outputStream.close();
-		byte[] output = outputStream.toByteArray();
+				outputStream.write(buffer, 0, count);
+			}
+			outputStream.close();
+			byte[] output = outputStream.toByteArray();
 
-		return output;
-		} catch (DataFormatException e) {
-			throw new IOException();
+			return output;
+		} catch (Exception e) {
+			throw new HashEncryptException();
 		}
 	}
 
@@ -169,7 +174,6 @@ public class ByteBufferUtils {
 		List<Pair<Integer, byte[]>> ret = new ArrayList<>();
 
 
-
 		for (int index = 0; index * maxUncompressedSize <= bytesToSave.length; index++) {
 			int uncompressedSize = Math.min(maxUncompressedSize, bytesToSave.length - maxUncompressedSize * index);
 
@@ -177,13 +181,14 @@ public class ByteBufferUtils {
 			try {
 
 				ret.add(new Pair<>(uncompressedSize, compress(subArray)));
-			} catch (IOException e) {
+			} catch (HashEncryptException e) {
 				e.printStackTrace();
 				throw new RuntimeException(e);
 			}
 		}
 		return ret;
 	}
+
 	public static List<Pair<Integer, byte[]>> splitAndCompress(String content, int maxUncompressedSize) {
 		byte[] bytesToSave = content.getBytes(StandardCharsets.UTF_8);
 		return splitAndCompress(bytesToSave, maxUncompressedSize);
@@ -224,6 +229,6 @@ public class ByteBufferUtils {
 	}
 
 	public static int getStringLength(String newName) {
-		return newName.getBytes(StandardCharsets.UTF_8).length+1;
+		return newName.getBytes(StandardCharsets.UTF_8).length + 1;
 	}
 }
