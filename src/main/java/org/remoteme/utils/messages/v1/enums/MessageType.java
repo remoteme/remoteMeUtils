@@ -30,7 +30,17 @@ public enum MessageType implements Id_Enum<MessageType> {
 			this.id = id;
 		}
 
-		public int getId() {
+
+	public static boolean isUserMessage(int messageTypeId) {
+		return messageTypeId==USER_MESSAGE.getId() || messageTypeId==VARIABLE_CHANGE_MESSAGE.getId()|| messageTypeId==VARIABLE_CHANGE_PROPAGATE_MESSAGE.getId()
+				|| messageTypeId==USER_SYNC_MESSAGE.getId();
+	}
+
+	public static boolean isUserMessage(MessageType messageType) {
+		return isUserMessage(messageType.getId());
+	}
+
+	public int getId() {
 			return id;
 		}
 
