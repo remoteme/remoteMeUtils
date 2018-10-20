@@ -1,20 +1,17 @@
 package org.remoteme.utils.messages.v1.core.messages.variables;
 
+import org.remoteme.utils.messages.v1.core.messages.variables.values.DoubleVV;
 import org.remoteme.utils.messages.v1.enums.variables.VariableType;
 
 import java.nio.ByteBuffer;
 
-public class DoubleVariableState extends AVariableState<Double> {
+public class DoubleVariableState extends AVariableState<DoubleVV> {
 
 	protected DoubleVariableState() {
 	}
 
-	@Override
-	public String getDataString() {
-		return String.valueOf(getData());
-	}
 
-	public DoubleVariableState(String name, Double data) {
+	public DoubleVariableState(String name, DoubleVV data) {
 		super(name, data);
 	}
 
@@ -22,20 +19,11 @@ public class DoubleVariableState extends AVariableState<Double> {
 		super(output);
 	}
 
-	@Override
-	protected void serializeData(ByteBuffer output) {
-		output.putDouble(getData());
+	public DoubleVariableState(String name, double data) {
+		this(name, new DoubleVV());
 	}
 
-	@Override
-	protected void deSerializeData(ByteBuffer output) {
-		setData(output.getDouble());
-	}
 
-	@Override
-	protected int getDataSize() {
-		return 8;
-	}
 
 	@Override
 	protected VariableType getType() {

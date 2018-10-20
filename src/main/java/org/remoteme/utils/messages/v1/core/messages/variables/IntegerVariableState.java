@@ -1,20 +1,20 @@
 package org.remoteme.utils.messages.v1.core.messages.variables;
 
+import org.remoteme.utils.messages.v1.core.messages.variables.values.IntegerVV;
 import org.remoteme.utils.messages.v1.enums.variables.VariableType;
 
 import java.nio.ByteBuffer;
 
-public class IntegerVariableState extends AVariableState<Integer> {
+public class IntegerVariableState extends AVariableState<IntegerVV> {
 
 	protected IntegerVariableState() {
 	}
 
-	@Override
-	public String getDataString() {
-		return String.valueOf(getData());
+	public IntegerVariableState(String name, Integer data) {
+		super(name, new IntegerVV(data));
 	}
 
-	public IntegerVariableState(String name, Integer data) {
+	public IntegerVariableState(String name, IntegerVV data) {
 		super(name, data);
 	}
 
@@ -22,20 +22,7 @@ public class IntegerVariableState extends AVariableState<Integer> {
 		super(output);
 	}
 
-	@Override
-	protected void serializeData(ByteBuffer output) {
-		output.putInt(getData());
-	}
 
-	@Override
-	protected void deSerializeData(ByteBuffer output) {
-		setData(output.getInt());
-	}
-
-	@Override
-	protected int getDataSize() {
-		return 4;
-	}
 
 	@Override
 	protected VariableType getType() {

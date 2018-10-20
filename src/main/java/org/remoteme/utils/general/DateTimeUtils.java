@@ -37,10 +37,16 @@ public class DateTimeUtils {
 	public static LocalDateTime getFromMillis(long millis,ZoneId zone) {
 		return Instant.ofEpochMilli(millis).atZone(zone).toLocalDateTime();
 	}
+	public static LocalDateTime parseddmmyyyy(String ddmmyyyy,ZoneId zoneId) {
+
+		return LocalDate.parse(ddmmyyyy, ddmmyyyy_.withZone(zoneId)).atTime(0, 0);
+	}
+
 	public static LocalDateTime parseddmmyyyy(String ddmmyyyy) {
 
-		return LocalDate.parse(ddmmyyyy, ddmmyyyy_.withZone(ZoneOffset.UTC)).atTime(0, 0);
+		return parseddmmyyyy(ddmmyyyy,ZoneOffset.UTC);
 	}
+
 
 	public static LocalDateTime parseddmmyyyyhhmmss(String ddmmyyyyhhmmss) {
 

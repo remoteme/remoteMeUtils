@@ -21,6 +21,9 @@ import org.remoteme.utils.messages.v1.core.messages.variables.SmallInteger2Varia
 import org.remoteme.utils.messages.v1.core.messages.variables.SmallInteger3VariableState;
 import org.remoteme.utils.messages.v1.core.messages.variables.Text2VariableState;
 import org.remoteme.utils.messages.v1.core.messages.variables.TextVariableState;
+import org.remoteme.utils.messages.v1.core.messages.variables.values.IntegerBooleanVV;
+import org.remoteme.utils.messages.v1.core.messages.variables.values.SmallInteger2VV;
+import org.remoteme.utils.messages.v1.core.messages.variables.values.SmallInteger3VV;
 import org.remoteme.utils.messages.v1.enums.variables.VariableType;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.ARemoteMeMessage;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.AddDataMessage;
@@ -184,7 +187,7 @@ public class ARemoteMeMessageSerializationTest {
 	public void smallInteger3VariableState(){
 
 		List<AVariableState> states = new ArrayList<>();
-		states.add(new SmallInteger3VariableState("pam2",new SmallInteger3VariableState.SmallInteger3(12,345,-6789)));
+		states.add(new SmallInteger3VariableState("pam2",new SmallInteger3VV(12,345,-6789)));
 
 		VariableChangeMessage um = new VariableChangeMessage(123,Arrays.asList(1,2,3,4),states);
 
@@ -198,7 +201,7 @@ public class ARemoteMeMessageSerializationTest {
 	public void smallInteger2VariableState(){
 
 		List<AVariableState> states = new ArrayList<>();
-		states.add(new SmallInteger2VariableState("pam2",new SmallInteger2VariableState.SmallInteger2(12,-6789)));
+		states.add(new SmallInteger2VariableState("pam2",new SmallInteger2VV(12,-6789)));
 
 		VariableChangeMessage um = new VariableChangeMessage(123,Arrays.asList(1,2,3,4),states);
 
@@ -212,7 +215,7 @@ public class ARemoteMeMessageSerializationTest {
 	public void integerBooleanVariableState(){
 
 		List<AVariableState> states = new ArrayList<>();
-		states.add(new IntegerBooleanVariableState("pam2",new IntegerBooleanVariableState.IntegerBoolean(1234,true)));
+		states.add(new IntegerBooleanVariableState("pam2",new IntegerBooleanVV(1234,true)));
 
 		VariableChangeMessage um = new VariableChangeMessage(123,Arrays.asList(1,2,3,4),states);
 

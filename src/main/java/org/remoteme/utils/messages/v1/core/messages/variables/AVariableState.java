@@ -3,6 +3,7 @@ package org.remoteme.utils.messages.v1.core.messages.variables;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import org.remoteme.utils.general.ByteBufferUtils;
+import org.remoteme.utils.messages.v1.core.messages.variables.values.AVariableValue;
 import org.remoteme.utils.messages.v1.enums.variables.VariableType;
 
 import java.io.Serializable;
@@ -24,11 +25,11 @@ import java.util.Objects;
 		@JsonSubTypes.Type(value = SmallInteger2Text2VariableState.class, name = "SMALL_INTEGER_2_TEXT_2"),
 
 })
-public abstract class AVariableState<T> implements Serializable {
-
+public abstract class AVariableState<T extends AVariableValue> implements Serializable {
 
 	String name;
 	T data;
+
 
 
 
@@ -106,20 +107,26 @@ public abstract class AVariableState<T> implements Serializable {
 	}
 
 
-	protected abstract void serializeData(ByteBuffer output);
+	protected final void serializeData(ByteBuffer output){
+		getData().serializeData(output);
+	}
 
 
-	protected abstract void deSerializeData(ByteBuffer output);
+	protected final void deSerializeData(ByteBuffer output){
+		setData(AVariableValue.get(output, getType()));
 
 
+	}
 
-
+	protected final int getDataSize(){
+		return getData().getDataSize();
+	}
 
 	public int getSize() {
 		return 2+getName().length()+1+getDataSize();
 	}
 
-	protected abstract int getDataSize();
+
 	protected abstract VariableType getType();
 
 	public AVariableState(ByteBuffer output){
@@ -151,6 +158,8 @@ public abstract class AVariableState<T> implements Serializable {
 		return data;
 	}
 
-	public abstract String getDataString();
+	public final String getDataString(){
+		return String.valueOf(getData());
+	}
 
 }
