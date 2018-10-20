@@ -16,6 +16,7 @@ import java.util.regex.Pattern;
 public class DateTimeUtils {
 	public static final DateTimeFormatter ddmmyyyy_ = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 	public static final DateTimeFormatter ddmmyyyyHHMM_ = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
+	public static final DateTimeFormatter ddmmyyyyHHMM_WithDOW = DateTimeFormatter.ofPattern("dd.MM.yyyy (E) HH:mm");
 	public static final DateTimeFormatter ddmmyyyyHHMMss_ = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");
 	public static final DateTimeFormatter ddmmyyyyHHMMRaw_ = DateTimeFormatter.ofPattern("ddMMyyyyHHmm");
 
@@ -38,12 +39,14 @@ public class DateTimeUtils {
 		return Instant.ofEpochMilli(millis).atZone(zone).toLocalDateTime();
 	}
 	public static LocalDateTime parseddmmyyyy(String ddmmyyyy,ZoneId zoneId) {
-
 		return LocalDate.parse(ddmmyyyy, ddmmyyyy_.withZone(zoneId)).atTime(0, 0);
 	}
 
-	public static LocalDateTime parseddmmyyyy(String ddmmyyyy) {
+	public static LocalDateTime parseddmmyyyyhhmm(String ddmmyyyyhhmm, ZoneId zoneId) {
+		return LocalDateTime.parse(ddmmyyyyhhmm, ddmmyyyyHHMM_.withZone(zoneId));
+	}
 
+	public static LocalDateTime parseddmmyyyy(String ddmmyyyy) {
 		return parseddmmyyyy(ddmmyyyy,ZoneOffset.UTC);
 	}
 
@@ -63,6 +66,9 @@ public class DateTimeUtils {
 		return date.format(ddmmyyyyHHMM_);
 	}
 
+	public static String printddmmyyyyhhmmDOW(LocalDateTime date) {
+		return  date.format(ddmmyyyyHHMM_WithDOW);
+	}
 	public static LocalDateTime parseddmmyyyyHHmmRaw(String formattedTime) {
 		return LocalDateTime.parse(formattedTime, ddmmyyyyHHMMRaw_.withZone(ZoneOffset.UTC));
 	}

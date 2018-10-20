@@ -99,14 +99,14 @@ public class ARLiteRemoteMeMessageSerializationTest {
 	public void cretateVariableMessage(){
 
 		List<CreateVariablesMessage.VariableDetails> pam = new ArrayList<>();
-		pam.add(new CreateVariablesMessage.VariableDetails("gamepad", VariableType.TEXT_2,false,false));
-		pam.add(new CreateVariablesMessage.VariableDetails("gamepad", VariableType.SMALL_INTEGER_2_TEXT_2,false,false));
-		pam.add(new CreateVariablesMessage.VariableDetails("button1", VariableType.BOOLEAN,true,false));
-		pam.add(new CreateVariablesMessage.VariableDetails("button2", VariableType.BOOLEAN,true,false));
-		pam.add(new CreateVariablesMessage.VariableDetails("button3", VariableType.BOOLEAN,true,false));
-		pam.add(new CreateVariablesMessage.VariableDetails("relay1", VariableType.BOOLEAN,true,false));
-		pam.add(new CreateVariablesMessage.VariableDetails("relay2", VariableType.BOOLEAN,true,false));
-		pam.add(new CreateVariablesMessage.VariableDetails("temperature", VariableType.DOUBLE,true,true));
+		pam.add(new CreateVariablesMessage.VariableDetails("gamepad", VariableType.TEXT_2,false,false,false));
+		pam.add(new CreateVariablesMessage.VariableDetails("gamepad", VariableType.SMALL_INTEGER_2_TEXT_2,false,false,false));
+		pam.add(new CreateVariablesMessage.VariableDetails("button1", VariableType.BOOLEAN,true,false,false));
+		pam.add(new CreateVariablesMessage.VariableDetails("button2", VariableType.BOOLEAN,true,false,false));
+		pam.add(new CreateVariablesMessage.VariableDetails("button3", VariableType.BOOLEAN,true,false,false));
+		pam.add(new CreateVariablesMessage.VariableDetails("relay1", VariableType.BOOLEAN,true,false,false));
+		pam.add(new CreateVariablesMessage.VariableDetails("relay2", VariableType.BOOLEAN,true,false,false));
+		pam.add(new CreateVariablesMessage.VariableDetails("temperature", VariableType.DOUBLE,true,true,false));
 
 		CreateVariablesMessage um = new CreateVariablesMessage(pam);
 		System.out.println(JacksonHelper.serialize(um));

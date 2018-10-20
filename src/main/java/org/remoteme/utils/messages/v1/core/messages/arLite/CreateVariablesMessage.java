@@ -28,6 +28,7 @@ public class CreateVariablesMessage extends AARLiteMessage {
 		VariableType type;
 		boolean persistent;
 		boolean history;
+		boolean scheduled;
 	}
 
 	List<VariableDetails> variables;
