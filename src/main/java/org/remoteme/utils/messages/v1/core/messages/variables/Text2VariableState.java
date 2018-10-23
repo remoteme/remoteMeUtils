@@ -30,8 +30,4 @@ public class Text2VariableState extends AVariableState<Text2VV> {
 
 
 
-	@Override
-	protected VariableType getType() {
-		return VariableType.TEXT_2;
-	}
 }

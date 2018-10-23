@@ -24,8 +24,5 @@ public class BooleanVariableState extends AVariableState<BooleanVV> {
 
 
 
-	@Override
-	protected VariableType getType() {
-		return VariableType.BOOLEAN;
-	}
+
 }

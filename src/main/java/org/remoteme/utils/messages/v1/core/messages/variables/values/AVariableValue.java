@@ -84,4 +84,7 @@ public abstract class AVariableValue {
 	public abstract void serializeData(ByteBuffer output);
 
 	public abstract int getDataSize();
+
+	public abstract VariableType getType() ;
+
 }

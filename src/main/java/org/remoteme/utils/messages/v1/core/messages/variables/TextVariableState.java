@@ -28,8 +28,5 @@ public class TextVariableState extends AVariableState<TextVV> {
 
 
 
-	@Override
-	protected VariableType getType() {
-		return VariableType.TEXT;
-	}
+
 }

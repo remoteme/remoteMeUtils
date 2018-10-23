@@ -30,8 +30,5 @@ public class SmallInteger2Text2VariableState extends AVariableState<SmallInteger
 
 
 
-	@Override
-	protected VariableType getType() {
-		return VariableType.SMALL_INTEGER_2_TEXT_2;
-	}
+
 }

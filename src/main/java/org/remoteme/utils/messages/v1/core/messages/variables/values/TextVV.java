@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.remoteme.utils.general.ByteBufferUtils;
+import org.remoteme.utils.messages.v1.enums.variables.VariableType;
 
 import java.io.Serializable;
 import java.nio.ByteBuffer;
@@ -42,5 +43,10 @@ public class TextVV extends AVariableValue implements Serializable {
 	@Override
 	public int getDataSize() {
 		return ByteBufferUtils.writeString(getS()).length;
+	}
+
+	@Override
+	public VariableType getType() {
+		return VariableType.TEXT;
 	}
 }

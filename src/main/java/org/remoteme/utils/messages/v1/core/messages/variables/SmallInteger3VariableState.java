@@ -31,8 +31,5 @@ public class SmallInteger3VariableState extends AVariableState<SmallInteger3VV> 
 	}
 
 
-	@Override
-	protected VariableType getType() {
-		return VariableType.SMALL_INTEGER_3;
-	}
+
 }

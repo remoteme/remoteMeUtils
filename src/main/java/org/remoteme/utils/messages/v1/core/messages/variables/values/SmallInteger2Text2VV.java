@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.remoteme.utils.general.ByteBufferUtils;
+import org.remoteme.utils.messages.v1.enums.variables.VariableType;
 
 import java.io.Serializable;
 import java.nio.ByteBuffer;
@@ -57,5 +58,9 @@ public  class SmallInteger2Text2VV extends AVariableValue implements Serializabl
 	@Override
 	public int getDataSize() {
 		return 4+ ByteBufferUtils.writeString(getS1()).length+ByteBufferUtils.writeString(getS2()).length;
+	}
+	@Override
+	public VariableType getType() {
+		return VariableType.SMALL_INTEGER_2_TEXT_2;
 	}
 }

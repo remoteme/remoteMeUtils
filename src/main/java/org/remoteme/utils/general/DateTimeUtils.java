@@ -63,7 +63,10 @@ public class DateTimeUtils {
 	}
 
 	public static String printddmmyyyyhhmm(LocalDateTime date) {
-		return date.format(ddmmyyyyHHMM_);
+		return printddmmyyyyhhmm(date,ZoneOffset.UTC);
+	}
+	public static String printddmmyyyyhhmm(LocalDateTime date, ZoneId zoneId) {
+		return date.format(ddmmyyyyHHMM_.withZone(zoneId));
 	}
 
 	public static String printddmmyyyyhhmmDOW(LocalDateTime date) {
@@ -106,6 +109,11 @@ public class DateTimeUtils {
 	public static long getMillisUTC(LocalDateTime date) {
 		return getMillis(date,ZoneOffset.UTC);
 	}
+	public static long getMillis(LocalDateTime date,ZoneId zone) {
+
+		return date.toInstant(zone.getRules().getOffset(date)).toEpochMilli();
+	}
+
 	public static long getMillis(LocalDateTime date,ZoneOffset zone) {
 		return date.toInstant(zone).toEpochMilli();
 	}
@@ -174,5 +182,11 @@ public class DateTimeUtils {
 	}
 
 
+	public static boolean inPast(LocalDateTime first) {
+		return first.isBefore(DateTimeUtils.now());
+	}
 
+	public static boolean inPast(LocalDateTime first,int minutes) {
+		return first.plusMinutes(minutes).isBefore(DateTimeUtils.now());
+	}
 }

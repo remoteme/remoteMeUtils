@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.remoteme.utils.messages.v1.enums.variables.VariableType;
 
 import java.io.Serializable;
 import java.nio.ByteBuffer;
@@ -41,6 +42,11 @@ public class BooleanVV extends AVariableValue implements Serializable {
 	@Override
 	public int getDataSize() {
 		return 1;
+	}
+
+	@Override
+	public VariableType getType() {
+		return VariableType.BOOLEAN;
 	}
 
 }
