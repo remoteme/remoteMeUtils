@@ -22,5 +22,8 @@ public class IntegerVariableState extends AVariableState<IntegerVV> {
 		super(output);
 	}
 
-
+	@Override
+	protected VariableType getType() {
+		return VariableType.INTEGER;
+	}
 }

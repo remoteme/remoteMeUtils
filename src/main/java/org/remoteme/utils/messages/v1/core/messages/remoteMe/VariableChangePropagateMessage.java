@@ -9,6 +9,7 @@ import org.remoteme.utils.messages.v1.enums.MessageType;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -25,6 +26,12 @@ public class VariableChangePropagateMessage extends ARemoteMeMessage {
 	int receiveDeviceId;//2
 
 	List<AVariableState<?>> states;
+
+
+
+	public VariableChangePropagateMessage(int senderDeviceId ,int receiveDeviceId, AVariableState<?> state) {
+		this(senderDeviceId, receiveDeviceId, Collections.singletonList(state));
+	}
 
 
 	public VariableChangePropagateMessage(int senderDeviceId ,int receiveDeviceId, List<AVariableState<?>> states) {

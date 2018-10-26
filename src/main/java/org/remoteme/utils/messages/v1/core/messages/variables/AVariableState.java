@@ -97,6 +97,9 @@ public abstract class AVariableState<T extends AVariableValue> implements Serial
 
 	public AVariableState(String name, T data) {
 		this.name = name;
+		if (data.getType()!=getType() ){
+			throw new RuntimeException("Wrnong value tries to set");
+		}
 		this.data = data;
 
 	}
@@ -161,9 +164,7 @@ public abstract class AVariableState<T extends AVariableValue> implements Serial
 	}
 
 
-	protected final VariableType getType() {
-		return getData().getType();
-	}
+	protected abstract VariableType getType();
 
 	public AVariableState(ByteBuffer output) {
 		name = ByteBufferUtils.readString(output);
@@ -189,6 +190,9 @@ public abstract class AVariableState<T extends AVariableValue> implements Serial
 	}
 
 	protected void setData(T data) {
+		if (data.getType()!=getType() ){
+			throw new RuntimeException("Wrnong value tries to set");
+		}
 		this.data = data;
 	}
 

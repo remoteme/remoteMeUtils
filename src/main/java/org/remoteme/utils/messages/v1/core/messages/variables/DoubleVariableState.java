@@ -24,6 +24,9 @@ public class DoubleVariableState extends AVariableState<DoubleVV> {
 	}
 
 
-
+	@Override
+	protected VariableType getType() {
+		return VariableType.DOUBLE;
+	}
 
 }

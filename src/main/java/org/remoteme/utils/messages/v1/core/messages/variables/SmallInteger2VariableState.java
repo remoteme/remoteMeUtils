@@ -29,7 +29,10 @@ public class SmallInteger2VariableState extends AVariableState<SmallInteger2VV> 
 		super(output);
 	}
 
-
+	@Override
+	protected VariableType getType() {
+		return VariableType.SMALL_INTEGER_2;
+	}
 
 
 }

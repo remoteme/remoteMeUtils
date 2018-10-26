@@ -22,10 +22,10 @@ public class VariableChangeMessage extends ARemoteMeMessage {
 	int senderDeviceId;//2
 	Set<Integer> ignoreReceivers;
 
-	List<AVariableState> states;
+	List<AVariableState<?>> states;
 
 
-	public VariableChangeMessage(int senderDeviceId, Collection<Integer> ignoreReceivers, List<AVariableState> states) {
+	public VariableChangeMessage(int senderDeviceId, Collection<Integer> ignoreReceivers, List<AVariableState<?>> states) {
 
 		this.senderDeviceId=senderDeviceId;
 		this.ignoreReceivers=new HashSet<>(ignoreReceivers);

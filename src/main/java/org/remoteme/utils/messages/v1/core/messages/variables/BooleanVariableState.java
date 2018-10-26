@@ -22,7 +22,10 @@ public class BooleanVariableState extends AVariableState<BooleanVV> {
 		super(output);
 	}
 
-
+	@Override
+	protected VariableType getType() {
+		return VariableType.BOOLEAN;
+	}
 
 
 }

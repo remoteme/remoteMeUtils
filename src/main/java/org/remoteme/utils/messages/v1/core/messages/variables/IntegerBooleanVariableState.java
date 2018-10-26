@@ -26,7 +26,10 @@ public class IntegerBooleanVariableState extends AVariableState<IntegerBooleanVV
 		super(output);
 	}
 
-
+	@Override
+	protected VariableType getType() {
+		return VariableType.INTEGER_BOOLEAN;
+	}
 
 
 }

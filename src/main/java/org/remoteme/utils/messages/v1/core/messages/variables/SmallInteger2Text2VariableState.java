@@ -24,6 +24,11 @@ public class SmallInteger2Text2VariableState extends AVariableState<SmallInteger
 		super(name, data);
 	}
 
+	@Override
+	protected VariableType getType() {
+		return VariableType.SMALL_INTEGER_2_TEXT_2;
+	}
+
 	public SmallInteger2Text2VariableState(ByteBuffer output) {
 		super(output);
 	}

@@ -139,7 +139,7 @@ public class ARemoteMeMessageSerializationTest {
 	@Test
 	public void changeMessage(){
 
-		List<AVariableState> states = new ArrayList<>();
+		List<AVariableState<?>> states = new ArrayList<>();
 		states.add(new BooleanVariableState("pam1",true));
 		states.add(new IntegerVariableState("pam2",123));
 		states.add(new IntegerVariableState("pam3",123));
@@ -155,7 +155,7 @@ public class ARemoteMeMessageSerializationTest {
 	@Test
 	public void integerVariableState(){
 
-		List<AVariableState> states = new ArrayList<>();
+		List<AVariableState<?>> states = new ArrayList<>();
 		states.add(new IntegerVariableState("pam2",123));
 
 		VariableChangeMessage um = new VariableChangeMessage(123,Arrays.asList(1,2,3,4),states);
@@ -172,7 +172,7 @@ public class ARemoteMeMessageSerializationTest {
 	@Test
 	public void textVariableState(){
 
-		List<AVariableState> states = new ArrayList<>();
+		List<AVariableState<?>> states = new ArrayList<>();
 		states.add(new TextVariableState("pam2","maciekółś"));
 
 		VariableChangeMessage um = new VariableChangeMessage(123,Arrays.asList(1,2,3,4),states);
@@ -186,7 +186,7 @@ public class ARemoteMeMessageSerializationTest {
 	@Test
 	public void smallInteger3VariableState(){
 
-		List<AVariableState> states = new ArrayList<>();
+		List<AVariableState<?>> states = new ArrayList<>();
 		states.add(new SmallInteger3VariableState("pam2",new SmallInteger3VV(12,345,-6789)));
 
 		VariableChangeMessage um = new VariableChangeMessage(123,Arrays.asList(1,2,3,4),states);
@@ -200,7 +200,7 @@ public class ARemoteMeMessageSerializationTest {
 	@Test
 	public void smallInteger2VariableState(){
 
-		List<AVariableState> states = new ArrayList<>();
+		List<AVariableState<?>> states = new ArrayList<>();
 		states.add(new SmallInteger2VariableState("pam2",new SmallInteger2VV(12,-6789)));
 
 		VariableChangeMessage um = new VariableChangeMessage(123,Arrays.asList(1,2,3,4),states);
@@ -214,7 +214,7 @@ public class ARemoteMeMessageSerializationTest {
 	@Test
 	public void integerBooleanVariableState(){
 
-		List<AVariableState> states = new ArrayList<>();
+		List<AVariableState<?>> states = new ArrayList<>();
 		states.add(new IntegerBooleanVariableState("pam2",new IntegerBooleanVV(1234,true)));
 
 		VariableChangeMessage um = new VariableChangeMessage(123,Arrays.asList(1,2,3,4),states);
@@ -228,7 +228,7 @@ public class ARemoteMeMessageSerializationTest {
 	@Test
 	public void doubleVariableState(){
 
-		List<AVariableState> states = new ArrayList<>();
+		List<AVariableState<?>> states = new ArrayList<>();
 		states.add(new DoubleVariableState("pam2",-1234.5677));
 
 		VariableChangeMessage um = new VariableChangeMessage(123,Arrays.asList(1,2,3,4),states);
