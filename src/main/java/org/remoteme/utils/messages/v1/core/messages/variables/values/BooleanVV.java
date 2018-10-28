@@ -22,7 +22,9 @@ public class BooleanVV extends AVariableValue implements Serializable {
 	public BooleanVV(String rendered) {
 		b=Boolean.valueOf(rendered);
 	}
-
+	/*public BooleanVV(Boolean state ) {
+		b=state;
+	}*/
 	@Override
 	public String toString() {
 		return String.valueOf(b);

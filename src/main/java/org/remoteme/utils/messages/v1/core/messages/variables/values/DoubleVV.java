@@ -17,7 +17,11 @@ import java.nio.ByteBuffer;
 @NoArgsConstructor
 public class DoubleVV extends AVariableValue implements Serializable {
 	double d;
-
+/*
+	public DoubleVV(Double value)
+	{
+		d=value;
+	}*/
 
 	public DoubleVV(String rendered) {
 		d=Double.valueOf(rendered);

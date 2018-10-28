@@ -288,9 +288,6 @@ public class ARemoteMeMessageSerializationTest {
 
 
 
-
-
-
 	public ARemoteMeMessage serializeDeserialize(ARemoteMeMessage message){
 		String str = JacksonHelper.serialize(message);
 		message=(ARemoteMeMessage)JacksonHelper.deserialize(str,AMessage.class);

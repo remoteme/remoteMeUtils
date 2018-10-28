@@ -1,6 +1,5 @@
 package org.remoteme.utils.messages.v1.core.messages.variables.values;
 
-import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,33 +15,33 @@ import java.nio.ByteBuffer;
 @Setter
 @NoArgsConstructor
 public class TextVV extends AVariableValue implements Serializable {
-	String s="";
+	String t ="";
 
 
 	public TextVV(String rendered) {
-		s=rendered;
+		t =rendered;
 	}
 
 	@Override
 	public String toString() {
-		return s;
+		return t;
 	}
 
 
 	@Override
 	public void serializeData(ByteBuffer output) {
-		output.put(ByteBufferUtils.writeString(getS()));
+		output.put(ByteBufferUtils.writeString(getT()));
 	}
 
 
 	public TextVV(ByteBuffer output) {
-		setS(ByteBufferUtils.readString(output));
+		setT(ByteBufferUtils.readString(output));
 
 	}
 
 	@Override
 	public int getDataSize() {
-		return ByteBufferUtils.writeString(getS()).length;
+		return ByteBufferUtils.writeString(getT()).length;
 	}
 
 	@Override

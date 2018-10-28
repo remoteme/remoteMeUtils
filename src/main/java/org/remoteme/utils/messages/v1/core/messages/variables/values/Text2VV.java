@@ -17,39 +17,39 @@ import java.nio.ByteBuffer;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Text2VV extends AVariableValue implements Serializable {
-	String s1="";
-	String s2="";
+	String t1="";
+	String t2="";
 
 
 	public Text2VV(String rendered) {
 		String[] split = rendered.replaceAll(", ", ",").split(",", 2);
-		s1 = split[0];
-		s2 = split[1];
+		t1 = split[0];
+		t2 = split[1];
 	}
 
 	@Override
 	public String toString() {
-		return getS1() + ", " + getS2();
+		return getT1() + ", " + getT2();
 	}
 
 
 	@Override
 	public void serializeData(ByteBuffer output) {
-		output.put(ByteBufferUtils.writeString(getS1()));
-		output.put(ByteBufferUtils.writeString(getS2()));
+		output.put(ByteBufferUtils.writeString(getT1()));
+		output.put(ByteBufferUtils.writeString(getT2()));
 	}
 
 
 	public Text2VV(ByteBuffer output) {
-		setS1(ByteBufferUtils.readString(output));
-		setS2(ByteBufferUtils.readString(output));
+		setT1(ByteBufferUtils.readString(output));
+		setT2(ByteBufferUtils.readString(output));
 
 
 	}
 
 	@Override
 	public int getDataSize() {
-		return ByteBufferUtils.writeString(getS1()).length+ByteBufferUtils.writeString(getS2()).length;
+		return ByteBufferUtils.writeString(getT1()).length+ByteBufferUtils.writeString(getT2()).length;
 	}
 
 	@Override

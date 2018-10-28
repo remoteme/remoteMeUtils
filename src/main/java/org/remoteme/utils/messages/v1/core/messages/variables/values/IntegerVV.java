@@ -16,8 +16,12 @@ import java.nio.ByteBuffer;
 @AllArgsConstructor
 @NoArgsConstructor
 public class IntegerVV extends AVariableValue implements Serializable {
-	Integer i;
+	int i;
 
+/*	public IntegerVV(Integer value)//for jckason back compatybility
+	{
+		i=value;
+	}*/
 
 	public IntegerVV(String rendered) {
 		i = Integer.valueOf(rendered);
