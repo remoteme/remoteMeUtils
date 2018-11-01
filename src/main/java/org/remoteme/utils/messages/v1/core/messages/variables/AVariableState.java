@@ -1,69 +1,113 @@
 package org.remoteme.utils.messages.v1.core.messages.variables;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.databind.DatabindContext;
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.annotation.JsonTypeIdResolver;
+import com.fasterxml.jackson.databind.jsontype.impl.TypeIdResolverBase;
+import com.fasterxml.jackson.databind.type.SimpleType;
 import org.remoteme.utils.general.ByteBufferUtils;
+import org.remoteme.utils.jackson.JacksonHelper;
 import org.remoteme.utils.messages.v1.core.messages.variables.values.AVariableValue;
-import org.remoteme.utils.messages.v1.core.messages.variables.values.BooleanVV;
-import org.remoteme.utils.messages.v1.core.messages.variables.values.DoubleVV;
-import org.remoteme.utils.messages.v1.core.messages.variables.values.IntegerBooleanVV;
-import org.remoteme.utils.messages.v1.core.messages.variables.values.IntegerVV;
-import org.remoteme.utils.messages.v1.core.messages.variables.values.SmallInteger2Text2VV;
-import org.remoteme.utils.messages.v1.core.messages.variables.values.SmallInteger2VV;
-import org.remoteme.utils.messages.v1.core.messages.variables.values.SmallInteger3VV;
-import org.remoteme.utils.messages.v1.core.messages.variables.values.Text2VV;
-import org.remoteme.utils.messages.v1.core.messages.variables.values.TextVV;
 import org.remoteme.utils.messages.v1.enums.variables.VariableType;
 
 import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
+import java.util.Optional;
 
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
-@JsonSubTypes({
-		@JsonSubTypes.Type(value = BooleanVariableState.class, name = "BOOLEAN"),
-		@JsonSubTypes.Type(value = IntegerVariableState.class, name = "INTEGER"),
-		@JsonSubTypes.Type(value = TextVariableState.class, name = "TEXT"),
-		@JsonSubTypes.Type(value = SmallInteger3VariableState.class, name = "SMALL_INTEGER_3"),
-		@JsonSubTypes.Type(value = SmallInteger2VariableState.class, name = "SMALL_INTEGER_2"),
-		@JsonSubTypes.Type(value = IntegerBooleanVariableState.class, name = "INTEGER_BOOLEAN"),
-		@JsonSubTypes.Type(value = DoubleVariableState.class, name = "DOUBLE"),
-		@JsonSubTypes.Type(value = Text2VariableState.class, name = "TEXT_2"),
-		@JsonSubTypes.Type(value = SmallInteger2Text2VariableState.class, name = "SMALL_INTEGER_2_TEXT_2"),
-
-})
+@JsonTypeIdResolver(AVariableState.OperationTypeIdResolver.class)
 public abstract class AVariableState<T extends AVariableValue> implements Serializable {
+
+
+
+	public static final class OperationTypeIdResolver extends TypeIdResolverBase {
+
+
+		@Override
+		public String idFromValue(Object value) {
+			return idFromValueAndType(value, value.getClass());
+		}
+
+		@Override
+		public String idFromValueAndType(Object value, Class<?> suggestedType) {
+			return ((AVariableState)value).getType().toString();
+		}
+
+		@Override
+		public JavaType typeFromId(DatabindContext context, String id)   {
+			return  SimpleType.constructUnsafe (getStateClass(VariableType.valueOf(id)));
+		}
+
+		@Override
+		public JsonTypeInfo.Id getMechanism() {
+			return JsonTypeInfo.Id.CUSTOM;
+		}
+	}
+
 
 	String name;
 	T data;
 
 
-	public static AVariableState get(String variableName, AVariableValue value) {
-		switch (value.getType()) {
+	public static String serialize(AVariableState<?> state) {
+		return JacksonHelper.serialize(state);
+	}
+	public static AVariableState<?> deserialize(String s) {
+		return JacksonHelper.deserialize(s,AVariableState.class);
+	}
+	public static Optional<AVariableState<?>> get(String variableName, Optional<AVariableValue> value) {
+		if (value.isPresent()){
+			return Optional.of(get(variableName, value.get()));
+		}else{
+			return Optional.empty();
+		}
+	}
+	public static <T extends  AVariableState<?>> Class<T> getStateClass(VariableType type) {
+		switch (type) {
 
 			case BOOLEAN:
-				return new BooleanVariableState(variableName, (BooleanVV) value);
+				return (Class<T>) BooleanVariableState.class;
 			case INTEGER:
-				return new IntegerVariableState(variableName, (IntegerVV) value);
+				return  (Class<T>)IntegerVariableState.class;
 			case TEXT:
-				return new TextVariableState(variableName, (TextVV) value);
+				return  (Class<T>)TextVariableState.class;
 			case SMALL_INTEGER_3:
-				return new SmallInteger3VariableState(variableName, (SmallInteger3VV) value);
+				return  (Class<T>)SmallInteger3VariableState.class;
 			case SMALL_INTEGER_2:
-				return new SmallInteger2VariableState(variableName, (SmallInteger2VV) value);
+				return  (Class<T>)SmallInteger2VariableState.class;
 			case INTEGER_BOOLEAN:
-				return new IntegerBooleanVariableState(variableName, (IntegerBooleanVV) value);
+				return  (Class<T>)IntegerBooleanVariableState.class;
 			case DOUBLE:
-				return new DoubleVariableState(variableName, (DoubleVV) value);
+				return  (Class<T>)DoubleVariableState.class;
 			case TEXT_2:
-				return new Text2VariableState(variableName, (Text2VV) value);
+				return  (Class<T>)Text2VariableState.class;
 			case SMALL_INTEGER_2_TEXT_2:
-				return new SmallInteger2Text2VariableState(variableName, (SmallInteger2Text2VV) value);
+				return  (Class<T>) SmallInteger2Text2VariableState.class;
 		}
 
 		throw new RuntimeException("cannot find peroper type");
+	}
+
+	public static AVariableState get(String variableName, AVariableValue value) {
+		try {
+			return getStateClass(value.getType()).getConstructor(String.class,value.getClass()).newInstance(variableName,value);
+		} catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	public static AVariableState<?> get(ByteBuffer output) {
+		VariableType type = VariableType.getById(Short.toUnsignedInt(output.getShort()));
+		try {
+			return getStateClass(type).getConstructor(ByteBuffer.class).newInstance(output);
+		} catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
+			throw new RuntimeException(e);
+		}
+
 	}
 
 
@@ -104,44 +148,6 @@ public abstract class AVariableState<T extends AVariableValue> implements Serial
 
 	}
 
-	public static AVariableState<?> get(ByteBuffer output) {
-		VariableType type = VariableType.getById(Short.toUnsignedInt(output.getShort()));
-		AVariableState<?> ret;
-		switch (type) {
-			case BOOLEAN:
-				ret = new BooleanVariableState(output);
-				break;
-			case INTEGER:
-				ret = new IntegerVariableState(output);
-				break;
-			case TEXT:
-				ret = new TextVariableState(output);
-				break;
-			case SMALL_INTEGER_3:
-				ret = new SmallInteger3VariableState(output);
-				break;
-			case SMALL_INTEGER_2:
-				ret = new SmallInteger2VariableState(output);
-				break;
-			case INTEGER_BOOLEAN:
-				ret = new IntegerBooleanVariableState(output);
-				break;
-			case DOUBLE:
-				ret = new DoubleVariableState(output);
-				break;
-			case TEXT_2:
-				ret = new Text2VariableState(output);
-				break;
-			case SMALL_INTEGER_2_TEXT_2:
-				ret = new SmallInteger2Text2VariableState(output);
-				break;
-			default:
-				throw new RuntimeException("no state for type " + type);
-		}
-
-
-		return ret;
-	}
 
 
 	protected final void serializeData(ByteBuffer output) {

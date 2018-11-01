@@ -24,7 +24,7 @@ public class SmallInteger3VV extends AVariableValue implements Serializable {
 		String[] split = rendered.replaceAll(", ", ",").split(",");
 		i1 = Integer.valueOf(split[0]);
 		i2 = Integer.valueOf(split[1]);
-		i3 = Integer.valueOf(split[3]);
+		i3 = Integer.valueOf(split[2]);
 	}
 
 	public  SmallInteger3VV(ByteBuffer output) {
@@ -37,7 +37,7 @@ public class SmallInteger3VV extends AVariableValue implements Serializable {
 
 	@Override
 	public String toString() {
-		return getI1() + ", " + getI2();
+		return getI1() + ", " + getI2()+ ", " + getI3();
 	}
 
 

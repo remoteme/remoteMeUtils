@@ -26,18 +26,15 @@ public  class SmallInteger2Text2VV extends AVariableValue implements Serializabl
 		String[] split = rendered.replaceAll(", ", ",").split(",", 4);
 		i1 = Integer.valueOf(split[0]);
 		i2 = Integer.valueOf(split[1]);
-		t1 = split[3];
-		t2 = split[4];
+		t1 = split[2];
+		t2 = split[3];
 	}
 
 	public  SmallInteger2Text2VV(ByteBuffer output) {
-
 		setI1(output.getShort());
 		setI2(output.getShort());
 		setT1(ByteBufferUtils.readString(output));
 		setT2(ByteBufferUtils.readString(output));
-
-
 	}
 
 	@Override

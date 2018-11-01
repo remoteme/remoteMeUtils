@@ -18,7 +18,7 @@ import java.util.List;
 
 import static com.nitorcreations.Matchers.reflectEquals;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.remoteme.utils.test.ARemoteMeMessageSerializationTest.reflectArrays;
+import static org.remoteme.utils.test.SerializetionTest.reflectArrays;
 
 @Slf4j
 public class ARLiteRemoteMeMessageSerializationTest {

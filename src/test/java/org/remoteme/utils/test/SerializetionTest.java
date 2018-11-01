@@ -6,6 +6,7 @@ package org.remoteme.utils.test;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
+import org.remoteme.utils.exceptions.CannotParseVariableValue;
 import org.remoteme.utils.jackson.JacksonHelper;
 import org.remoteme.utils.messages.v1.core.messages.AMessage;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.VariableObserveMessage;
@@ -15,12 +16,14 @@ import org.remoteme.utils.messages.v1.core.messages.variables.DoubleVariableStat
 import org.remoteme.utils.messages.v1.core.messages.variables.IntegerBooleanVariableState;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.VariableChangeMessage;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.VariableChangePropagateMessage;
+import org.remoteme.utils.messages.v1.core.messages.variables.SmallInteger2Text2VariableState;
 import org.remoteme.utils.messages.v1.core.messages.variables.VariableIdentifier;
 import org.remoteme.utils.messages.v1.core.messages.variables.IntegerVariableState;
 import org.remoteme.utils.messages.v1.core.messages.variables.SmallInteger2VariableState;
 import org.remoteme.utils.messages.v1.core.messages.variables.SmallInteger3VariableState;
 import org.remoteme.utils.messages.v1.core.messages.variables.Text2VariableState;
 import org.remoteme.utils.messages.v1.core.messages.variables.TextVariableState;
+import org.remoteme.utils.messages.v1.core.messages.variables.values.AVariableValue;
 import org.remoteme.utils.messages.v1.core.messages.variables.values.IntegerBooleanVV;
 import org.remoteme.utils.messages.v1.core.messages.variables.values.SmallInteger2VV;
 import org.remoteme.utils.messages.v1.core.messages.variables.values.SmallInteger3VV;
@@ -38,15 +41,17 @@ import org.remoteme.utils.messages.v1.enums.NetworkDeviceType;
 import org.remoteme.utils.messages.v1.enums.SyncMessageType;
 import org.remoteme.utils.messages.v1.enums.UserMessageSettings;
 
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.nitorcreations.Matchers.reflectEquals;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 @Slf4j
-public class ARemoteMeMessageSerializationTest {
+public class SerializetionTest {
 
 	@Test
 	public void test(){
@@ -242,6 +247,73 @@ public class ARemoteMeMessageSerializationTest {
 	@Test
 	public void changePropagateMessage(){
 
+		List<AVariableState<?>> states = getStates();
+
+		VariableChangePropagateMessage um = new VariableChangePropagateMessage(123,456,states);
+
+		assertThat(um, reflectEquals(serializeDeserialize(um),"states"));
+		reflectArrays(um.getStates(),  ((VariableChangePropagateMessage)serializeDeserialize(um)).getStates());
+	}
+
+	@Test
+	public void StateSerializeTest(){
+
+		List<AVariableState<?>> states = getStates();
+
+		for (AVariableState<?> state : states) {
+			String serialize = AVariableState.serialize(state);
+			AVariableState<?> deserialize = AVariableState.deserialize(serialize);
+			Assert.assertEquals(state,deserialize);
+
+
+			AVariableState fromConstructor = AVariableState.get(deserialize.getIdentifier().getName(),deserialize.getData());
+			Assert.assertEquals(state,fromConstructor);
+
+			AVariableState fromByteBuffer = AVariableState.get(fromConstructor.getIdentifier().getName(),fromConstructor.getData());
+			Assert.assertEquals(state,fromByteBuffer);
+
+
+
+			AVariableState<?> deserializeFinal = AVariableState.deserialize(AVariableState.serialize(fromByteBuffer));
+			Assert.assertEquals(state,deserializeFinal);
+			Assert.assertEquals(serialize, AVariableState.serialize(deserializeFinal));
+
+		}
+	}
+
+
+	@Test
+	public void ValueSerializeTest() throws CannotParseVariableValue {
+
+		List<AVariableValue> states = getStates().stream().map(x->x.getData()).collect(Collectors.toList());
+
+		for (AVariableValue value : states) {
+			String serialize = AVariableValue.serialize(value);
+			AVariableValue deserialize = AVariableValue.deserialize(serialize,value.getClass());
+			Assert.assertEquals(value,deserialize);
+
+
+			AVariableValue fromRendered = AVariableValue.get(deserialize.toString(),deserialize.getType());
+			Assert.assertEquals(value,fromRendered);
+
+
+			ByteBuffer bb= ByteBuffer.allocate(fromRendered.getDataSize());
+			fromRendered.serializeData(bb);
+			bb.rewind();
+
+			AVariableValue fromByteBuffer = AVariableValue.get(bb,fromRendered.getType());
+			Assert.assertEquals(value,fromByteBuffer);
+
+
+
+			AVariableValue deserializeFinal = AVariableValue.deserialize( AVariableValue.serialize(fromByteBuffer),fromByteBuffer.getClass());
+			Assert.assertEquals(value,deserializeFinal);
+
+		}
+	}
+
+
+	private List<AVariableState<?>> getStates() {
 		List<AVariableState<?>> states = new ArrayList<>();
 		states.add(new BooleanVariableState("pam1",true));
 		states.add(new DoubleVariableState("pam2",123.456));
@@ -251,17 +323,8 @@ public class ARemoteMeMessageSerializationTest {
 		states.add(new SmallInteger3VariableState("pam3",123,-12345,6543));
 		states.add(new Text2VariableState("pam3","text1","text2"));
 		states.add(new TextVariableState("pam3","text"));
-
-
-
-
-		VariableChangePropagateMessage um = new VariableChangePropagateMessage(123,456,states);
-
-		System.out.println(JacksonHelper.serialize(um));
-
-		assertThat(um, reflectEquals(serializeDeserialize(um),"states"));
-		reflectArrays(um.getStates(),  ((VariableChangePropagateMessage)serializeDeserialize(um)).getStates());
-
+		states.add(new SmallInteger2Text2VariableState("pam3",123,456,"124","343"));
+		return states;
 	}
 
 	@Test

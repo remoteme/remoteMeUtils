@@ -1,5 +1,8 @@
 package org.remoteme.utils.general;
 
+import org.remoteme.utils.messages.v1.enums.AddMessageSettings;
+import org.remoteme.utils.messages.v1.enums.variables.VariableHistoryRound;
+
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -10,6 +13,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.regex.Pattern;
 
@@ -32,11 +36,15 @@ public class DateTimeUtils {
 
 	}
 
-	public static LocalDateTime getFromMillis(long millis) {
+	public static LocalDateTime getFromMillis(Long millis) {
 		return getFromMillis(millis,ZoneOffset.UTC);
 	}
-	public static LocalDateTime getFromMillis(long millis,ZoneId zone) {
-		return Instant.ofEpochMilli(millis).atZone(zone).toLocalDateTime();
+	public static LocalDateTime getFromMillis(Long millis,ZoneId zone) {
+		if (millis==null || millis==-1){
+			return null;
+		}else{
+			return Instant.ofEpochMilli(millis).atZone(zone).toLocalDateTime();
+		}
 	}
 	public static LocalDateTime parseddmmyyyy(String ddmmyyyy,ZoneId zoneId) {
 		return LocalDate.parse(ddmmyyyy, ddmmyyyy_.withZone(zoneId)).atTime(0, 0);
@@ -59,7 +67,6 @@ public class DateTimeUtils {
 
 	public static String print(long date, String format, ZoneId zone) {
 		return DateTimeFormatter.ofPattern(format).format(DateTimeUtils.getFromMillis(date,zone));
-
 	}
 
 	public static String printddmmyyyyhhmm(LocalDateTime date) {
@@ -138,13 +145,19 @@ public class DateTimeUtils {
 	}
 
 	public static Date convert(LocalDateTime date) {
-		if (date == null) {
+		if (date == null)  {
 			return null;
 		} else {
 			return new Date(getMillisUTC(date));
 		}
 	}
-
+	public static Date convert(LocalDateTime date, ZoneId zone) {
+		if (date == null) {
+			return null;
+		} else {
+			return new Date(getMillis(date,zone));
+		}
+	}
 	public static int getDiffrent(LocalDateTime date1, LocalDateTime date2) {
 		return (int)((getMillisUTC(date1)- getMillisUTC(date2))/1000);
 	}
@@ -188,5 +201,69 @@ public class DateTimeUtils {
 
 	public static boolean inPast(LocalDateTime first,int minutes) {
 		return first.plusMinutes(minutes).isBefore(DateTimeUtils.now());
+	}
+
+
+	public static long getTime(AddMessageSettings settings, long timeTemp){
+
+		if (timeTemp<=0){
+			timeTemp = System.currentTimeMillis();
+		}
+
+
+		if (settings != AddMessageSettings.NO_ROUND) {
+			LocalDateTime local = DateTimeUtils.getFromMillis(timeTemp);
+
+			switch (settings){
+				case _1S	:local=DateTimeUtils.roundToSeconds(local,1);break;
+				case _2S	:local=DateTimeUtils.roundToSeconds(local,2);break;
+				case _5S	:local=DateTimeUtils.roundToSeconds(local,5);break;
+				case _10S	:local=DateTimeUtils.roundToSeconds(local,10);break;
+				case _15S	:local=DateTimeUtils.roundToSeconds(local,15);break;
+				case _20S	:local=DateTimeUtils.roundToSeconds(local,20);break;
+				case _30S	:local=DateTimeUtils.roundToSeconds(local,30);break;
+				case _1M	:local=DateTimeUtils.roundToMinutes(local,1);break;
+				case _5M	:local=DateTimeUtils.roundToMinutes(local,5);break;
+				case _10M	:local=DateTimeUtils.roundToMinutes(local,10);break;
+				case _15M	:local=DateTimeUtils.roundToMinutes(local,15);break;
+				case _30M	:local=DateTimeUtils.roundToMinutes(local,30);break;
+				case _1G	:local=DateTimeUtils.roundToHours(local,1);break;
+				case _2G	:local=DateTimeUtils.roundToHours(local,2);break;
+				case _3G	:local=DateTimeUtils.roundToHours(local,3);break;
+				case _4G	:local=DateTimeUtils.roundToHours(local,4);break;
+				case _5G	:local=DateTimeUtils.roundToHours(local,5);break;
+				case _6G	:local=DateTimeUtils.roundToHours(local,6);break;
+			}
+
+			timeTemp=DateTimeUtils.getMillisUTC(local);
+		}
+		return timeTemp;
+	}
+
+
+	public static LocalDateTime round(VariableHistoryRound settings, LocalDateTime dateTime) {
+			switch (settings){
+				case _1S	:return DateTimeUtils.roundToSeconds(dateTime,1);
+				case _2S	:return DateTimeUtils.roundToSeconds(dateTime,2);
+				case _5S	:return DateTimeUtils.roundToSeconds(dateTime,5);
+				case _10S	:return DateTimeUtils.roundToSeconds(dateTime,10);
+				case _15S	:return DateTimeUtils.roundToSeconds(dateTime,15);
+				case _20S	:return DateTimeUtils.roundToSeconds(dateTime,20);
+				case _30S	:return DateTimeUtils.roundToSeconds(dateTime,30);
+				case _1M	:return DateTimeUtils.roundToMinutes(dateTime,1);
+				case _5M	:return DateTimeUtils.roundToMinutes(dateTime,5);
+				default:	return dateTime;
+			}
+
+
+
+	}
+
+	public static boolean equals(LocalDateTime date1, LocalDateTime date2) {
+		return getMillis(date1,ZoneOffset.UTC )==getMillis(date2,ZoneOffset.UTC );
+	}
+
+	public static Optional<LocalDateTime> getFromMillisOpt(long date) {
+		return Optional.ofNullable(getFromMillis(date));
 	}
 }
