@@ -48,6 +48,7 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 
@@ -144,9 +145,32 @@ public abstract class AVariableValue {
 		}
 	}
 
+	public static AVariableValue getRandom(VariableType type) {
+		switch (type){
 
+			case BOOLEAN: return new BooleanVV(Math.random()>0.5);
+			case INTEGER:return new IntegerVV(randomInt());
+			case TEXT:return new TextVV(randomString());
+			case SMALL_INTEGER_3:return new SmallInteger3VV(randomInt(),randomInt(),randomInt());
+			case SMALL_INTEGER_2:return new SmallInteger2VV(randomInt(),randomInt());
+			case INTEGER_BOOLEAN:return new IntegerBooleanVV(randomInt(),Math.random()>0.5);
+			case DOUBLE:return new DoubleVV((Math.random()*1000));
+			case TEXT_2:return new Text2VV(randomString(),randomString());
+			case SMALL_INTEGER_2_TEXT_2:return new SmallInteger2Text2VV(randomInt(),randomInt(), randomString(),randomString());
+			default: throw new RuntimeException();
+		}
 
+	}
 
+	private static int randomInt() {
+		return (int)(Math.random()*100);
+
+	}
+
+	private static String randomString() {
+		return UUID.randomUUID().toString();
+
+	}
 
 
 	public abstract void serializeData(ByteBuffer output);

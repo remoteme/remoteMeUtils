@@ -45,6 +45,15 @@ public class InstantUtils {
 			return Instant.ofEpochMilli(millis);
 		}
 	}
+
+	public static Instant getFromMillis(Long millis,int daysToAdd) {
+		Instant fromMillis = getFromMillis(millis);
+		if (fromMillis!=null){
+			fromMillis=plusDays(fromMillis, daysToAdd);
+		}
+		return fromMillis;
+	}
+
 	public static LocalDateTime getFromMillis(Long millis,ZoneId zone) {
 		if (millis==null || millis==-1){
 			return null;
@@ -248,6 +257,12 @@ public class InstantUtils {
 		return Optional.ofNullable(getFromMillis(date));
 	}
 
+	public static Optional<Instant> getFromMillisOpt(long date, int daysToAdd ) {
+
+
+		return Optional.ofNullable( getFromMillis(date,daysToAdd));
+	}
+
 	public static Instant plusHours(Instant date, int i) {
 		return date.plus(i,ChronoUnit.HOURS);
 	}
@@ -263,4 +278,6 @@ public class InstantUtils {
 	public static boolean older(Instant lastPing, int seconds) {
 		return getDiffrent(Instant.now(),lastPing)>seconds;
 	}
+
+
 }
