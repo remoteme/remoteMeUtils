@@ -7,7 +7,10 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalField;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,11 +19,14 @@ import java.util.function.BiFunction;
 import java.util.regex.Pattern;
 
 public class InstantUtils {
-	public static final DateTimeFormatter ddmmyyyy_ = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-	public static final DateTimeFormatter ddmmyyyyHHMM_ = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
-	public static final DateTimeFormatter ddmmyyyyHHMM_WithDOW = DateTimeFormatter.ofPattern("dd.MM.yyyy (E) HH:mm");
-	public static final DateTimeFormatter ddmmyyyyHHMMss_ = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");
-	public static final DateTimeFormatter ddmmyyyyHHMMRaw_ = DateTimeFormatter.ofPattern("ddMMyyyyHHmm");
+	public static final DateTimeFormatter ddmmyyyy_ = getPattern("dd.MM.yyyy", ChronoField.HOUR_OF_DAY) ;
+
+
+
+	public static final DateTimeFormatter ddmmyyyyHHMM_ = getPattern("dd.MM.yyyy HH:mm",  ChronoField.SECOND_OF_MINUTE);
+	public static final DateTimeFormatter ddmmyyyyHHMM_WithDOW = getPattern("dd.MM.yyyy (E) HH:mm",  ChronoField.SECOND_OF_MINUTE);
+	public static final DateTimeFormatter ddmmyyyyHHMMss_ = getPattern("dd.MM.yyyy HH:mm:ss",  ChronoField.SECOND_OF_MINUTE);
+	public static final DateTimeFormatter ddmmyyyyHHMMRaw_ = getPattern("ddMMyyyyHHmm",  ChronoField.SECOND_OF_MINUTE);
 
 	static Map<Pattern, BiFunction<String,ZoneId, Instant>> patterns;
 
@@ -33,6 +39,14 @@ public class InstantUtils {
 
 
 	}
+	private static DateTimeFormatter getPattern(String pattern, TemporalField defaultParse) {
+		return new DateTimeFormatterBuilder()
+				.appendPattern(pattern)
+				.parseDefaulting(defaultParse, 0)
+				.toFormatter();
+	}
+
+
 
 	public static Instant parse(String date,DateTimeFormatter formatter,ZoneId zoneId){
 		return formatter.withZone(zoneId).parse(date,Instant::from);
@@ -171,8 +185,11 @@ public class InstantUtils {
 
 	}
 
-	public static LocalDateTime getFromDate(Date expired) {
-		return expired.toInstant().atZone(ZoneOffset.UTC).toLocalDateTime();
+	public static LocalDateTime fromDate(Date date) {
+		return fromInstant(date.toInstant(), ZoneOffset.UTC);
+	}
+	public static LocalDateTime fromInstant(Instant date,ZoneId zoneId) {
+		return date.atZone(zoneId).toLocalDateTime();
 	}
 
 	public static Date convert(LocalDateTime date) {
