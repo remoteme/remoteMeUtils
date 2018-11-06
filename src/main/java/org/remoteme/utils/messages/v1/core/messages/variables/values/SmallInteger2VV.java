@@ -54,4 +54,10 @@ public class SmallInteger2VV extends AVariableValue implements Serializable {
 	public VariableType getType() {
 		return VariableType.SMALL_INTEGER_2;
 	}
+
+	@Override
+	public double toDouble() {
+		return (i1+i2)/2.0;
+	}
+
 }

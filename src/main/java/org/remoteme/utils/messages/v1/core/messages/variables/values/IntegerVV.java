@@ -51,4 +51,9 @@ public class IntegerVV extends AVariableValue implements Serializable {
 	public VariableType getType() {
 		return VariableType.INTEGER;
 	}
+
+	@Override
+	public double toDouble() {
+		return i;
+	}
 }

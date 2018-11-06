@@ -47,6 +47,14 @@ public class InstantUtils {
 	}
 
 
+	public static Instant getTime(String toS, ZoneId zoneId, int daysToAdd) {
+		Instant time = getTime(toS, zoneId);
+		if (daysToAdd!=0){
+			time=LocalDateTime.ofInstant(time, zoneId).plusDays(daysToAdd).toInstant(zoneId.getRules().getOffset(time));
+		}
+		return time;
+	}
+
 
 	public static Instant parse(String date,DateTimeFormatter formatter,ZoneId zoneId){
 		return formatter.withZone(zoneId).parse(date,Instant::from);
@@ -295,6 +303,7 @@ public class InstantUtils {
 	public static boolean older(Instant lastPing, int seconds) {
 		return getDiffrent(Instant.now(),lastPing)>seconds;
 	}
+
 
 
 }

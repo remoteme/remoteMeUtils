@@ -58,4 +58,8 @@ public class SmallInteger3VV extends AVariableValue implements Serializable {
 		return VariableType.SMALL_INTEGER_3;
 	}
 
+	@Override
+	public double toDouble() {
+		return (i1+i2+i3)/3.0;
+	}
 }

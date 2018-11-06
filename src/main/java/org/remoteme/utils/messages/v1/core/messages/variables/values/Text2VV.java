@@ -56,4 +56,9 @@ public class Text2VV extends AVariableValue implements Serializable {
 	public VariableType getType() {
 		return VariableType.TEXT_2;
 	}
+
+	@Override
+	public double toDouble() {
+		return 0;
+	}
 }

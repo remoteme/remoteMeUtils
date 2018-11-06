@@ -40,4 +40,7 @@ public enum VariableType implements Id_Enum<VariableType> {
 		return Id_Enum.getListInner(id, array);
 	}
 
+	public boolean isSingle() {
+		return in(BOOLEAN,INTEGER,DOUBLE);
+	}
 }

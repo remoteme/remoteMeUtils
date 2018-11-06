@@ -15,6 +15,14 @@ public interface Id_Enum<T extends Id_Enum> {
 	int getId();
 
 
+	default <T extends Id_Enum> boolean in(T... arr){
+		for (T t : arr) {
+			if (t==this){
+				return true;
+			}
+		}
+		return false;
+	}
 
 	static <T extends Id_Enum> T getListInner(Integer id, SparseArrayIdEnum arrays) {
 		T t = (T) arrays.get(id);

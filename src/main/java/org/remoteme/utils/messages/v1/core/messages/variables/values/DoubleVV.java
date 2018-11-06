@@ -52,4 +52,9 @@ public class DoubleVV extends AVariableValue implements Serializable {
 	public VariableType getType() {
 		return VariableType.DOUBLE;
 	}
+
+	@Override
+	public double toDouble() {
+		return d;
+	}
 }

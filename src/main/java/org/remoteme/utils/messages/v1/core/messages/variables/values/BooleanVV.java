@@ -50,5 +50,8 @@ public class BooleanVV extends AVariableValue implements Serializable {
 	public VariableType getType() {
 		return VariableType.BOOLEAN;
 	}
-
+	@Override
+	public double toDouble() {
+		return b?1:0;
+	}
 }

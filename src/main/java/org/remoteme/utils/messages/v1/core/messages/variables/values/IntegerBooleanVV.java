@@ -53,4 +53,9 @@ public class IntegerBooleanVV extends AVariableValue implements Serializable {
 	public VariableType getType() {
 		return VariableType.INTEGER_BOOLEAN;
 	}
+
+	@Override
+	public double toDouble() {
+		return Double.valueOf(i)*(b?1:-1);
+	}
 }

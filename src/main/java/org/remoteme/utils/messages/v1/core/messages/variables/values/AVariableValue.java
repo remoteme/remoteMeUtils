@@ -179,4 +179,6 @@ public abstract class AVariableValue {
 
 	public abstract VariableType getType() ;
 
+	public abstract double toDouble();
+
 }
