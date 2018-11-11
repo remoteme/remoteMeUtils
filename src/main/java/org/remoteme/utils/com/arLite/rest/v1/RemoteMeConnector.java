@@ -27,7 +27,7 @@ public class RemoteMeConnector {
 
 				.encoder(new JacksonEncoder())
 				.decoder(new JacksonDecoder())
-				.target(IHelloRest.class, "http://127.0.0.1:8082/arLite/rest/v1");
+				.target(IHelloRest.class, "http://app.remoteme.org/arLite/rest/v1");
 
 
 	}
