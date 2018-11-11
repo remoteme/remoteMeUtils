@@ -19,7 +19,6 @@ public class RestTest {
 		System.out.println(feignConnector.getHelloRest().getWithName("maciek"));
 
 
-
 		System.out.println(feignConnector.getHelloRest().modify(hello));
 	}
 
