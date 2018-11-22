@@ -2,7 +2,7 @@ package org.remoteme.utils.messages.v1.core.messages.remoteMe;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.swagger.annotations.ApiModelProperty;
+
 
 import lombok.Getter;
 import lombok.Setter;
@@ -20,7 +20,6 @@ import java.util.List;
 public class SyncUserMessage extends ASyncMessage {
 
 
-	@ApiModelProperty(notes = "Sending deviceId",required = true)
 	int senderDeviceId;//2
 
 	@JsonIgnore

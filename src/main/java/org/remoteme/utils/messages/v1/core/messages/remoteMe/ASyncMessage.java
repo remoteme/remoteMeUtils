@@ -1,7 +1,5 @@
 package org.remoteme.utils.messages.v1.core.messages.remoteMe;
 
-
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,11 +10,8 @@ import java.util.List;
 @Setter
 public abstract class ASyncMessage extends ARemoteMeMessage {
 
-	@ApiModelProperty(notes = "deviceId to where message will be send",required = false)
 	protected int receiverDeviceId;//2
-	@ApiModelProperty(notes = "messageId has to be random You will get it in reponse")
 	long messageId;//8
-	@ApiModelProperty(notes = "Array of bytes",required = true)
 	List<Integer> message;
 
 	/**

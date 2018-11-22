@@ -11,6 +11,7 @@ public enum VariableType implements Id_Enum<VariableType> {
 	, SMALL_INTEGER_2_TEXT_2(8, "SmallInteger2Text2", "T2");
 
 
+
 	private final int id;
 	private final String niceName;
 	private final String niceShortName;

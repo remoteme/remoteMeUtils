@@ -1,7 +1,7 @@
 package org.remoteme.utils.messages.v1.core.messages.remoteMe;
 
 
-import io.swagger.annotations.ApiModelProperty;
+
 
 import lombok.Getter;
 import lombok.Setter;
@@ -16,9 +16,7 @@ import java.util.List;
 @Setter
 public class SyncResponseMessage extends ARemoteMeMessage {
 
-	@ApiModelProperty(notes = "messageId tok from messageId to which one we want to reponse")
 	long messageId;//8
-	@ApiModelProperty(notes = "Array of bytes",required = true)
 	List<Integer> message;//size
 
 	protected SyncResponseMessage() {

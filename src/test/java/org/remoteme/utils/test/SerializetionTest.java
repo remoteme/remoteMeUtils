@@ -50,7 +50,7 @@ import java.util.stream.Collectors;
 import static com.nitorcreations.Matchers.reflectEquals;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-@Slf4j
+
 public class SerializetionTest {
 
 	@Test

@@ -2,7 +2,6 @@ package org.remoteme.utils.messages.v1.core.messages;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import io.swagger.annotations.ApiModel;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -54,8 +53,6 @@ import java.io.Serializable;
 		@JsonSubTypes.Type(value = NotifyAboutVariablesMessage.class, name = "NotifyAboutVariablesMessage"),
 		@JsonSubTypes.Type(value = CreateVariablesMessage.class, name = "CreateVariablesMessage"),
 })
-@ApiModel(value="SuperModel", discriminator = "foo")
-@Slf4j
 public abstract class AMessage implements Serializable {
 
 

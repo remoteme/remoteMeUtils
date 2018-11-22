@@ -4,8 +4,9 @@ package org.remoteme.utils.messages.v1.core.messages.remoteMe;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
 
+
+import lombok.extern.slf4j.Slf4j;
 import org.remoteme.utils.messages.v1.core.messages.AMessage;
 import org.remoteme.utils.messages.v1.core.messages.arLite.VariableRemoveMessage;
 import org.remoteme.utils.messages.v1.enums.MessageType;
@@ -14,7 +15,6 @@ import java.nio.ByteBuffer;
 
 @Getter
 @Setter
-@Slf4j
 public abstract class ARemoteMeMessage extends AMessage {
 
 	public abstract ByteBuffer toByteBuffer();
@@ -29,7 +29,6 @@ public abstract class ARemoteMeMessage extends AMessage {
 		try {
 			messageType = MessageType.getById(messageTypeId);
 		}catch (NullPointerException npe){
-			log.error("Message type:{} not recopgnized",messageTypeId);
 			throw npe;
 		}
 		switch (messageType){

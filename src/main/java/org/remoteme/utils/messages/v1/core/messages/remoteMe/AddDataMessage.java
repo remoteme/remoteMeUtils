@@ -1,7 +1,6 @@
 package org.remoteme.utils.messages.v1.core.messages.remoteMe;
 
 
-import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -37,12 +36,7 @@ public class AddDataMessage extends ARemoteMeMessage {
 
 
 
-
-
-	@ApiModelProperty(notes = "Time in miliseconds since 01.01.1970 put 0 if You want to create data for now", required = true)
-
 	long time;//2
-	@ApiModelProperty(notes = "Settings for now jsut time roundness", required = true)
 
 	AddMessageSettings settings;//1
 	List<DataSeries> dataSeries;

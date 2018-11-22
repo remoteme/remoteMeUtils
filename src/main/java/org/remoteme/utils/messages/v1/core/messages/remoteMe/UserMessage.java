@@ -1,7 +1,7 @@
 package org.remoteme.utils.messages.v1.core.messages.remoteMe;
 
 
-import io.swagger.annotations.ApiModelProperty;
+
 
 import lombok.Getter;
 import lombok.Setter;
@@ -18,15 +18,10 @@ import java.util.List;
 @Setter
 public class UserMessage extends ARemoteMeMessage {
 
-	@ApiModelProperty(notes = "Message  settings if we wait with deliver - for now not supported. two possibilities NO_RENEWAL, RENEWAL_IF_FAILED",required = false)
 	UserMessageSettings userMessageSettings;//1
-	@ApiModelProperty(notes = "Where should be delivered",required = true)
 	int receiverDeviceId;//2
-	@ApiModelProperty(notes = "Device from where it was send",required = true)
 	int senderDeviceId;//2
-	@ApiModelProperty(notes = "not supported yet",required = false)
 	int messageId;//2
-	@ApiModelProperty(notes = "Array of bytes",required = true)
 
 	List<Integer> message;//size
 
