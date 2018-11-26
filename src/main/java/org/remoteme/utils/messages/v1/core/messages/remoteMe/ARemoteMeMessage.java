@@ -32,6 +32,8 @@ public abstract class ARemoteMeMessage extends AMessage {
 			throw npe;
 		}
 		switch (messageType){
+			case AUTHENTIFICATE: return new AuthentificateMessage(payload);
+			case PING: return new PingMessage(payload);
 			case USER_MESSAGE:return new UserMessage(payload);
 			case USER_MESSAGE_DELIVER_STATUS: return null;//todo
 
