@@ -8,6 +8,7 @@ import org.remoteme.utils.jackson.JacksonHelper;
 import org.remoteme.utils.messages.v1.core.messages.AMessage;
 import org.remoteme.utils.messages.v1.core.messages.arLite.CreateVariablesMessage;
 import org.remoteme.utils.messages.v1.core.messages.arLite.NotifyAboutVariablesMessage;
+import org.remoteme.utils.messages.v1.core.messages.arLite.VariableDetails;
 import org.remoteme.utils.messages.v1.core.messages.arLite.VariableRemoveMessage;
 import org.remoteme.utils.messages.v1.core.messages.arLite.VariableRenameMessage;
 import org.remoteme.utils.messages.v1.core.messages.variables.VariableIdentifier;
@@ -98,15 +99,15 @@ public class ARLiteRemoteMeMessageSerializationTest {
 	@Test
 	public void cretateVariableMessage(){
 
-		List<CreateVariablesMessage.VariableDetails> pam = new ArrayList<>();
-		pam.add(new CreateVariablesMessage.VariableDetails("gamepad", VariableType.TEXT_2,false,false,false));
-		pam.add(new CreateVariablesMessage.VariableDetails("gamepad", VariableType.SMALL_INTEGER_2_TEXT_2,false,false,false));
-		pam.add(new CreateVariablesMessage.VariableDetails("button1", VariableType.BOOLEAN,true,false,false));
-		pam.add(new CreateVariablesMessage.VariableDetails("button2", VariableType.BOOLEAN,true,false,false));
-		pam.add(new CreateVariablesMessage.VariableDetails("button3", VariableType.BOOLEAN,true,false,false));
-		pam.add(new CreateVariablesMessage.VariableDetails("relay1", VariableType.BOOLEAN,true,false,false));
-		pam.add(new CreateVariablesMessage.VariableDetails("relay2", VariableType.BOOLEAN,true,false,false));
-		pam.add(new CreateVariablesMessage.VariableDetails("temperature", VariableType.DOUBLE,true,true,false));
+		List<VariableDetails> pam = new ArrayList<>();
+		pam.add(new VariableDetails("gamepad", VariableType.TEXT_2,false,false,false));
+		pam.add(new VariableDetails("gamepad", VariableType.SMALL_INTEGER_2_TEXT_2,false,false,false));
+		pam.add(new VariableDetails("button1", VariableType.BOOLEAN,true,false,false));
+		pam.add(new VariableDetails("button2", VariableType.BOOLEAN,true,false,false));
+		pam.add(new VariableDetails("button3", VariableType.BOOLEAN,true,false,false));
+		pam.add(new VariableDetails("relay1", VariableType.BOOLEAN,true,false,false));
+		pam.add(new VariableDetails("relay2", VariableType.BOOLEAN,true,false,false));
+		pam.add(new VariableDetails("temperature", VariableType.DOUBLE,true,true,false));
 
 		CreateVariablesMessage um = new CreateVariablesMessage(pam);
 		System.out.println(JacksonHelper.serialize(um));

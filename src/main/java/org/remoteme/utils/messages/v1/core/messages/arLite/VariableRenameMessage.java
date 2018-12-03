@@ -16,7 +16,7 @@ public class VariableRenameMessage extends AARLiteMessage {
 	@Setter
 	@AllArgsConstructor
 	@NoArgsConstructor
-	public class VariableRenameMessageData implements Serializable {
+	public static class VariableRenameMessageData implements Serializable {
 		String oldName;
 		String newName;
 		VariableType type;

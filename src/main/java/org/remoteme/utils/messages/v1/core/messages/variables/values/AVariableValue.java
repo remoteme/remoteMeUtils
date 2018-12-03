@@ -1,55 +1,16 @@
 package org.remoteme.utils.messages.v1.core.messages.variables.values;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.databind.DatabindContext;
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.annotation.JsonTypeIdResolver;
-import com.fasterxml.jackson.databind.jsontype.TypeIdResolver;
-import com.fasterxml.jackson.databind.jsontype.impl.TypeIdResolverBase;
-import com.fasterxml.jackson.databind.type.SimpleType;
 import lombok.Getter;
 import lombok.Setter;
 import org.remoteme.utils.exceptions.CannotParseVariableValue;
 import org.remoteme.utils.jackson.JacksonHelper;
-import org.remoteme.utils.messages.v1.core.messages.arLite.CreateVariablesMessage;
-import org.remoteme.utils.messages.v1.core.messages.arLite.NotifyAboutVariablesMessage;
-import org.remoteme.utils.messages.v1.core.messages.arLite.PingMessage;
-import org.remoteme.utils.messages.v1.core.messages.arLite.VariableRemoveMessage;
-import org.remoteme.utils.messages.v1.core.messages.arLite.VariableRenameMessage;
-import org.remoteme.utils.messages.v1.core.messages.remoteMe.AddDataMessage;
-import org.remoteme.utils.messages.v1.core.messages.remoteMe.LogMessage;
-import org.remoteme.utils.messages.v1.core.messages.remoteMe.RegisterDeviceMessage;
-import org.remoteme.utils.messages.v1.core.messages.remoteMe.RegisterLeafDeviceMessage;
-import org.remoteme.utils.messages.v1.core.messages.remoteMe.SyncMessage;
-import org.remoteme.utils.messages.v1.core.messages.remoteMe.SyncResponseMessage;
-import org.remoteme.utils.messages.v1.core.messages.remoteMe.SyncUserMessage;
-import org.remoteme.utils.messages.v1.core.messages.remoteMe.SystemMessage;
-import org.remoteme.utils.messages.v1.core.messages.remoteMe.UserMessage;
-import org.remoteme.utils.messages.v1.core.messages.remoteMe.VariableChangeMessage;
-import org.remoteme.utils.messages.v1.core.messages.remoteMe.VariableChangePropagateMessage;
-import org.remoteme.utils.messages.v1.core.messages.remoteMe.VariableObserveMessage;
-import org.remoteme.utils.messages.v1.core.messages.remoteMe.WebRRCConnectionStatusChangeMessage;
-import org.remoteme.utils.messages.v1.core.messages.variables.AVariableState;
-import org.remoteme.utils.messages.v1.core.messages.variables.BooleanVariableState;
-import org.remoteme.utils.messages.v1.core.messages.variables.DoubleVariableState;
-import org.remoteme.utils.messages.v1.core.messages.variables.IntegerBooleanVariableState;
-import org.remoteme.utils.messages.v1.core.messages.variables.IntegerVariableState;
-import org.remoteme.utils.messages.v1.core.messages.variables.SmallInteger2Text2VariableState;
-import org.remoteme.utils.messages.v1.core.messages.variables.SmallInteger2VariableState;
-import org.remoteme.utils.messages.v1.core.messages.variables.SmallInteger3VariableState;
-import org.remoteme.utils.messages.v1.core.messages.variables.Text2VariableState;
-import org.remoteme.utils.messages.v1.core.messages.variables.TextVariableState;
 import org.remoteme.utils.messages.v1.enums.variables.VariableType;
 
-import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 
 @Getter
