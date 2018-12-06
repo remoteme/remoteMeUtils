@@ -124,7 +124,11 @@ public class DateTimeUtils {
 	public static long getMillis(LocalDateTime date,ZoneOffset zone) {
 		return date.toInstant(zone).toEpochMilli();
 	}
-	public static LocalDateTime getTime(String dt) {
+	public static LocalDateTime getTime(String dt ) {
+		return getTime(dt,ZoneOffset.UTC);
+
+	}
+		public static LocalDateTime getTime(String dt,ZoneOffset zone) {
 		for (Map.Entry<Pattern, Function<String, LocalDateTime>> p : patterns.entrySet()) {
 			if (p.getKey().matcher(dt).matches()) {
 
@@ -133,6 +137,10 @@ public class DateTimeUtils {
 		}
 		throw new RuntimeException("date format not recongized");
 
+	}
+
+	public static long getMillis(String dt){
+		return getMillisUTC(getTime(dt));
 	}
 
 	public static LocalDateTime min(LocalDateTime date1, LocalDateTime date2) {
@@ -254,10 +262,9 @@ public class DateTimeUtils {
 				case _5M	:return DateTimeUtils.roundToMinutes(dateTime,5);
 				default:	return dateTime;
 			}
-
-
-
 	}
+
+
 
 	public static boolean equals(LocalDateTime date1, LocalDateTime date2) {
 		return getMillis(date1,ZoneOffset.UTC )==getMillis(date2,ZoneOffset.UTC );
