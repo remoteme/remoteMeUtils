@@ -3,6 +3,7 @@ package org.remoteme.utils.messages.v1.core.messages.remoteMe;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import org.remoteme.utils.general.ByteBufferUtils;
@@ -16,22 +17,19 @@ import java.nio.ByteBuffer;
 public class PingMessage extends ARemoteMeMessage {
 
 
+	@JsonIgnore
 	Integer deviceId;//transient
 
-	protected PingMessage() {
+	public PingMessage() {
 	}
 
 
-	public PingMessage(int deviceId) {
-		this.deviceId=deviceId;
-	}
+
 
 
 
 	public PingMessage(ByteBuffer payload) {
 		payload.getShort();//taking size
-
-
 	}
 
 
