@@ -106,6 +106,14 @@ public abstract class AVariableValue {
 		}
 	}
 
+	public static <T extends AVariableValue> T  deserialize(String valueDb, VariableType type) {
+		return deserialize(valueDb,AVariableValue.getValueClass(type));
+	}
+
+	public String toJson(){
+		return serialize(this);
+	}
+
 	public static AVariableValue getRandom(VariableType type) {
 		switch (type){
 
