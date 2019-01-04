@@ -20,7 +20,7 @@ public class DoubleVariableState extends AVariableState<DoubleVV> {
 	}
 
 	public DoubleVariableState(String name, double data) {
-		this(name, new DoubleVV());
+		this(name, new DoubleVV(data));
 	}
 
 
