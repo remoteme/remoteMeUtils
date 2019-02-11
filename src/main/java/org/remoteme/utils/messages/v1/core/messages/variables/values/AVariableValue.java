@@ -98,7 +98,7 @@ public abstract class AVariableValue {
 	}
 
 
-	public static <T> String serialize(T value){
+	public static <T extends AVariableValue> String serialize(T value){
 		if (value==null){
 			return null;
 		}else{

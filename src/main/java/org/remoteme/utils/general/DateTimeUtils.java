@@ -1,7 +1,6 @@
 package org.remoteme.utils.general;
 
 import org.remoteme.utils.messages.v1.enums.AddMessageSettings;
-import org.remoteme.utils.messages.v1.enums.variables.VariableHistoryRound;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -248,21 +247,6 @@ public class DateTimeUtils {
 		return timeTemp;
 	}
 
-
-	public static LocalDateTime round(VariableHistoryRound settings, LocalDateTime dateTime) {
-			switch (settings){
-				case _1S	:return DateTimeUtils.roundToSeconds(dateTime,1);
-				case _2S	:return DateTimeUtils.roundToSeconds(dateTime,2);
-				case _5S	:return DateTimeUtils.roundToSeconds(dateTime,5);
-				case _10S	:return DateTimeUtils.roundToSeconds(dateTime,10);
-				case _15S	:return DateTimeUtils.roundToSeconds(dateTime,15);
-				case _20S	:return DateTimeUtils.roundToSeconds(dateTime,20);
-				case _30S	:return DateTimeUtils.roundToSeconds(dateTime,30);
-				case _1M	:return DateTimeUtils.roundToMinutes(dateTime,1);
-				case _5M	:return DateTimeUtils.roundToMinutes(dateTime,5);
-				default:	return dateTime;
-			}
-	}
 
 
 

@@ -1,6 +1,5 @@
 package org.remoteme.utils.general;
 
-import org.remoteme.utils.messages.v1.enums.variables.VariableHistoryRound;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -256,23 +255,7 @@ public class InstantUtils {
 
 
 
-	public static Instant round(VariableHistoryRound settings, Instant dateTime) {
-			switch (settings){
-				case _1S	:return InstantUtils.roundToSeconds(dateTime,1);
-				case _2S	:return InstantUtils.roundToSeconds(dateTime,2);
-				case _5S	:return InstantUtils.roundToSeconds(dateTime,5);
-				case _10S	:return InstantUtils.roundToSeconds(dateTime,10);
-				case _15S	:return InstantUtils.roundToSeconds(dateTime,15);
-				case _20S	:return InstantUtils.roundToSeconds(dateTime,20);
-				case _30S	:return InstantUtils.roundToSeconds(dateTime,30);
-				case _1M	:return InstantUtils.roundToMinutes(dateTime,1);
-				case _5M	:return InstantUtils.roundToMinutes(dateTime,5);
-				default:	return dateTime;
-			}
 
-
-
-	}
 
 	public static boolean equals(Instant date1, Instant date2) {
 		return date1.equals(date2);
