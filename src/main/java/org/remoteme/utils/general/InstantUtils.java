@@ -144,6 +144,12 @@ public class InstantUtils {
 		return  dt.plus(30,ChronoUnit.MINUTES).truncatedTo(ChronoUnit.HOURS);
 	}
 
+	//when round will be more then 60 make implementation
+	public static Instant roundToMinutesAdvanced(Instant dt,int minutes ) {
+		return roundToMinutes(dt,minutes);
+	}
+
+
 	public static Instant floorToDay(Instant dt, ZoneOffset zone) {
 		LocalDateTime l = LocalDateTime.ofInstant(dt, zone);
 		return LocalDateTime.of(l.getYear(),l.getMonth(),l.getDayOfMonth(),0,0).toInstant(zone);
