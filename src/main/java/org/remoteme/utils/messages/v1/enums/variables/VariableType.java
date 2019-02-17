@@ -22,6 +22,27 @@ public enum VariableType implements Id_Enum<VariableType> {
 		this.niceShortName = niceShortName;
 	}
 
+	public static VariableType find(String toFind) {
+		for (VariableType value : values()) {
+			if (value.niceName.toLowerCase().equals(toFind.toLowerCase())){
+				return value;
+			}
+		}
+		for (VariableType value : values()) {
+			if (value.niceShortName.toLowerCase().equals(toFind.toLowerCase())){
+				return value;
+			}
+		}
+
+		for (VariableType value : values()) {
+			if (value.name().toLowerCase().equals(toFind.toLowerCase())){
+				return value;
+			}
+		}
+
+		throw new RuntimeException("nice name "+toFind+" was not found");
+	}
+
 	public String getNiceName() {
 		return niceName;
 	}
