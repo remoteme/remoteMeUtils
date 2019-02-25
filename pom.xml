@@ -7,7 +7,7 @@
     <groupId>org.remoteme.utils</groupId>
     <artifactId>Utils</artifactId>
     <packaging>jar</packaging>
-    <version>1.00</version>
+    <version>1.0.1</version>
     <name>Utils</name>
     <url>http://maven.apache.org</url>
 
