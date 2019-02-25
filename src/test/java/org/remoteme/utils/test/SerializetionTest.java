@@ -24,6 +24,7 @@ import org.remoteme.utils.messages.v1.core.messages.variables.SmallInteger3Varia
 import org.remoteme.utils.messages.v1.core.messages.variables.Text2VariableState;
 import org.remoteme.utils.messages.v1.core.messages.variables.TextVariableState;
 import org.remoteme.utils.messages.v1.core.messages.variables.values.AVariableValue;
+import org.remoteme.utils.messages.v1.core.messages.variables.values.DoubleVV;
 import org.remoteme.utils.messages.v1.core.messages.variables.values.IntegerBooleanVV;
 import org.remoteme.utils.messages.v1.core.messages.variables.values.SmallInteger2VV;
 import org.remoteme.utils.messages.v1.core.messages.variables.values.SmallInteger3VV;
