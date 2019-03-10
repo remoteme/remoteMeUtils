@@ -12,6 +12,11 @@ public enum VariableType implements Id_Enum<VariableType> {
 
 
 
+
+
+
+
+
 	private final int id;
 	private final String niceName;
 	private final String niceShortName;
