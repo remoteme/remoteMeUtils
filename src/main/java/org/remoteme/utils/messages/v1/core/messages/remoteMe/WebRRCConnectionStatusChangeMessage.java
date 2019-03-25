@@ -17,20 +17,20 @@ public class WebRRCConnectionStatusChangeMessage extends ARemoteMeMessage {
 
 
 	int webPageDeviceId;//2
-	int rasbperryPiDeviceId;
+	int raspberryPiDeviceId;
 	WebRTCConnectionStatus status;
 
 
 	public WebRRCConnectionStatusChangeMessage() {
 	}
 
-	public WebRRCConnectionStatusChangeMessage(int webPageDeviceId, int rasbperryPiDeviceId, WebRTCConnectionStatus status) {
+	public WebRRCConnectionStatusChangeMessage(int webPageDeviceId, int raspberryPiDeviceId, WebRTCConnectionStatus status) {
 
 
 		this.status=status;
 
 		this.webPageDeviceId = webPageDeviceId;
-		this.rasbperryPiDeviceId = rasbperryPiDeviceId;
+		this.raspberryPiDeviceId = raspberryPiDeviceId;
 
 
 
@@ -45,7 +45,7 @@ public class WebRRCConnectionStatusChangeMessage extends ARemoteMeMessage {
 		status = WebRTCConnectionStatus.getById(Byte.toUnsignedInt(payload.get()));
 		webPageDeviceId =Short.toUnsignedInt(payload.getShort());
 
-		rasbperryPiDeviceId = Short.toUnsignedInt(payload.getShort());
+		raspberryPiDeviceId = Short.toUnsignedInt(payload.getShort());
 	}
 
 
@@ -65,7 +65,7 @@ public class WebRRCConnectionStatusChangeMessage extends ARemoteMeMessage {
 
 		byteBuffer.put((byte)status.getId());
 		byteBuffer.putShort((short)webPageDeviceId);
-		byteBuffer.putShort((short)rasbperryPiDeviceId);
+		byteBuffer.putShort((short)raspberryPiDeviceId);
 
 		byteBuffer.clear();
 
