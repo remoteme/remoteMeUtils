@@ -140,6 +140,10 @@ public class InstantUtils {
 		return dt.truncatedTo(ChronoUnit.MINUTES).minus((getMinute(dt)) % minutes,ChronoUnit.MINUTES);
 	}
 
+	public static Instant floorToMinutes(Instant dt, int minutes) {
+		return dt.truncatedTo(ChronoUnit.MINUTES).minus((getMinute(dt)) % minutes,ChronoUnit.MINUTES);
+	}
+
 	public static Instant roundToHours(Instant dt ) {
 		return  dt.plus(30,ChronoUnit.MINUTES).truncatedTo(ChronoUnit.HOURS);
 	}
