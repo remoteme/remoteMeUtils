@@ -17,7 +17,7 @@ public enum MessageType implements Id_Enum<MessageType> {
 		VARIABLE_OBSERVE_MESSAGE(122),
 
 
-		REGISTER_DEVICE(200), REGISTER_CHILD_DEVICE(201),
+		REGISTER_DEVICE(200), REGISTER_CHILD_DEVICE(201),DEVICE_CONNECTION_CHANGE(202),
 		ADD_DATA(300),
 
 
@@ -32,14 +32,8 @@ public enum MessageType implements Id_Enum<MessageType> {
 		}
 
 
-	public static boolean isUserMessage(int messageTypeId) {
-		return messageTypeId==USER_MESSAGE.getId() || messageTypeId==VARIABLE_CHANGE_MESSAGE.getId()|| messageTypeId==VARIABLE_CHANGE_PROPAGATE_MESSAGE.getId()
-				|| messageTypeId==USER_SYNC_MESSAGE.getId();
-	}
 
-	public static boolean isUserMessage(MessageType messageType) {
-		return isUserMessage(messageType.getId());
-	}
+
 
 	public int getId() {
 			return id;

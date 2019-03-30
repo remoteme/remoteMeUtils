@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.remoteme.utils.messages.v1.core.messages.arLite.NotifyAboutVariablesMessage;
 import org.remoteme.utils.messages.v1.core.messages.arLite.CreateVariablesMessage;
 import org.remoteme.utils.messages.v1.core.messages.arLite.VariableRenameMessage;
+import org.remoteme.utils.messages.v1.core.messages.remoteMe.DeviceConnectionChangeMessage;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.PingMessage;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.VariableChangeMessage;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.VariableChangePropagateMessage;
@@ -52,6 +53,7 @@ import java.io.Serializable;
 		@JsonSubTypes.Type(value = VariableRemoveMessage.class, name = "VariableRemoveMessage"),
 		@JsonSubTypes.Type(value = NotifyAboutVariablesMessage.class, name = "NotifyAboutVariablesMessage"),
 		@JsonSubTypes.Type(value = CreateVariablesMessage.class, name = "CreateVariablesMessage"),
+		@JsonSubTypes.Type(value = DeviceConnectionChangeMessage.class, name = "DeviceConnectionChangeMessage"),
 })
 public abstract class AMessage implements Serializable {
 
