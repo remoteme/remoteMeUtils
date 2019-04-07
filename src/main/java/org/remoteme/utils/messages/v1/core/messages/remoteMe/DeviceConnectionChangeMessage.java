@@ -62,8 +62,8 @@ public class DeviceConnectionChangeMessage extends ARemoteMeMessage {
 
 
 		for (Pair<Integer, Boolean> statusTemp : status) {
-			byteBuffer.putShort((statusTemp.getFirst().shortValue()));
-			byteBuffer.put((byte)(statusTemp.getSecond()?1:0));
+				byteBuffer.putShort((statusTemp.getFirst().shortValue()));
+				byteBuffer.put((byte)(statusTemp.getSecond()?1:0));
 		}
 
 
