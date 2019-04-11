@@ -3,16 +3,12 @@ package org.remoteme.utils.messages.v1.core.messages.remoteMe;
 
 
 
-import com.sun.org.apache.bcel.internal.generic.PushInstruction;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.remoteme.utils.general.ByteBufferUtils;
-import org.remoteme.utils.general.Pair;
 import org.remoteme.utils.messages.v1.enums.MessageType;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 
@@ -20,15 +16,33 @@ import java.util.List;
 public class SendPushNotificationMessage extends ARemoteMeMessage {
 
 	@Getter
-	@AllArgsConstructor
+
 	public static class PushNotification{
 		String title;
 		String body;
-		String image;
-		String icon;
 		String badge;
-		List<Integer> vibrate;
+		String icon;
+		String image;
+		List<Integer> vibrate= null;
 
+		public PushNotification(String title, String body, String badge, String icon, String image, List<Integer> vibrate) {
+
+			this.title =nullIfEmpty( title);
+			this.body =nullIfEmpty( body);
+			this.badge =nullIfEmpty( badge);
+			this.icon =nullIfEmpty( icon);
+			this.image =nullIfEmpty( image);
+			this.vibrate = vibrate;
+		}
+
+
+		private String nullIfEmpty(String title) {
+			if (title==null || title.isEmpty()){
+				return null;
+			}else{
+				return title;
+			}
+		}
 	}
 
 
@@ -41,14 +55,14 @@ public class SendPushNotificationMessage extends ARemoteMeMessage {
 	}
 
 	public SendPushNotificationMessage(ByteBuffer payload) {
-		payload.getShort();//taking size
+		int size=payload.getShort();//taking size
 
 		deviceId=Short.toUnsignedInt(payload.getShort());
 		String title=ByteBufferUtils.readString(payload);
 		String body=ByteBufferUtils.readString(payload);
+		String badge=ByteBufferUtils.readString(payload);
 		String icon=ByteBufferUtils.readString(payload);
 		String image=ByteBufferUtils.readString(payload);
-		String badge=ByteBufferUtils.readString(payload);
 
 		int vibrateCount=Byte.toUnsignedInt(payload.get());
 		List<Integer> vibrate = new ArrayList<>(vibrateCount);
@@ -56,7 +70,7 @@ public class SendPushNotificationMessage extends ARemoteMeMessage {
 			vibrate.add(Byte.toUnsignedInt(payload.get())*10);
 		}
 
-		pushNotification = new PushNotification(title, body, image, icon, badge, vibrate);
+		pushNotification = new PushNotification(title, body, badge, icon, image, vibrate);
 
 	}
 
@@ -67,9 +81,9 @@ public class SendPushNotificationMessage extends ARemoteMeMessage {
 
 		byte[] title= ByteBufferUtils.writeString(pushNotification.getTitle());
 		byte[] body= ByteBufferUtils.writeString(pushNotification.getBody());
+		byte[] badge= ByteBufferUtils.writeString(pushNotification.getBadge());
 		byte[] icon= ByteBufferUtils.writeString(pushNotification.getIcon());
 		byte[] image= ByteBufferUtils.writeString(pushNotification.getImage());
-		byte[] badge= ByteBufferUtils.writeString(pushNotification.getBadge());
 
 
 
@@ -84,9 +98,9 @@ public class SendPushNotificationMessage extends ARemoteMeMessage {
 
 		byteBuffer.put(title);
 		byteBuffer.put(body);
+		byteBuffer.put(badge);
 		byteBuffer.put(icon);
 		byteBuffer.put(image);
-		byteBuffer.put(badge);
 		byteBuffer.put((byte)pushNotification.vibrate.size());
 
 		for (Integer vibrate : pushNotification.vibrate) {
@@ -102,7 +116,7 @@ public class SendPushNotificationMessage extends ARemoteMeMessage {
 
 	@Override
 	public MessageType getMessageType() {
-		return MessageType.SEND_PUSH_MESSAGE;
+		return MessageType.SEND_PUSH_NOTIFICATION;
 	}
 
 

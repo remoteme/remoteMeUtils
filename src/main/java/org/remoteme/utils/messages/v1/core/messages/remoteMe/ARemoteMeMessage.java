@@ -6,9 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 
-import lombok.extern.slf4j.Slf4j;
 import org.remoteme.utils.messages.v1.core.messages.AMessage;
-import org.remoteme.utils.messages.v1.core.messages.arLite.VariableRemoveMessage;
 import org.remoteme.utils.messages.v1.enums.MessageType;
 
 import java.nio.ByteBuffer;
@@ -52,7 +50,7 @@ public abstract class ARemoteMeMessage extends AMessage {
 			case VARIABLE_OBSERVE_MESSAGE:return new VariableObserveMessage(payload);
 			case VARIABLE_CHANGE_PROPAGATE_MESSAGE:return new VariableChangePropagateMessage(payload);
 			case DEVICE_CONNECTION_CHANGE:return new DeviceConnectionChangeMessage(payload);
-			case SEND_PUSH_MESSAGE:return new SendPushNotificationMessage(payload);
+			case SEND_PUSH_NOTIFICATION:return new SendPushNotificationMessage(payload);
 		}
 
 		throw new RuntimeException("should not happen  ");//we have all in switch
