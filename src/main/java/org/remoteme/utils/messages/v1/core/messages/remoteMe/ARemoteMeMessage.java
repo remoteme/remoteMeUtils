@@ -51,6 +51,7 @@ public abstract class ARemoteMeMessage extends AMessage {
 			case VARIABLE_CHANGE_PROPAGATE_MESSAGE:return new VariableChangePropagateMessage(payload);
 			case DEVICE_CONNECTION_CHANGE:return new DeviceConnectionChangeMessage(payload);
 			case SEND_PUSH_NOTIFICATION:return new SendPushNotificationMessage(payload);
+			case EVENT_SUBSCRIBER: return new EventSubscriberMessage(payload);
 		}
 
 		throw new RuntimeException("should not happen  ");//we have all in switch
