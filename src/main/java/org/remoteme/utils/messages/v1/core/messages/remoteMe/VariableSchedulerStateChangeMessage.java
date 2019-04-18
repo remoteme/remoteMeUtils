@@ -34,14 +34,14 @@ public class VariableSchedulerStateChangeMessage extends ARemoteMeMessage {
 	}
 
 	public VariableSchedulerStateChangeMessage(Collection<Integer> active) {
-		for (Integer schedulerId : active) {
-			status.add(new Pair<>(schedulerId,true));
+		for (Integer variableSchedulerId : active) {
+			status.add(new Pair<>(variableSchedulerId,true));
 		}
 
 	}
 
-	public VariableSchedulerStateChangeMessage(int schedulerId, boolean status) {
-		this.status.add(new Pair<>( schedulerId,status));
+	public VariableSchedulerStateChangeMessage(int variableSchedulerId, boolean status) {
+		this.status.add(new Pair<>( variableSchedulerId,status));
 
 	}
 
