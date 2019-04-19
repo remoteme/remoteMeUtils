@@ -11,6 +11,8 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @Getter
@@ -33,16 +35,19 @@ public class VariableSchedulerStateChangeMessage extends ARemoteMeMessage {
 
 	}
 
-	public VariableSchedulerStateChangeMessage(Collection<Integer> active) {
-		for (Integer variableSchedulerId : active) {
-			status.add(new Pair<>(variableSchedulerId,true));
-		}
 
-	}
 
 	public VariableSchedulerStateChangeMessage(int variableSchedulerId, boolean status) {
 		this.status.add(new Pair<>( variableSchedulerId,status));
 
+	}
+
+	public VariableSchedulerStateChangeMessage(Collection<Pair<Integer, Boolean>> states) {
+		status.addAll(states);
+	}
+
+	public static Collection<Pair<Integer, Boolean>> convert(Set<Integer> allCurrentConnected) {
+		return allCurrentConnected.stream().map(x->new Pair<>(x,true)).collect(Collectors.toList());
 	}
 
 
@@ -59,7 +64,7 @@ public class VariableSchedulerStateChangeMessage extends ARemoteMeMessage {
 
 
 		for (Pair<Integer, Boolean> statusTemp : status) {
-				byteBuffer.putInt((statusTemp.getFirst().shortValue()));
+				byteBuffer.putInt((statusTemp.getFirst()));
 				byteBuffer.put((byte)(statusTemp.getSecond()?1:0));
 		}
 

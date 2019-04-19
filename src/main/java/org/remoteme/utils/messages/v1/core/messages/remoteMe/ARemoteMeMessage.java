@@ -52,9 +52,11 @@ public abstract class ARemoteMeMessage extends AMessage {
 			case DEVICE_CONNECTION_CHANGE:return new DeviceConnectionChangeMessage(payload);
 			case SEND_PUSH_NOTIFICATION:return new SendPushNotificationMessage(payload);
 			case EVENT_SUBSCRIBER: return new EventSubscriberMessage(payload);
+			case SET_VARIABLE_SCHEDULER_STATE: return new SetVariableSchedulerStateMessage(payload);
+			case VARIABLE_SCHEDULER_STATE_CHANGE: return new VariableSchedulerStateChangeMessage(payload);
 		}
 
-		throw new RuntimeException("should not happen  ");//we have all in switch
+		throw new RuntimeException("should not happen . messaget with type "+messageType+" couldnt be decoded ");//we have all in switch
 	}
 
 }

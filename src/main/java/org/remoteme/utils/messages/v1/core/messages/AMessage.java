@@ -11,6 +11,7 @@ import org.remoteme.utils.messages.v1.core.messages.arLite.CreateVariablesMessag
 import org.remoteme.utils.messages.v1.core.messages.arLite.VariableRenameMessage;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.DeviceConnectionChangeMessage;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.PingMessage;
+import org.remoteme.utils.messages.v1.core.messages.remoteMe.SetVariableSchedulerStateMessage;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.VariableChangeMessage;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.VariableChangePropagateMessage;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.VariableObserveMessage;
@@ -25,6 +26,7 @@ import org.remoteme.utils.messages.v1.core.messages.remoteMe.SyncResponseMessage
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.SyncUserMessage;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.SystemMessage;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.UserMessage;
+import org.remoteme.utils.messages.v1.core.messages.remoteMe.VariableSchedulerStateChangeMessage;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.WebRRCConnectionStatusChangeMessage;
 
 import java.io.Serializable;
@@ -54,6 +56,8 @@ import java.io.Serializable;
 		@JsonSubTypes.Type(value = NotifyAboutVariablesMessage.class, name = "NotifyAboutVariablesMessage"),
 		@JsonSubTypes.Type(value = CreateVariablesMessage.class, name = "CreateVariablesMessage"),
 		@JsonSubTypes.Type(value = DeviceConnectionChangeMessage.class, name = "DeviceConnectionChangeMessage"),
+		@JsonSubTypes.Type(value = SetVariableSchedulerStateMessage.class, name = "SetVariableSchedulerStateMessage"),
+		@JsonSubTypes.Type(value = VariableSchedulerStateChangeMessage.class, name = "VariableSchedulerStateChangeMessage"),
 })
 public abstract class AMessage implements Serializable {
 

@@ -21,7 +21,7 @@ public class EventSubscriberMessage extends ARemoteMeMessage {
 
 	public enum EventSubscriberType implements Id_Enum<EventSubscriberType> {
 
-		DEVICE_CONNECTION(0), VARIABLE_SCHEDULER_STATUS(50);
+		DEVICE_CONNECTION(0), VARIABLE_SCHEDULER_STATE(50);
 
 		private final int id;
 
