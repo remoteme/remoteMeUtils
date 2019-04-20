@@ -24,6 +24,8 @@ public enum MessageType implements Id_Enum<MessageType> {
 		DEVICE_CONNECTION_CHANGE(301),
 		VARIABLE_SCHEDULER_STATE_CHANGE(302),
 		ADD_DATA(300),
+		UPDATEFILE(400), //?? used in rpi
+		SET_FILE_CONTENT(500),
 
 
 		LOG(20000),//systems

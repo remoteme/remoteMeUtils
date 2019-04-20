@@ -54,6 +54,7 @@ public abstract class ARemoteMeMessage extends AMessage {
 			case EVENT_SUBSCRIBER: return new EventSubscriberMessage(payload);
 			case SET_VARIABLE_SCHEDULER_STATE: return new SetVariableSchedulerStateMessage(payload);
 			case VARIABLE_SCHEDULER_STATE_CHANGE: return new VariableSchedulerStateChangeMessage(payload);
+			case SET_FILE_CONTENT:return new SetFileContent(payload);
 		}
 
 		throw new RuntimeException("should not happen . messaget with type "+messageType+" couldnt be decoded ");//we have all in switch
