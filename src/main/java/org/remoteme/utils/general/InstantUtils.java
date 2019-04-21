@@ -109,6 +109,11 @@ public class InstantUtils {
 
 	}
 
+	public static String printddmmyyyyhhmmss(Instant date, ZoneId zoneId) {
+		return ddmmyyyyHHMMss_.withZone(zoneId).format(date);
+
+	}
+
 	public static String printddmmyyyyhhmmDOW(Instant date, ZoneId zone) {
 		return  ddmmyyyyHHMM_WithDOW.withZone(zone).format(date);
 	}
