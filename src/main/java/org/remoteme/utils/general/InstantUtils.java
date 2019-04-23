@@ -202,6 +202,10 @@ public class InstantUtils {
 
 	}
 
+	public static Instant getTime(String s) {
+		return getTime(s,ZoneOffset.UTC);
+	}
+
 	public static Instant min(Instant date1, Instant date2) {
 		return (date1.isBefore(date2)) ? date1 : date2;
 
@@ -303,5 +307,8 @@ public class InstantUtils {
 	}
 
 
+	public static String printddmmyyyy(Instant date,ZoneId zoneId) {
+		return ddmmyyyy_.withZone(zoneId).format(date);
 
+	}
 }
