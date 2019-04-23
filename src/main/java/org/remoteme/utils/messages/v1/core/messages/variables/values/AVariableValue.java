@@ -102,7 +102,7 @@ public abstract class AVariableValue {
 		if (value==null){
 			return null;
 		}else{
-			return JacksonHelper.serialize(value);
+			return JacksonHelper.serialize(value,false);
 		}
 	}
 
