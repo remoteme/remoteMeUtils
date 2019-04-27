@@ -23,6 +23,7 @@ public class InstantUtils {
 
 
 	public static final DateTimeFormatter ddmmyyyyHHMM_ = getPattern("dd.MM.yyyy HH:mm",  ChronoField.SECOND_OF_MINUTE);
+	public static final DateTimeFormatter dd_mm_yyyy_HH_MM_ = getPattern("dd_MM_yyyy HH_mm",  ChronoField.SECOND_OF_MINUTE);
 	public static final DateTimeFormatter ddmmyyyyHHMM_WithDOW = getPattern("dd.MM.yyyy (E) HH:mm",  ChronoField.SECOND_OF_MINUTE);
 	public static final DateTimeFormatter ddmmyyyyHHMMss_ = getPattern("dd.MM.yyyy HH:mm:ss",  ChronoField.SECOND_OF_MINUTE);
 	public static final DateTimeFormatter ddmmyyyyHHMMRaw_ = getPattern("ddMMyyyyHHmm",  ChronoField.SECOND_OF_MINUTE);
@@ -106,6 +107,11 @@ public class InstantUtils {
 
 	public static String printddmmyyyyhhmm(Instant date, ZoneId zoneId) {
 		return ddmmyyyyHHMM_.withZone(zoneId).format(date);
+
+	}
+
+	public static String printdd_mm_yyyy_HH_MM_(Instant date, ZoneId zoneId) {
+		return dd_mm_yyyy_HH_MM_.withZone(zoneId).format(date);
 
 	}
 
@@ -311,4 +317,6 @@ public class InstantUtils {
 		return ddmmyyyy_.withZone(zoneId).format(date);
 
 	}
+
+
 }
