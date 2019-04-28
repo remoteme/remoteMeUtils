@@ -238,11 +238,13 @@ public class InstantUtils {
 			return new Date(getMillis(date,zone));
 		}
 	}
-	public static int getDiffrent(Instant date1, Instant date2) {
+	public static int getDifferent(Instant date1, Instant date2) {
 		return (int)((date1.toEpochMilli()- date2.toEpochMilli())/1000);
 	}
 
-
+	public static int getDifferentDay(Instant date1, Instant date2) {
+		return getDifferent(date1, date2)/(2600*24);
+	}
 
 
 	public static int compareNullSafe(Date d1, Date d2) {
@@ -309,7 +311,7 @@ public class InstantUtils {
 	}
 
 	public static boolean older(Instant lastPing, int seconds) {
-		return getDiffrent(Instant.now(),lastPing)>seconds;
+		return getDifferent(Instant.now(),lastPing)>seconds;
 	}
 
 
