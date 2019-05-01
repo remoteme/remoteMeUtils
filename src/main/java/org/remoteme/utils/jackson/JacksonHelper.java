@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.NumericNode;
 import com.fasterxml.jackson.databind.node.ValueNode;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 
 import java.io.IOException;
@@ -115,9 +116,9 @@ public class JacksonHelper {
 
 	public static ObjectMapper getMapper(boolean prettyPrint) {
 		ObjectMapper mapper = new ObjectMapper();
-		SimpleModule module = new SimpleModule("module");
-		mapper.registerModule(module);
+
 		mapper.registerModule(new Jdk8Module());
+		mapper.registerModule(new JavaTimeModule()); // new module, NOT JSR310Module
 		mapper.setVisibility(mapper.getSerializationConfig().getDefaultVisibilityChecker()
 				.withFieldVisibility(JsonAutoDetect.Visibility.ANY)
 				.withGetterVisibility(JsonAutoDetect.Visibility.NONE)
@@ -126,7 +127,9 @@ public class JacksonHelper {
 		if (prettyPrint) {
 			mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
 		}
-		//mapper.registerModule(new JodaModule());
+		mapper.configure( SerializationFeature.WRITE_DATE_TIMESTAMPS_AS_NANOSECONDS, false );
+		//mapper.configure( SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, true );
+
 		return mapper;
 	}
 
@@ -138,6 +141,10 @@ public class JacksonHelper {
 
 		if (objectMapperWithType == null) {
 			objectMapperWithType = new ObjectMapper();
+			objectMapperWithType.registerModule(new Jdk8Module());
+			objectMapperWithType.registerModule(new JavaTimeModule()); // new module, NOT JSR310Module
+
+
 			objectMapperWithType.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 			objectMapperWithType.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 
@@ -157,6 +164,8 @@ public class JacksonHelper {
 					.withCreatorVisibility(JsonAutoDetect.Visibility.ANY));
 
 			//objectMapperWithType.registerModule(new JodaModule());
+
+			objectMapperWithType.configure( SerializationFeature.WRITE_DATE_TIMESTAMPS_AS_NANOSECONDS, false );
 
 
 			// objectMapperWithType.configure(MapperFeature.REQUIRE_SETTERS_FOR_GETTERS, true);
