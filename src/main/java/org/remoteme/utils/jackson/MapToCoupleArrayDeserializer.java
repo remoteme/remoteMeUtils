@@ -31,7 +31,7 @@ public class MapToCoupleArrayDeserializer extends JsonDeserializer<Map<?,?>> {
 			/*map.put(keyNode.traverse(oc).readValueAs(this.keyAs),
 					valueNode.traverse(oc).readValueAs(this.contentAs));*/
 
-			throw new RuntimeException("Doenst work maciek check the reason is we dont have type ");
+			throw new RuntimeException("Doenst work maciek check the reason is we don't have type ");
 		}
 
 		return map;
