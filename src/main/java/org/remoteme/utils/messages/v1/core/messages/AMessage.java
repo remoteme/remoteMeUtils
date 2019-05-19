@@ -10,6 +10,7 @@ import org.remoteme.utils.messages.v1.core.messages.arLite.NotifyAboutVariablesM
 import org.remoteme.utils.messages.v1.core.messages.arLite.CreateVariablesMessage;
 import org.remoteme.utils.messages.v1.core.messages.arLite.VariableRenameMessage;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.DeviceConnectionChangeMessage;
+import org.remoteme.utils.messages.v1.core.messages.remoteMe.DeviceFileChangeMessage;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.PingMessage;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.SetVariableSchedulerStateMessage;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.VariableChangeMessage;
@@ -58,6 +59,7 @@ import java.io.Serializable;
 		@JsonSubTypes.Type(value = DeviceConnectionChangeMessage.class, name = "DeviceConnectionChangeMessage"),
 		@JsonSubTypes.Type(value = SetVariableSchedulerStateMessage.class, name = "SetVariableSchedulerStateMessage"),
 		@JsonSubTypes.Type(value = VariableSchedulerStateChangeMessage.class, name = "VariableSchedulerStateChangeMessage"),
+		@JsonSubTypes.Type(value = DeviceFileChangeMessage.class, name = "DeviceFileChangeMessage"),
 })
 public abstract class AMessage implements Serializable {
 

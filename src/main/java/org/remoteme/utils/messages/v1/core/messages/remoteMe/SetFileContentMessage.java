@@ -17,12 +17,13 @@ import java.util.Set;
 
 @Getter
 @Setter
-public class SetFileContent extends ARemoteMeMessage {
+public class SetFileContentMessage extends ARemoteMeMessage {
 
 	private int deviceId;
 	private String fileName;
 	private byte[] content;
 	private boolean append;
+	private boolean eof;
 
 
 
@@ -38,18 +39,18 @@ public class SetFileContent extends ARemoteMeMessage {
 
 
 
-	public SetFileContent() {
+	public SetFileContentMessage() {
 	}
 
 
 
-	public SetFileContent(ByteBuffer payload) {
+	public SetFileContentMessage(ByteBuffer payload) {
 		int size =payload.getShort();
 		deviceId=Short.toUnsignedInt(payload.getShort());
 		fileName=ByteBufferUtils.readString(payload);
 		append=payload.get()==1;
+		eof=payload.get()==1;
 		content=ByteBufferUtils.readRest(payload);
-
 
 	}
 
@@ -58,7 +59,7 @@ public class SetFileContent extends ARemoteMeMessage {
 	public ByteBuffer toByteBuffer() {
 		byte[] fileName = ByteBufferUtils.writeString(getFileName());
 
-		int size = content.length+fileName.length+1;
+		int size = content.length+1+2+fileName.length+1;
 
 
 
@@ -66,10 +67,11 @@ public class SetFileContent extends ARemoteMeMessage {
 
 		byteBuffer.putShort((short) getMessageType().getId());
 		byteBuffer.putShort((short) size);
+		byteBuffer.putShort((short) deviceId);
 		byteBuffer.put(fileName);
-		//byteBuffer.put(append?1:0);
-
-
+		byteBuffer.put((byte)(append?1:0));
+		byteBuffer.put((byte)(eof?1:0));
+		byteBuffer.put(content);
 
 
 		byteBuffer.clear();
