@@ -13,7 +13,9 @@ public enum SyncMessageType implements Id_Enum<SyncMessageType> {
 	GET_WEBRTC_CONENCTED_DEVICE_ID(1),//reponse // 1 byte  1 - there is devivce 2 other bytes  deviceId 3-7 32int = sessionId
 	GET_FILES(2),// response files name as string with 0 at end of string
 	GET_FILE_CONTENT(3),// request filename int32 offset short maxByteSize - response zlib file content
-	SAVE_FILE_CONTENT(4), // request (byte) 1 - append 0 addtoNew, filename, uncompreesedsize (int32),  zlib
+	GET_FILE_CONTENT_RAW(12),// request filename offset(int32) maxsize (short)-  response data
+	SAVE_FILE_CONTENT_RAW(11),// request filename byte 0 - new 1 append data
+	SAVE_FILE_CONTENT(4), // request (byte) 1 - append 0 addtoNew, filename, uncompreesedsize (int32),  zlib/or gz for arduino
 	REMOVE_FILE(5),// request filename
 	REMOVE_DEVICE_DIRECTORY(9),
 	GET_FILE_SIZE(6),// request filename reponse byte 1-noproblem 0 problem, int32 size in bytes

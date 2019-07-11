@@ -11,6 +11,7 @@ import java.util.List;
 
 public enum SystemMessageType implements Id_Enum<MessageType> {
     RESTART(1),
+    FORMAT(3),//only espserver
 	DEVICE_CONNECT_CHANGE(2);//deviceid short then byte 0 not connected 1 connected sent to server
 
 

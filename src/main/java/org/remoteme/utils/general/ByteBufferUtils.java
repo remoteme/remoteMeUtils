@@ -1,15 +1,22 @@
 package org.remoteme.utils.general;
 
 
-import org.remoteme.utils.exceptions.HashEncryptException;
 import org.apache.commons.codec.binary.StringUtils;
+import org.remoteme.utils.exceptions.HashEncryptException;
+
 import javax.xml.bind.DatatypeConverter;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;
@@ -170,6 +177,30 @@ public class ByteBufferUtils {
 		return splitAndCompress(content, maxUncompressedSize);
 	}
 
+	public static List<byte[]> split(byte[] content) {
+		return split(content, maxUncompressedSize);
+	}
+
+	public static List<byte[]> split(byte[] bytesToSave, int maxSize) {
+		if (bytesToSave == null) {
+			return null;
+		}
+		List<byte[]> ret = new ArrayList<>();
+
+
+		for (int index = 0; index * maxSize < bytesToSave.length; index++) {
+
+			byte[] subArray = Arrays.copyOfRange(bytesToSave, index * maxSize, Math.min((index + 1) * maxSize, bytesToSave.length));
+			try {
+				ret.add(subArray);
+			} catch (HashEncryptException e) {
+				e.printStackTrace();
+				throw new RuntimeException(e);
+			}
+		}
+		return ret;
+	}
+
 	public static List<Pair<Integer, byte[]>> splitAndCompress(byte[] bytesToSave, int maxUncompressedSize) {
 		List<Pair<Integer, byte[]>> ret = new ArrayList<>();
 
@@ -226,6 +257,47 @@ public class ByteBufferUtils {
 			ret.add(number.byteValue());
 		}
 		return ret;
+	}
+
+	public static List<String> readLines(byte[] bytescontent) {
+		try {
+			List<String> result = new ArrayList<>();
+			BufferedReader reader = new BufferedReader(new InputStreamReader(new ByteArrayInputStream(bytescontent), StandardCharsets.UTF_8));
+			for (; ; ) {
+				String line=reader.readLine();
+
+				if (line == null)
+					break;
+				result.add(line);
+			}
+
+			return result;
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	public static byte[] writeLines(Collection<String> lines) {
+		try {
+			ByteArrayOutputStream out = new ByteArrayOutputStream();
+
+			BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(out, StandardCharsets.UTF_8));
+			boolean first = true;
+			for (String line : lines) {
+				if (!first) {
+					bufferedWriter.append("\n");
+				}
+				first = false;
+				bufferedWriter.append(line);
+			}
+			bufferedWriter.close();
+
+
+			return out.toByteArray();
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+
 	}
 
 	public static int getStringLength(String newName) {

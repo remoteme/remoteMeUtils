@@ -23,6 +23,11 @@ public class SystemMessage extends ARemoteMeMessage {
 		return new SystemMessage(receiverDeviceId, SystemMessageType.RESTART, Collections.emptyList());
 	}
 
+	public static SystemMessage getFormatMessage(int receiverDeviceId){
+		return new SystemMessage(receiverDeviceId, SystemMessageType.FORMAT, Collections.emptyList());
+	}
+
+
 	int receiverDeviceId;//2
 	byte message[];//size
 	SystemMessageType systemMessageType;
