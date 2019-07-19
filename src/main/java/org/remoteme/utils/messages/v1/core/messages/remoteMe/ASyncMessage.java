@@ -11,8 +11,8 @@ import java.util.List;
 public abstract class ASyncMessage extends ARemoteMeMessage {
 
 	protected int receiverDeviceId;//2
-	long messageId;//8
-	List<Integer> message;
+	protected long messageId;//8
+	protected List<Integer> message;
 
 	/**
 	 * for this timeout should be not longer then 1 min

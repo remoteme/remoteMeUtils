@@ -7,6 +7,9 @@ import lombok.Setter;
 
 
 import org.remoteme.utils.messages.v1.core.messages.AMessage;
+import org.remoteme.utils.messages.v1.core.messages.remoteMe.webtoken.DecreaseWebPageTokenCreditMessage;
+import org.remoteme.utils.messages.v1.core.messages.remoteMe.webtoken.SyncUserMessageWebToken;
+import org.remoteme.utils.messages.v1.core.messages.remoteMe.webtoken.UserMessageWebToken;
 import org.remoteme.utils.messages.v1.enums.MessageType;
 
 import java.nio.ByteBuffer;
@@ -56,6 +59,12 @@ public abstract class ARemoteMeMessage extends AMessage {
 			case VARIABLE_SCHEDULER_STATE_CHANGE: return new VariableSchedulerStateChangeMessage(payload);
 			case SET_FILE_CONTENT:return new SetFileContentMessage(payload);
 			case DEVICE_FILE_CHANGE:return new DeviceFileChangeMessage(payload);
+
+
+			case DECREASE_WEBPAGE_TOKEN_CREDIT:return new DecreaseWebPageTokenCreditMessage(payload);
+			case USER_MESSAGE_WEBPAGE_TOKEN:return new UserMessageWebToken(payload);
+			case USER_SYNC_MESSAGE_WEBPAGE_TOKEN:return new SyncUserMessageWebToken(payload);
+			case VARIABLE_CHANGE_PROPAGATE_MESSAGE_WEBPAGE_TOKEN:return new VariableChangeMessage(payload);
 
 		}
 
