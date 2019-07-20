@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.remoteme.utils.general.ByteBufferUtils;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.ARemoteMeMessage;
+import org.remoteme.utils.messages.v1.core.messages.remoteMe.UserMessage;
 import org.remoteme.utils.messages.v1.enums.MessageType;
 import org.remoteme.utils.messages.v1.enums.UserMessageSettings;
 
@@ -73,7 +74,10 @@ public class UserMessageWebToken extends ARemoteMeMessage {
 		message =ByteBufferUtils.toIntList(ByteBufferUtils.readRest(payload));
 	}
 
-
+	public UserMessageWebToken(UserMessage userMessage, int deviceSessionId, int credit, int time) {
+		this(userMessage.getUserMessageSettings(), userMessage.getReceiverDeviceId(),userMessage.getSenderDeviceId(),deviceSessionId,
+				credit, time,  userMessage.getMessage());
+	}
 
 
 	@Override

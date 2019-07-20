@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.remoteme.utils.general.ByteBufferUtils;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.ASyncMessage;
+import org.remoteme.utils.messages.v1.core.messages.remoteMe.SyncUserMessage;
 import org.remoteme.utils.messages.v1.enums.MessageType;
 
 import java.nio.ByteBuffer;
@@ -62,6 +63,9 @@ public class SyncUserMessageWebToken extends ASyncMessage {
 
 	}
 
+	public SyncUserMessageWebToken(SyncUserMessage userSync, int deviceSessionId, int credit, int time) {
+		this(userSync.getReceiverDeviceId(),userSync.getSenderDeviceId(), deviceSessionId,credit,time,userSync.getMessageId(),userSync.getMessage());
+	}
 
 
 	@Override

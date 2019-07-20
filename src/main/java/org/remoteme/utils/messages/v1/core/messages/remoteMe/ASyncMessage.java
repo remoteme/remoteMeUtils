@@ -25,7 +25,6 @@ public abstract class ASyncMessage extends ARemoteMeMessage {
 
 
 
-
 	public int getReceiverDeviceId() {
 		return receiverDeviceId;
 	}
