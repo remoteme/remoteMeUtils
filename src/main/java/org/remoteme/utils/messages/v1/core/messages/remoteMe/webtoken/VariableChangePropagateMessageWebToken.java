@@ -5,6 +5,7 @@ package org.remoteme.utils.messages.v1.core.messages.remoteMe.webtoken;
 import lombok.Getter;
 import lombok.Setter;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.ARemoteMeMessage;
+import org.remoteme.utils.messages.v1.core.messages.remoteMe.VariableChangePropagateMessage;
 import org.remoteme.utils.messages.v1.core.messages.variables.AVariableState;
 import org.remoteme.utils.messages.v1.enums.MessageType;
 
@@ -21,16 +22,13 @@ ta wiadomosc jest wysylana do urzadzen
 
 @Getter
 @Setter
-public class VariableChangePropagateMessageWebToken extends ARemoteMeMessage {
+public class VariableChangePropagateMessageWebToken extends VariableChangePropagateMessage {
 
-	int senderDeviceId;//2
-	int receiveDeviceId;//2
 	int sessionId;
 	int credit;
 	int time;
-	int futureUse;
 
-	List<AVariableState<?>> states;
+
 
 
 
@@ -40,10 +38,8 @@ public class VariableChangePropagateMessageWebToken extends ARemoteMeMessage {
 
 
 	public VariableChangePropagateMessageWebToken(int senderDeviceId , int receiveDeviceId,int sessionId,	int credit,	int time,  List<AVariableState<?>> states) {
+		super(senderDeviceId, receiveDeviceId, states);
 
-		this.senderDeviceId=senderDeviceId;
-		this.states = new ArrayList<>(states);
-		this.receiveDeviceId=receiveDeviceId;
 
 		this.sessionId=sessionId;
 		this.credit=credit;

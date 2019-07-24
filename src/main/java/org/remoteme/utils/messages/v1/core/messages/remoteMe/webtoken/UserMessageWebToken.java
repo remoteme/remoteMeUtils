@@ -18,18 +18,14 @@ import java.util.List;
 
 @Getter
 @Setter
-public class UserMessageWebToken extends ARemoteMeMessage {
+public class UserMessageWebToken extends UserMessage {
 
-	private UserMessageSettings userMessageSettings;//1
-	private int receiverDeviceId;//2
-	private int senderDeviceId;//2
 	private int sessionId;//2
 	private int credit;//2
 	private int time;//2
 
 
 
-	List<Integer> message;//size
 
 
 	protected UserMessageWebToken() {
@@ -41,18 +37,12 @@ public class UserMessageWebToken extends ARemoteMeMessage {
 	}
 
 	public UserMessageWebToken(UserMessageSettings userMessageSettings, int receiverDeviceId, int senderDeviceId, int sessionId,	int credit,	int time, List<Integer> data) {
-		if (data.size()==1 && data.get(0)==null){
-			data.clear();
-		}
-
-		this.userMessageSettings = userMessageSettings;
-		this.receiverDeviceId = receiverDeviceId;
-		this.senderDeviceId = senderDeviceId;
+		super(userMessageSettings, receiverDeviceId, senderDeviceId, 0, data);
 		this.sessionId=sessionId;
 		this.credit=credit;
 		this.time=time;
 
-		this.message =new ArrayList<>(data);
+
 
 
 	}

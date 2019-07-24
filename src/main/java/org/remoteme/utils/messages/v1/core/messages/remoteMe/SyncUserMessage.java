@@ -20,7 +20,7 @@ import java.util.List;
 public class SyncUserMessage extends ASyncMessage {
 
 
-	int senderDeviceId;//2
+	protected int senderDeviceId;//2
 
 	@JsonIgnore
 	boolean sentFromGui;

@@ -29,6 +29,10 @@ import org.remoteme.utils.messages.v1.core.messages.remoteMe.SystemMessage;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.UserMessage;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.VariableSchedulerStateChangeMessage;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.WebRRCConnectionStatusChangeMessage;
+import org.remoteme.utils.messages.v1.core.messages.remoteMe.webtoken.DecreaseWebPageTokenCreditMessage;
+import org.remoteme.utils.messages.v1.core.messages.remoteMe.webtoken.SyncUserMessageWebToken;
+import org.remoteme.utils.messages.v1.core.messages.remoteMe.webtoken.UserMessageWebToken;
+import org.remoteme.utils.messages.v1.core.messages.remoteMe.webtoken.VariableChangePropagateMessageWebToken;
 
 import java.io.Serializable;
 
@@ -60,6 +64,13 @@ import java.io.Serializable;
 		@JsonSubTypes.Type(value = SetVariableSchedulerStateMessage.class, name = "SetVariableSchedulerStateMessage"),
 		@JsonSubTypes.Type(value = VariableSchedulerStateChangeMessage.class, name = "VariableSchedulerStateChangeMessage"),
 		@JsonSubTypes.Type(value = DeviceFileChangeMessage.class, name = "DeviceFileChangeMessage"),
+
+		@JsonSubTypes.Type(value = VariableChangePropagateMessageWebToken.class, name = "VariableChangePropagateMessageWebToken"),
+		@JsonSubTypes.Type(value = DecreaseWebPageTokenCreditMessage.class, name = "DecreaseWebPageTokenCreditMessage"),
+		@JsonSubTypes.Type(value = UserMessageWebToken.class, name = "UserMessageWebToken"),
+		@JsonSubTypes.Type(value = SyncUserMessageWebToken.class, name = "SyncUserMessageWebToken"),
+
+
 })
 public abstract class AMessage implements Serializable {
 

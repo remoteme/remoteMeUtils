@@ -18,12 +18,12 @@ import java.util.List;
 @Setter
 public class UserMessage extends ARemoteMeMessage {
 
-	UserMessageSettings userMessageSettings;//1
-	int receiverDeviceId;//2
-	int senderDeviceId;//2
-	int messageId;//2
+	protected UserMessageSettings userMessageSettings;//1
+	protected int receiverDeviceId;//2
+	protected int senderDeviceId;//2
+	protected int messageId;//2
 
-	List<Integer> message;//size
+	protected List<Integer> message;//size
 
 
 	protected UserMessage() {

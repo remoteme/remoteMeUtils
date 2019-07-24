@@ -16,10 +16,10 @@ import java.util.List;
 
 @Getter
 @Setter
-public class SyncUserMessageWebToken extends ASyncMessage {
+public class SyncUserMessageWebToken extends SyncUserMessage {
 
 
-	private int senderDeviceId;//2
+
 	private int sessionId;//2
 	private int credit;//2
 	private int time;//2
@@ -33,12 +33,10 @@ public class SyncUserMessageWebToken extends ASyncMessage {
 
 
 	public SyncUserMessageWebToken(int receiverDeviceId, int senderDeviceId, int sessionId,	int credit,	int time, long messageId , List<Integer> data ) {
+		super(receiverDeviceId, senderDeviceId, messageId, data, false);
 
-		this.receiverDeviceId = receiverDeviceId;
-		this.messageId = messageId;
-		this.message =new ArrayList<>(data);
 
-		this.senderDeviceId=senderDeviceId;
+
 		this.sessionId=sessionId;
 		this.credit=credit;
 		this.time=time;

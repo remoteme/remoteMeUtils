@@ -22,10 +22,10 @@ ta wiadomosc jest wysylana do urzadzen
 @Setter
 public class VariableChangePropagateMessage extends ARemoteMeMessage {
 
-	int senderDeviceId;//2
-	int receiveDeviceId;//2
+	protected int senderDeviceId;//2
+	protected int receiveDeviceId;//2
 
-	List<AVariableState<?>> states;
+	protected List<AVariableState<?>> states;
 
 
 
