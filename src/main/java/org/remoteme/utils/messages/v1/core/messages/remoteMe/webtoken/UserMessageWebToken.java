@@ -32,18 +32,13 @@ public class UserMessageWebToken extends UserMessage {
 	}
 
 
-	public UserMessageWebToken(UserMessageSettings userMessageSettings, int receiverDeviceId, int senderDeviceId, int sessionId,	int credit,	int time, String hexData) {
-		this(userMessageSettings, receiverDeviceId, senderDeviceId,sessionId, credit, time, ByteBufferUtils.hexStringToListInteger(hexData));
-	}
+
 
 	public UserMessageWebToken(UserMessageSettings userMessageSettings, int receiverDeviceId, int senderDeviceId, int sessionId,	int credit,	int time, List<Integer> data) {
 		super(userMessageSettings, receiverDeviceId, senderDeviceId, 0, data);
 		this.sessionId=sessionId;
 		this.credit=credit;
 		this.time=time;
-
-
-
 
 	}
 

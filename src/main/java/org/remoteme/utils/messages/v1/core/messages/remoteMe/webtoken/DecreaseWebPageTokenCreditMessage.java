@@ -48,8 +48,8 @@ public class DecreaseWebPageTokenCreditMessage extends ARemoteMeMessage {
 
 		senderDeviceId = Short.toUnsignedInt(payload.getShort());
 		sessionId =  Short.toUnsignedInt(payload.getShort());
-		credit = Short.toUnsignedInt(payload.getShort());
-		time = Short.toUnsignedInt(payload.getShort());
+		credit = (int)payload.getShort();
+		time =  (int)payload.getShort();
 
 
 	}
