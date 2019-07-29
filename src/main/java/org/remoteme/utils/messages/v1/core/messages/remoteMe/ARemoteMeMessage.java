@@ -24,6 +24,7 @@ public abstract class ARemoteMeMessage extends AMessage {
 
 
 	public static ARemoteMeMessage decode(ByteBuffer payload){
+
 		payload.rewind();
 		int messageTypeId = Short.toUnsignedInt(payload.getShort());
 		MessageType messageType;
