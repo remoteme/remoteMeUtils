@@ -21,6 +21,7 @@ public class SyncUserMessageWebToken extends SyncUserMessage {
 
 
 	private int sessionId;//2
+	private int identifier;//2
 	private int credit;//2
 	private int time;//2
 
@@ -32,12 +33,13 @@ public class SyncUserMessageWebToken extends SyncUserMessage {
 
 
 
-	public SyncUserMessageWebToken(int receiverDeviceId, int senderDeviceId, int sessionId,	int credit,	int time, long messageId , List<Integer> data ) {
+	public SyncUserMessageWebToken(int receiverDeviceId, int senderDeviceId, int sessionId,	int identifier,int credit,	int time, long messageId , List<Integer> data ) {
 		super(receiverDeviceId, senderDeviceId, messageId, data, false);
 
 
 
 		this.sessionId=sessionId;
+		this.identifier=identifier;
 		this.credit=credit;
 		this.time=time;
 
@@ -52,6 +54,7 @@ public class SyncUserMessageWebToken extends SyncUserMessage {
 		receiverDeviceId = Short.toUnsignedInt(payload.getShort());
 		senderDeviceId = Short.toUnsignedInt(payload.getShort());
 		sessionId=Short.toUnsignedInt(payload.getShort());
+		identifier=Short.toUnsignedInt(payload.getShort());
 		credit=Short.toUnsignedInt(payload.getShort());
 		time=Short.toUnsignedInt(payload.getShort());
 
@@ -61,8 +64,8 @@ public class SyncUserMessageWebToken extends SyncUserMessage {
 
 	}
 
-	public SyncUserMessageWebToken(SyncUserMessage userSync, int deviceSessionId, int credit, int time) {
-		this(userSync.getReceiverDeviceId(),userSync.getSenderDeviceId(), deviceSessionId,credit,time,userSync.getMessageId(),userSync.getMessage());
+	public SyncUserMessageWebToken(SyncUserMessage userSync, int deviceSessionId,int identifier, int credit, int time) {
+		this(userSync.getReceiverDeviceId(),userSync.getSenderDeviceId(), deviceSessionId,identifier,credit,time,userSync.getMessageId(),userSync.getMessage());
 	}
 
 
@@ -70,7 +73,7 @@ public class SyncUserMessageWebToken extends SyncUserMessage {
 	public ByteBuffer toByteBuffer() {
 
 
-		int size=10+8+message.size();
+		int size=10+10+message.size();
 
 		ByteBuffer byteBuffer = ByteBuffer.allocate(size+4);
 
@@ -82,6 +85,7 @@ public class SyncUserMessageWebToken extends SyncUserMessage {
 		byteBuffer.putShort((short)senderDeviceId);
 
 		byteBuffer.putShort((short)sessionId);
+		byteBuffer.putShort((short)identifier);
 		byteBuffer.putShort((short)credit);
 		byteBuffer.putShort((short)time);
 

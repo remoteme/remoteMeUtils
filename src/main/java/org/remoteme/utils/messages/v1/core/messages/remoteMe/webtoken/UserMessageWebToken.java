@@ -23,7 +23,7 @@ public class UserMessageWebToken extends UserMessage {
 	private int sessionId;//2
 	private int credit;//2
 	private int time;//2
-
+	private int identifier;//2
 
 
 
@@ -34,9 +34,10 @@ public class UserMessageWebToken extends UserMessage {
 
 
 
-	public UserMessageWebToken(UserMessageSettings userMessageSettings, int receiverDeviceId, int senderDeviceId, int sessionId,	int credit,	int time, List<Integer> data) {
+	public UserMessageWebToken(UserMessageSettings userMessageSettings, int receiverDeviceId, int senderDeviceId, int sessionId,int identifier,	int credit,	int time, List<Integer> data) {
 		super(userMessageSettings, receiverDeviceId, senderDeviceId, 0, data);
 		this.sessionId=sessionId;
+		this.identifier=identifier;
 		this.credit=credit;
 		this.time=time;
 
@@ -52,6 +53,7 @@ public class UserMessageWebToken extends UserMessage {
 		receiverDeviceId = Short.toUnsignedInt(payload.getShort());
 		senderDeviceId = Short.toUnsignedInt(payload.getShort());
 		sessionId=Short.toUnsignedInt(payload.getShort());
+		identifier=Short.toUnsignedInt(payload.getShort());
 		credit=Short.toUnsignedInt(payload.getShort());
 		time=Short.toUnsignedInt(payload.getShort());
 
@@ -59,8 +61,8 @@ public class UserMessageWebToken extends UserMessage {
 		message =ByteBufferUtils.toIntList(ByteBufferUtils.readRest(payload));
 	}
 
-	public UserMessageWebToken(UserMessage userMessage, int deviceSessionId, int credit, int time) {
-		this(userMessage.getUserMessageSettings(), userMessage.getReceiverDeviceId(),userMessage.getSenderDeviceId(),deviceSessionId,
+	public UserMessageWebToken(UserMessage userMessage, int deviceSessionId,int identifier, int credit, int time) {
+		this(userMessage.getUserMessageSettings(), userMessage.getReceiverDeviceId(),userMessage.getSenderDeviceId(),deviceSessionId,identifier,
 				credit, time,  userMessage.getMessage());
 	}
 
@@ -69,7 +71,7 @@ public class UserMessageWebToken extends UserMessage {
 	public ByteBuffer toByteBuffer() {
 
 
-		int size=10+1+message.size();
+		int size=12+1+message.size();
 
 		ByteBuffer byteBuffer = ByteBuffer.allocate(size+4);
 
@@ -82,6 +84,7 @@ public class UserMessageWebToken extends UserMessage {
 		byteBuffer.putShort((short)senderDeviceId);
 
 		byteBuffer.putShort((short)sessionId);
+		byteBuffer.putShort((short)identifier);
 		byteBuffer.putShort((short)credit);
 		byteBuffer.putShort((short)time);
 

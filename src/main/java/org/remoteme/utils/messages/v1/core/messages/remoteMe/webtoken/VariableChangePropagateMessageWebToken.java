@@ -25,6 +25,7 @@ ta wiadomosc jest wysylana do urzadzen
 public class VariableChangePropagateMessageWebToken extends VariableChangePropagateMessage {
 
 	int sessionId;
+	int identifier;
 	int credit;
 	int time;
 
@@ -32,16 +33,13 @@ public class VariableChangePropagateMessageWebToken extends VariableChangePropag
 
 
 
-	public VariableChangePropagateMessageWebToken(int senderDeviceId , int receiveDeviceId,int sessionId,	int credit,	int time,  AVariableState<?> state) {
-		this(senderDeviceId, receiveDeviceId,sessionId,credit,time, Collections.singletonList(state));
-	}
 
-
-	public VariableChangePropagateMessageWebToken(int senderDeviceId , int receiveDeviceId,int sessionId,	int credit,	int time,  List<AVariableState<?>> states) {
+	public VariableChangePropagateMessageWebToken(int senderDeviceId , int receiveDeviceId,int sessionId,int identifier,	int credit,	int time,  List<AVariableState<?>> states) {
 		super(senderDeviceId, receiveDeviceId, states);
 
 
 		this.sessionId=sessionId;
+		this.identifier=identifier;
 		this.credit=credit;
 		this.time=time;
 
@@ -60,6 +58,7 @@ public class VariableChangePropagateMessageWebToken extends VariableChangePropag
 		receiveDeviceId = Short.toUnsignedInt(payload.getShort());
 
 		sessionId=Short.toUnsignedInt(payload.getShort());
+		identifier=Short.toUnsignedInt(payload.getShort());
 		credit=Short.toUnsignedInt(payload.getShort());
 		time=Short.toUnsignedInt(payload.getShort());
 
@@ -79,7 +78,7 @@ public class VariableChangePropagateMessageWebToken extends VariableChangePropag
 	public ByteBuffer toByteBuffer() {
 
 
-		int size=12;
+		int size=14;
 		for (AVariableState state : states) {
 			size+=state.getSize();
 		}
@@ -94,6 +93,7 @@ public class VariableChangePropagateMessageWebToken extends VariableChangePropag
 		byteBuffer.putShort((short)receiveDeviceId);
 
 		byteBuffer.putShort((short)sessionId);
+		byteBuffer.putShort((short)identifier);
 		byteBuffer.putShort((short)credit);
 		byteBuffer.putShort((short)time);
 
