@@ -224,11 +224,11 @@ public class InstantUtils {
 		return date.atZone(zoneId).toLocalDateTime();
 	}
 
-	public static Date convert(LocalDateTime date) {
+	public static Date convert(Instant date) {
 		if (date == null)  {
 			return null;
 		} else {
-			return new Date(getMillisUTC(date));
+			return new Date(date.toEpochMilli());
 		}
 	}
 	public static Date convert(LocalDateTime date, ZoneId zone) {
