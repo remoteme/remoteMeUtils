@@ -100,7 +100,7 @@ public class SyncUserMessageWebToken extends SyncUserMessage {
 
 	@Override
 	public MessageType getMessageType() {
-		return MessageType.USER_SYNC_MESSAGE_WEBPAGE_TOKEN;
+		return MessageType.USER_SYNC_MESSAGE_GUEST;
 	}
 
 }

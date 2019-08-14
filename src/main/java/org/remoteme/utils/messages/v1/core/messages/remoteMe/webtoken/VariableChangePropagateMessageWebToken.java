@@ -111,7 +111,7 @@ public class VariableChangePropagateMessageWebToken extends VariableChangePropag
 
 	@Override
 	public MessageType getMessageType() {
-		return MessageType.VARIABLE_CHANGE_PROPAGATE_MESSAGE_WEBPAGE_TOKEN;
+		return MessageType.VARIABLE_CHANGE_PROPAGATE_MESSAGE_GUEST;
 	}
 
 

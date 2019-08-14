@@ -98,7 +98,7 @@ public class UserMessageWebToken extends UserMessage {
 
 	@Override
 	public MessageType getMessageType() {
-		return MessageType.USER_MESSAGE_WEBPAGE_TOKEN;
+		return MessageType.USER_MESSAGE_GUEST;
 	}
 
 	public List<Integer> getMessage() {

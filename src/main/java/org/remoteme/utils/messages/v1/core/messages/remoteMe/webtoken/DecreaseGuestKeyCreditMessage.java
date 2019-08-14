@@ -17,7 +17,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class DecreaseWebPageTokenCreditMessage extends ARemoteMeMessage {
+public class DecreaseGuestKeyCreditMessage extends ARemoteMeMessage {
 
 
 	private int senderDeviceId;//2
@@ -28,11 +28,11 @@ public class DecreaseWebPageTokenCreditMessage extends ARemoteMeMessage {
 
 
 
-	protected DecreaseWebPageTokenCreditMessage() {
+	protected DecreaseGuestKeyCreditMessage() {
 	}
 
 
-	public DecreaseWebPageTokenCreditMessage(int senderDeviceId, int sessionId, int credit, int time){
+	public DecreaseGuestKeyCreditMessage(int senderDeviceId, int sessionId, int credit, int time){
 		this.senderDeviceId=senderDeviceId;
 		this.sessionId=sessionId;
 		this.credit=credit;
@@ -43,7 +43,7 @@ public class DecreaseWebPageTokenCreditMessage extends ARemoteMeMessage {
 
 
 
-	public DecreaseWebPageTokenCreditMessage(ByteBuffer payload) {
+	public DecreaseGuestKeyCreditMessage(ByteBuffer payload) {
 		payload.getShort();//taking size
 
 		senderDeviceId = Short.toUnsignedInt(payload.getShort());
@@ -81,7 +81,7 @@ public class DecreaseWebPageTokenCreditMessage extends ARemoteMeMessage {
 
 	@Override
 	public MessageType getMessageType() {
-		return MessageType.DECREASE_WEBPAGE_TOKEN_CREDIT;
+		return MessageType.DECREASE_GUEST_CREDIT;
 	}
 
 
