@@ -1,41 +1,40 @@
-package org.remoteme.utils.messages.v1.core.messages.remoteMe.webtoken;
-
-
+package org.remoteme.utils.messages.v1.core.messages.remoteMe.guest;
 
 
 import lombok.Getter;
 import lombok.Setter;
 import org.remoteme.utils.general.ByteBufferUtils;
-import org.remoteme.utils.messages.v1.core.messages.remoteMe.ARemoteMeMessage;
-import org.remoteme.utils.messages.v1.core.messages.remoteMe.UserMessage;
+import org.remoteme.utils.messages.v1.core.messages.remoteMe.SyncUserMessage;
 import org.remoteme.utils.messages.v1.enums.MessageType;
-import org.remoteme.utils.messages.v1.enums.UserMessageSettings;
 
 import java.nio.ByteBuffer;
-import java.util.ArrayList;
 import java.util.List;
 
 
 @Getter
 @Setter
-public class UserMessageWebToken extends UserMessage {
+public class SyncUserMessageGuest extends SyncUserMessage {
+
+
 
 	private int sessionId;//2
+	private int identifier;//2
 	private int credit;//2
 	private int time;//2
-	private int identifier;//2
 
 
+	protected SyncUserMessageGuest() {
 
-
-	protected UserMessageWebToken() {
 	}
 
 
 
 
-	public UserMessageWebToken(UserMessageSettings userMessageSettings, int receiverDeviceId, int senderDeviceId, int sessionId,int identifier,	int credit,	int time, List<Integer> data) {
-		super(userMessageSettings, receiverDeviceId, senderDeviceId, 0, data);
+	public SyncUserMessageGuest(int receiverDeviceId, int senderDeviceId, int sessionId, int identifier, int credit, int time, long messageId , List<Integer> data ) {
+		super(receiverDeviceId, senderDeviceId, messageId, data, false);
+
+
+
 		this.sessionId=sessionId;
 		this.identifier=identifier;
 		this.credit=credit;
@@ -46,10 +45,9 @@ public class UserMessageWebToken extends UserMessage {
 
 
 
-	public UserMessageWebToken(ByteBuffer payload) {
+	public SyncUserMessageGuest(ByteBuffer payload) {
 		payload.getShort();//taking size
 
-		userMessageSettings = UserMessageSettings.getById(Byte.toUnsignedInt(payload.get()));
 		receiverDeviceId = Short.toUnsignedInt(payload.getShort());
 		senderDeviceId = Short.toUnsignedInt(payload.getShort());
 		sessionId=Short.toUnsignedInt(payload.getShort());
@@ -58,12 +56,13 @@ public class UserMessageWebToken extends UserMessage {
 		time=Short.toUnsignedInt(payload.getShort());
 
 
-		message =ByteBufferUtils.toIntList(ByteBufferUtils.readRest(payload));
+		messageId = payload.getLong();
+		message = ByteBufferUtils.toIntList(ByteBufferUtils.readRest(payload));
+
 	}
 
-	public UserMessageWebToken(UserMessage userMessage, int deviceSessionId,int identifier, int credit, int time) {
-		this(userMessage.getUserMessageSettings(), userMessage.getReceiverDeviceId(),userMessage.getSenderDeviceId(),deviceSessionId,identifier,
-				credit, time,  userMessage.getMessage());
+	public SyncUserMessageGuest(SyncUserMessage userSync, int deviceSessionId, int identifier, int credit, int time) {
+		this(userSync.getReceiverDeviceId(),userSync.getSenderDeviceId(), deviceSessionId,identifier,credit,time,userSync.getMessageId(),userSync.getMessage());
 	}
 
 
@@ -71,7 +70,7 @@ public class UserMessageWebToken extends UserMessage {
 	public ByteBuffer toByteBuffer() {
 
 
-		int size=12+1+message.size();
+		int size=10+10+message.size();
 
 		ByteBuffer byteBuffer = ByteBuffer.allocate(size+4);
 
@@ -79,7 +78,6 @@ public class UserMessageWebToken extends UserMessage {
 		byteBuffer.putShort((short)size);
 
 
-		byteBuffer.put((byte) userMessageSettings.getId());
 		byteBuffer.putShort((short)receiverDeviceId);
 		byteBuffer.putShort((short)senderDeviceId);
 
@@ -88,6 +86,7 @@ public class UserMessageWebToken extends UserMessage {
 		byteBuffer.putShort((short)credit);
 		byteBuffer.putShort((short)time);
 
+		byteBuffer.putLong(messageId);
 		byteBuffer.put(ByteBufferUtils.getByteArray(message));
 
 		byteBuffer.clear();
@@ -98,10 +97,7 @@ public class UserMessageWebToken extends UserMessage {
 
 	@Override
 	public MessageType getMessageType() {
-		return MessageType.USER_MESSAGE_GUEST;
+		return MessageType.USER_SYNC_MESSAGE_GUEST;
 	}
 
-	public List<Integer> getMessage() {
-		return message;
-	}
 }

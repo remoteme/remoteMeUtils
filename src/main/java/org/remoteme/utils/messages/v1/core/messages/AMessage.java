@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
 import org.remoteme.utils.messages.v1.core.messages.arLite.NotifyAboutVariablesMessage;
 import org.remoteme.utils.messages.v1.core.messages.arLite.CreateVariablesMessage;
 import org.remoteme.utils.messages.v1.core.messages.arLite.VariableRenameMessage;
@@ -29,10 +28,10 @@ import org.remoteme.utils.messages.v1.core.messages.remoteMe.SystemMessage;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.UserMessage;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.VariableSchedulerStateChangeMessage;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.WebRRCConnectionStatusChangeMessage;
-import org.remoteme.utils.messages.v1.core.messages.remoteMe.webtoken.DecreaseGuestKeyCreditMessage;
-import org.remoteme.utils.messages.v1.core.messages.remoteMe.webtoken.SyncUserMessageWebToken;
-import org.remoteme.utils.messages.v1.core.messages.remoteMe.webtoken.UserMessageWebToken;
-import org.remoteme.utils.messages.v1.core.messages.remoteMe.webtoken.VariableChangePropagateMessageWebToken;
+import org.remoteme.utils.messages.v1.core.messages.remoteMe.guest.DecreaseGuestKeyCreditMessage;
+import org.remoteme.utils.messages.v1.core.messages.remoteMe.guest.SyncUserMessageGuest;
+import org.remoteme.utils.messages.v1.core.messages.remoteMe.guest.UserMessageGuest;
+import org.remoteme.utils.messages.v1.core.messages.remoteMe.guest.VariableChangePropagateMessageGuest;
 
 import java.io.Serializable;
 
@@ -65,10 +64,10 @@ import java.io.Serializable;
 		@JsonSubTypes.Type(value = VariableSchedulerStateChangeMessage.class, name = "VariableSchedulerStateChangeMessage"),
 		@JsonSubTypes.Type(value = DeviceFileChangeMessage.class, name = "DeviceFileChangeMessage"),
 
-		@JsonSubTypes.Type(value = VariableChangePropagateMessageWebToken.class, name = "VariableChangePropagateMessageWebToken"),
+		@JsonSubTypes.Type(value = VariableChangePropagateMessageGuest.class, name = "VariableChangePropagateMessageGuest"),
 		@JsonSubTypes.Type(value = DecreaseGuestKeyCreditMessage.class, name = "DecreaseGuestKeyCreditMessage"),
-		@JsonSubTypes.Type(value = UserMessageWebToken.class, name = "UserMessageWebToken"),
-		@JsonSubTypes.Type(value = SyncUserMessageWebToken.class, name = "SyncUserMessageWebToken"),
+		@JsonSubTypes.Type(value = UserMessageGuest.class, name = "UserMessageGuest"),
+		@JsonSubTypes.Type(value = SyncUserMessageGuest.class, name = "SyncUserMessageGuest"),
 
 
 })

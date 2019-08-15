@@ -1,18 +1,14 @@
-package org.remoteme.utils.messages.v1.core.messages.remoteMe.webtoken;
+package org.remoteme.utils.messages.v1.core.messages.remoteMe.guest;
 
 
 
 
 import lombok.Getter;
 import lombok.Setter;
-import org.remoteme.utils.general.ByteBufferUtils;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.ARemoteMeMessage;
 import org.remoteme.utils.messages.v1.enums.MessageType;
-import org.remoteme.utils.messages.v1.enums.UserMessageSettings;
 
 import java.nio.ByteBuffer;
-import java.util.ArrayList;
-import java.util.List;
 
 
 @Getter

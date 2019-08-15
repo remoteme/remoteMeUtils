@@ -1,17 +1,15 @@
-package org.remoteme.utils.messages.v1.core.messages.remoteMe.webtoken;
+package org.remoteme.utils.messages.v1.core.messages.remoteMe.guest;
 
 
 
 import lombok.Getter;
 import lombok.Setter;
-import org.remoteme.utils.messages.v1.core.messages.remoteMe.ARemoteMeMessage;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.VariableChangePropagateMessage;
 import org.remoteme.utils.messages.v1.core.messages.variables.AVariableState;
 import org.remoteme.utils.messages.v1.enums.MessageType;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 
@@ -22,7 +20,7 @@ ta wiadomosc jest wysylana do urzadzen
 
 @Getter
 @Setter
-public class VariableChangePropagateMessageWebToken extends VariableChangePropagateMessage {
+public class VariableChangePropagateMessageGuest extends VariableChangePropagateMessage {
 
 	int sessionId;
 	int identifier;
@@ -34,7 +32,7 @@ public class VariableChangePropagateMessageWebToken extends VariableChangePropag
 
 
 
-	public VariableChangePropagateMessageWebToken(int senderDeviceId , int receiveDeviceId,int sessionId,int identifier,	int credit,	int time,  List<AVariableState<?>> states) {
+	public VariableChangePropagateMessageGuest(int senderDeviceId , int receiveDeviceId, int sessionId, int identifier, int credit, int time, List<AVariableState<?>> states) {
 		super(senderDeviceId, receiveDeviceId, states);
 
 
@@ -46,12 +44,12 @@ public class VariableChangePropagateMessageWebToken extends VariableChangePropag
 	}
 
 
-	protected VariableChangePropagateMessageWebToken() {
+	protected VariableChangePropagateMessageGuest() {
 	}
 
 
 
-	public VariableChangePropagateMessageWebToken(ByteBuffer payload) {
+	public VariableChangePropagateMessageGuest(ByteBuffer payload) {
 		payload.getShort();//taking size
 
 		senderDeviceId = Short.toUnsignedInt(payload.getShort());

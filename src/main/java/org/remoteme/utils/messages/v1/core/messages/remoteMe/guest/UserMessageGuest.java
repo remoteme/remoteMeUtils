@@ -1,43 +1,39 @@
-package org.remoteme.utils.messages.v1.core.messages.remoteMe.webtoken;
+package org.remoteme.utils.messages.v1.core.messages.remoteMe.guest;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
+
 import lombok.Getter;
 import lombok.Setter;
 import org.remoteme.utils.general.ByteBufferUtils;
-import org.remoteme.utils.messages.v1.core.messages.remoteMe.ASyncMessage;
-import org.remoteme.utils.messages.v1.core.messages.remoteMe.SyncUserMessage;
+import org.remoteme.utils.messages.v1.core.messages.remoteMe.UserMessage;
 import org.remoteme.utils.messages.v1.enums.MessageType;
+import org.remoteme.utils.messages.v1.enums.UserMessageSettings;
 
 import java.nio.ByteBuffer;
-import java.util.ArrayList;
 import java.util.List;
 
 
 @Getter
 @Setter
-public class SyncUserMessageWebToken extends SyncUserMessage {
-
-
+public class UserMessageGuest extends UserMessage {
 
 	private int sessionId;//2
-	private int identifier;//2
 	private int credit;//2
 	private int time;//2
+	private int identifier;//2
 
 
-	protected SyncUserMessageWebToken() {
 
+
+	protected UserMessageGuest() {
 	}
 
 
 
 
-	public SyncUserMessageWebToken(int receiverDeviceId, int senderDeviceId, int sessionId,	int identifier,int credit,	int time, long messageId , List<Integer> data ) {
-		super(receiverDeviceId, senderDeviceId, messageId, data, false);
-
-
-
+	public UserMessageGuest(UserMessageSettings userMessageSettings, int receiverDeviceId, int senderDeviceId, int sessionId, int identifier, int credit, int time, List<Integer> data) {
+		super(userMessageSettings, receiverDeviceId, senderDeviceId, 0, data);
 		this.sessionId=sessionId;
 		this.identifier=identifier;
 		this.credit=credit;
@@ -48,9 +44,10 @@ public class SyncUserMessageWebToken extends SyncUserMessage {
 
 
 
-	public SyncUserMessageWebToken(ByteBuffer payload) {
+	public UserMessageGuest(ByteBuffer payload) {
 		payload.getShort();//taking size
 
+		userMessageSettings = UserMessageSettings.getById(Byte.toUnsignedInt(payload.get()));
 		receiverDeviceId = Short.toUnsignedInt(payload.getShort());
 		senderDeviceId = Short.toUnsignedInt(payload.getShort());
 		sessionId=Short.toUnsignedInt(payload.getShort());
@@ -59,13 +56,12 @@ public class SyncUserMessageWebToken extends SyncUserMessage {
 		time=Short.toUnsignedInt(payload.getShort());
 
 
-		messageId = payload.getLong();
-		message = ByteBufferUtils.toIntList(ByteBufferUtils.readRest(payload));
-
+		message =ByteBufferUtils.toIntList(ByteBufferUtils.readRest(payload));
 	}
 
-	public SyncUserMessageWebToken(SyncUserMessage userSync, int deviceSessionId,int identifier, int credit, int time) {
-		this(userSync.getReceiverDeviceId(),userSync.getSenderDeviceId(), deviceSessionId,identifier,credit,time,userSync.getMessageId(),userSync.getMessage());
+	public UserMessageGuest(UserMessage userMessage, int deviceSessionId, int identifier, int credit, int time) {
+		this(userMessage.getUserMessageSettings(), userMessage.getReceiverDeviceId(),userMessage.getSenderDeviceId(),deviceSessionId,identifier,
+				credit, time,  userMessage.getMessage());
 	}
 
 
@@ -73,7 +69,7 @@ public class SyncUserMessageWebToken extends SyncUserMessage {
 	public ByteBuffer toByteBuffer() {
 
 
-		int size=10+10+message.size();
+		int size=12+1+message.size();
 
 		ByteBuffer byteBuffer = ByteBuffer.allocate(size+4);
 
@@ -81,6 +77,7 @@ public class SyncUserMessageWebToken extends SyncUserMessage {
 		byteBuffer.putShort((short)size);
 
 
+		byteBuffer.put((byte) userMessageSettings.getId());
 		byteBuffer.putShort((short)receiverDeviceId);
 		byteBuffer.putShort((short)senderDeviceId);
 
@@ -89,7 +86,6 @@ public class SyncUserMessageWebToken extends SyncUserMessage {
 		byteBuffer.putShort((short)credit);
 		byteBuffer.putShort((short)time);
 
-		byteBuffer.putLong(messageId);
 		byteBuffer.put(ByteBufferUtils.getByteArray(message));
 
 		byteBuffer.clear();
@@ -100,7 +96,10 @@ public class SyncUserMessageWebToken extends SyncUserMessage {
 
 	@Override
 	public MessageType getMessageType() {
-		return MessageType.USER_SYNC_MESSAGE_GUEST;
+		return MessageType.USER_MESSAGE_GUEST;
 	}
 
+	public List<Integer> getMessage() {
+		return message;
+	}
 }

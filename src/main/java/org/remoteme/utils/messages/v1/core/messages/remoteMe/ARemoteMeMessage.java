@@ -7,9 +7,9 @@ import lombok.Setter;
 
 
 import org.remoteme.utils.messages.v1.core.messages.AMessage;
-import org.remoteme.utils.messages.v1.core.messages.remoteMe.webtoken.DecreaseGuestKeyCreditMessage;
-import org.remoteme.utils.messages.v1.core.messages.remoteMe.webtoken.SyncUserMessageWebToken;
-import org.remoteme.utils.messages.v1.core.messages.remoteMe.webtoken.UserMessageWebToken;
+import org.remoteme.utils.messages.v1.core.messages.remoteMe.guest.DecreaseGuestKeyCreditMessage;
+import org.remoteme.utils.messages.v1.core.messages.remoteMe.guest.SyncUserMessageGuest;
+import org.remoteme.utils.messages.v1.core.messages.remoteMe.guest.UserMessageGuest;
 import org.remoteme.utils.messages.v1.enums.MessageType;
 
 import java.nio.ByteBuffer;
@@ -63,8 +63,8 @@ public abstract class ARemoteMeMessage extends AMessage {
 
 
 			case DECREASE_GUEST_CREDIT:return new DecreaseGuestKeyCreditMessage(payload);
-			case USER_MESSAGE_GUEST:return new UserMessageWebToken(payload);
-			case USER_SYNC_MESSAGE_GUEST:return new SyncUserMessageWebToken(payload);
+			case USER_MESSAGE_GUEST:return new UserMessageGuest(payload);
+			case USER_SYNC_MESSAGE_GUEST:return new SyncUserMessageGuest(payload);
 			case VARIABLE_CHANGE_PROPAGATE_MESSAGE_GUEST:return new VariableChangeMessage(payload);
 
 		}
