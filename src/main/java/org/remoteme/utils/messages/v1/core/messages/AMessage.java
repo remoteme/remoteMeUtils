@@ -28,7 +28,7 @@ import org.remoteme.utils.messages.v1.core.messages.remoteMe.SystemMessage;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.UserMessage;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.VariableSchedulerStateChangeMessage;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.WebRRCConnectionStatusChangeMessage;
-import org.remoteme.utils.messages.v1.core.messages.remoteMe.guest.DecreaseGuestKeyCreditMessage;
+import org.remoteme.utils.messages.v1.core.messages.remoteMe.guest.DecreaseGuestKeyCreditAndTimeMessage;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.guest.SyncUserMessageGuest;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.guest.UserMessageGuest;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.guest.VariableChangePropagateMessageGuest;
@@ -65,7 +65,7 @@ import java.io.Serializable;
 		@JsonSubTypes.Type(value = DeviceFileChangeMessage.class, name = "DeviceFileChangeMessage"),
 
 		@JsonSubTypes.Type(value = VariableChangePropagateMessageGuest.class, name = "VariableChangePropagateMessageGuest"),
-		@JsonSubTypes.Type(value = DecreaseGuestKeyCreditMessage.class, name = "DecreaseGuestKeyCreditMessage"),
+		@JsonSubTypes.Type(value = DecreaseGuestKeyCreditAndTimeMessage.class, name = "DecreaseGuestKeyCreditAndTimeMessage"),
 		@JsonSubTypes.Type(value = UserMessageGuest.class, name = "UserMessageGuest"),
 		@JsonSubTypes.Type(value = SyncUserMessageGuest.class, name = "SyncUserMessageGuest"),
 

@@ -69,6 +69,9 @@ public class DeviceConnectionChangeMessage extends ARemoteMeMessage {
 
 		byteBuffer.clear();
 
+
+
+
 		return byteBuffer;
 	}
 

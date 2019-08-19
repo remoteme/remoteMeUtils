@@ -48,7 +48,7 @@ public class EventSubscriberMessage extends ARemoteMeMessage {
 
 
 	Set<EventSubscriberType> eventSubscriberType;
-	private int socketId;
+	private int socketId;//only first time
 	private int deviceId;
 
 	public int getDeviceId() {

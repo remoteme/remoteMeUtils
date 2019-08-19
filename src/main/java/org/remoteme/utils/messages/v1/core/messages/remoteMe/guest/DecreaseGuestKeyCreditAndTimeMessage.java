@@ -13,7 +13,7 @@ import java.nio.ByteBuffer;
 
 @Getter
 @Setter
-public class DecreaseGuestKeyCreditMessage extends ARemoteMeMessage {
+public class DecreaseGuestKeyCreditAndTimeMessage extends ARemoteMeMessage {
 
 
 	private int senderDeviceId;//2
@@ -24,11 +24,11 @@ public class DecreaseGuestKeyCreditMessage extends ARemoteMeMessage {
 
 
 
-	protected DecreaseGuestKeyCreditMessage() {
+	protected DecreaseGuestKeyCreditAndTimeMessage() {
 	}
 
 
-	public DecreaseGuestKeyCreditMessage(int senderDeviceId, int sessionId, int credit, int time){
+	public DecreaseGuestKeyCreditAndTimeMessage(int senderDeviceId, int sessionId, int credit, int time){
 		this.senderDeviceId=senderDeviceId;
 		this.sessionId=sessionId;
 		this.credit=credit;
@@ -39,7 +39,7 @@ public class DecreaseGuestKeyCreditMessage extends ARemoteMeMessage {
 
 
 
-	public DecreaseGuestKeyCreditMessage(ByteBuffer payload) {
+	public DecreaseGuestKeyCreditAndTimeMessage(ByteBuffer payload) {
 		payload.getShort();//taking size
 
 		senderDeviceId = Short.toUnsignedInt(payload.getShort());
@@ -77,7 +77,7 @@ public class DecreaseGuestKeyCreditMessage extends ARemoteMeMessage {
 
 	@Override
 	public MessageType getMessageType() {
-		return MessageType.DECREASE_GUEST_CREDIT;
+		return MessageType.DECREASE_GUEST_CREDIT_AND_TIME;
 	}
 
 
