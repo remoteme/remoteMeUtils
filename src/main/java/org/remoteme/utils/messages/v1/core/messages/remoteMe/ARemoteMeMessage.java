@@ -66,6 +66,7 @@ public abstract class ARemoteMeMessage extends AMessage {
 			case USER_MESSAGE_GUEST:return new UserMessageGuest(payload);
 			case USER_SYNC_MESSAGE_GUEST:return new SyncUserMessageGuest(payload);
 			case VARIABLE_CHANGE_PROPAGATE_MESSAGE_GUEST:return new VariableChangeMessage(payload);
+			case VARIABLE_ADD_HISTORY_MESSAGE:return new VariableAddHistoryMessage(payload);
 
 		}
 
