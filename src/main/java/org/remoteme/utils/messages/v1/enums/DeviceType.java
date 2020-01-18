@@ -9,7 +9,7 @@ import java.util.List;
 
 public enum DeviceType implements Id_Enum<DeviceType> {
 
-		NETWORK(1),SMARTPHONE(2),WEBPAGE(3), JSSCRIPT(4);
+		NETWORK(1),SMARTPHONE(2),WEBPAGE(3),LEAF_DEVICE(4);
 
 		private final int id;
 
