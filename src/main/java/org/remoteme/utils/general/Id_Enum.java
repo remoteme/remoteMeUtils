@@ -2,6 +2,7 @@ package org.remoteme.utils.general;
 
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.List;
 /**
  * Created by Admin on 2016-04-28.
  */
-public interface Id_Enum<T extends Id_Enum> {
+public interface Id_Enum<T extends Id_Enum> extends Serializable {
 	String name();
 
 	int getId();

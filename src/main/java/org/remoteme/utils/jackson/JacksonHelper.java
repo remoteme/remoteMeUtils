@@ -57,7 +57,6 @@ public class JacksonHelper {
 
 		try {
 			T ret = getMapper(false).readValue(value, clazz);
-			callTriggers(ret);
 
 			return ret;
 		} catch (JsonParseException e) {
@@ -72,25 +71,7 @@ public class JacksonHelper {
 	}
 
 
-	private static void callTriggers(Object ret) {
-		for (Method method : ret.getClass().getDeclaredMethods()) {
-			if (method.isAnnotationPresent(AfterJacksonDeserialization.class)) {
-				try {
-					method.invoke(ret);
-				} catch (IllegalAccessException e) {
-					e.printStackTrace();
-					throw new RuntimeException(e);
-				} catch (IllegalArgumentException e) {
-					e.printStackTrace();
-					throw new RuntimeException(e);
-				} catch (InvocationTargetException e) {
-					e.printStackTrace();
-					throw new RuntimeException(e);
-				}
-			}
-		}
 
-	}
 
 	public static <T> T deserialize(String value, Class<T> clazz) {
 		if (value == null) {
@@ -99,7 +80,6 @@ public class JacksonHelper {
 
 		try {
 			T ret = getMapper(false).readValue(value, clazz);
-			callTriggers(ret);
 
 			return ret;
 		} catch (JsonParseException e) {
