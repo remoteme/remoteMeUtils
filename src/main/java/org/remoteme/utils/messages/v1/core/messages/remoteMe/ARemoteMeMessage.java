@@ -10,6 +10,7 @@ import org.remoteme.utils.messages.v1.core.messages.AMessage;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.guest.DecreaseGuestKeyCreditAndTimeMessage;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.guest.SyncUserMessageGuest;
 import org.remoteme.utils.messages.v1.core.messages.remoteMe.guest.UserMessageGuest;
+import org.remoteme.utils.messages.v1.core.messages.remoteMe.guest.VariableChangePropagateMessageGuest;
 import org.remoteme.utils.messages.v1.enums.MessageType;
 
 import java.nio.ByteBuffer;
@@ -65,7 +66,7 @@ public abstract class ARemoteMeMessage extends AMessage {
 			case DECREASE_GUEST_CREDIT_AND_TIME:return new DecreaseGuestKeyCreditAndTimeMessage(payload);
 			case USER_MESSAGE_GUEST:return new UserMessageGuest(payload);
 			case USER_SYNC_MESSAGE_GUEST:return new SyncUserMessageGuest(payload);
-			case VARIABLE_CHANGE_PROPAGATE_MESSAGE_GUEST:return new VariableChangeMessage(payload);
+			case VARIABLE_CHANGE_PROPAGATE_MESSAGE_GUEST:return new VariableChangePropagateMessageGuest(payload);
 			case VARIABLE_ADD_HISTORY_MESSAGE:return new VariableAddHistoryMessage(payload);
 
 		}
