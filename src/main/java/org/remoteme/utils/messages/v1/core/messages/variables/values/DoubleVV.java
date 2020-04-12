@@ -23,12 +23,16 @@ public class DoubleVV extends AVariableValue implements Serializable {
 		d=value;
 	}*/
 
+	public static double round(double toRound){
+		return (double)Math.round(toRound * 100000d) / 100000d;
+	}
 	public DoubleVV(String rendered) {
 		d=Double.valueOf(rendered);
 	}
 
 	public DoubleVV(ByteBuffer output) {
-		setD(output.getDouble());
+
+		setD(round(output.getDouble()));
 	}
 
 	@Override
@@ -57,4 +61,6 @@ public class DoubleVV extends AVariableValue implements Serializable {
 	public double toDouble() {
 		return d;
 	}
+
+
 }
